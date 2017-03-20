@@ -8299,27 +8299,6 @@ var _user$project$Main$makeOption = function (ward) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'UpdatePassword') {
-			return {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.update(
-					model,
-					{password: _p0._0}),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
-		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.update(
-					model,
-					{state: _p0._0}),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
-		}
-	});
 var _user$project$Main$Model = function (a) {
 	return function (b) {
 		return function (c) {
@@ -8331,7 +8310,9 @@ var _user$project$Main$Model = function (a) {
 								return function (i) {
 									return function (j) {
 										return function (k) {
-											return {first_name: a, last_name: b, special_needs: c, meals: d, driving: e, registration_type: f, gender: g, email: h, password: i, wards: j, state: k};
+											return function (l) {
+												return {first_name: a, last_name: b, special_needs: c, meals: d, driving: e, registration_type: f, gender: g, email: h, password: i, wards: j, state: k, loginError: l};
+											};
 										};
 									};
 								};
@@ -8343,9 +8324,45 @@ var _user$project$Main$Model = function (a) {
 		};
 	};
 };
-var _user$project$Main$Register = {ctor: 'Register'};
+var _user$project$Main$Registration = {ctor: 'Registration'};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'UpdatePassword':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{password: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetState':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{state: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return _elm_lang$core$Native_Utils.eq(_p0._0, 'provo16stake') ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{state: _user$project$Main$Registration}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{loginError: 'That password is incorrect.'}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
 var _user$project$Main$Admin = {ctor: 'Admin'};
-var _user$project$Main$Login = {ctor: 'Login'};
+var _user$project$Main$Home = {ctor: 'Home'};
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
 	_0: {
@@ -8358,7 +8375,8 @@ var _user$project$Main$init = {
 		gender: '',
 		email: '',
 		password: '',
-		state: _user$project$Main$Login,
+		state: _user$project$Main$Home,
+		loginError: '',
 		wards: {
 			ctor: '::',
 			_0: '93rd',
@@ -8411,6 +8429,9 @@ var _user$project$Main$init = {
 	},
 	_1: _elm_lang$core$Platform_Cmd$none
 };
+var _user$project$Main$Login = function (a) {
+	return {ctor: 'Login', _0: a};
+};
 var _user$project$Main$SetState = function (a) {
 	return {ctor: 'SetState', _0: a};
 };
@@ -8420,7 +8441,7 @@ var _user$project$Main$UpdatePassword = function (a) {
 var _user$project$Main$pageContent = function (model) {
 	var _p1 = model.state;
 	switch (_p1.ctor) {
-		case 'Login':
+		case 'Home':
 			return A2(
 				_elm_lang$html$Html$section,
 				{ctor: '[]'},
@@ -8431,7 +8452,7 @@ var _user$project$Main$pageContent = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Login'),
+							_0: _elm_lang$html$Html$text('Home'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -8452,10 +8473,46 @@ var _user$project$Main$pageContent = function (model) {
 								}
 							},
 							{ctor: '[]'}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_user$project$Main$SetState(_user$project$Main$Registration)),
+									_1: {ctor: '[]'}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$p,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$id('message'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$style(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'color', _1: 'red'},
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(model.loginError),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
 					}
 				});
-		case 'Register':
+		case 'Registration':
 			return A2(
 				_elm_lang$html$Html$section,
 				{ctor: '[]'},
@@ -8466,7 +8523,7 @@ var _user$project$Main$pageContent = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Register'),
+							_0: _elm_lang$html$Html$text('Registration'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -9259,7 +9316,7 @@ var _user$project$Main$view = function (model) {
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html_Events$onClick(
-										_user$project$Main$SetState(_user$project$Main$Login)),
+										_user$project$Main$SetState(_user$project$Main$Home)),
 									_1: {ctor: '[]'}
 								}
 							}
@@ -9282,41 +9339,17 @@ var _user$project$Main$view = function (model) {
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html_Events$onClick(
-											_user$project$Main$SetState(_user$project$Main$Register)),
+											_user$project$Main$SetState(_user$project$Main$Admin)),
 										_1: {ctor: '[]'}
 									}
 								}
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Register'),
+								_0: _elm_lang$html$Html$text('Admin'),
 								_1: {ctor: '[]'}
 							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$a,
-								{
-									ctor: '::',
-									_0: _user$project$Main$padElement,
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$href('#'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(
-												_user$project$Main$SetState(_user$project$Main$Admin)),
-											_1: {ctor: '[]'}
-										}
-									}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Admin'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}
+						_1: {ctor: '[]'}
 					}
 				}),
 			_1: {

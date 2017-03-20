@@ -8,7 +8,7 @@ import Html.Events exposing (..)
 -- import Http
 -- import Json.Decode as Json exposing (..)
 -- import Json.Decode.Pipeline as JsonPipeline exposing (decode, required)
--- import RegisterView
+-- import RegistrationView
 
 
 main : Program Never Model Msg
@@ -32,7 +32,8 @@ init =
       , gender = ""
       , email = ""
       , password = ""
-      , state = Login
+      , state = Home
+      , loginError = ""
       , wards =
             [ "93rd"
             , "98th"
@@ -64,18 +65,20 @@ type alias Model =
     , password : String
     , wards : List String
     , state : UiState
+    , loginError : String
     }
 
 
 type UiState
-    = Login
+    = Home
     | Admin
-    | Register
+    | Registration
 
 
 type Msg
     = UpdatePassword String
     | SetState UiState
+    | Login String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -87,13 +90,20 @@ update msg model =
         SetState newState ->
             ( { model | state = newState }, Cmd.none )
 
+        Login password ->
+            if password == "provo16stake" then
+                ( { model | state = Registration }, Cmd.none )
+            else
+                ( { model | loginError = "That password is incorrect." }
+                , Cmd.none
+                )
+
 
 view : Model -> Html Msg
 view model =
     article [ pageStyle ]
         [ nav []
-            [ a [ padElement, href "#", onClick (SetState Login) ] [ text "Home" ]
-            , a [ padElement, href "#", onClick (SetState Register) ] [ text "Register" ]
+            [ a [ padElement, href "#", onClick (SetState Home) ] [ text "Home" ]
             , a [ padElement, href "#", onClick (SetState Admin) ] [ text "Admin" ]
             ]
         , (pageContent model)
@@ -103,15 +113,18 @@ view model =
 pageContent : Model -> Html Msg
 pageContent model =
     case model.state of
-        Login ->
+        Home ->
             section []
-                [ h1 [] [ text "Login" ]
+                [ h1 [] [ text "Home" ]
                 , input [ id "login", type_ "text", onInput UpdatePassword ] []
+                , button [ onClick (SetState Registration) ] []
+                , p [ id "message", style [ ( "color", "red" ) ] ]
+                    [ text model.loginError ]
                 ]
 
-        Register ->
+        Registration ->
             section []
-                [ h1 [] [ text "Register" ]
+                [ h1 [] [ text "Registration" ]
                 , input [ mediumText, type_ "text", placeholder "First Name" ] []
                 , br [] []
                 , input [ mediumText, type_ "text", placeholder "Last Name" ] []
