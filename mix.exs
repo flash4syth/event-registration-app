@@ -17,7 +17,13 @@ defmodule SR.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
+
     [mod: {SR, []},
+      env: [db_name: System.get_env("SR_DB_NAME"),
+        db_pass: System.get_env("SR_DB_PASS"),
+        hostname: System.get_env("HOST_NAME"),
+        db_port: System.get_env("SR_DB_PORT")
+      ],
      extra_applications: [:logger]]
   end
 
@@ -29,16 +35,18 @@ defmodule SR.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-     {:calendar, "~> 0.17.2"},
-     {:hound, "~> 1.0"}
+    [
+      {:phoenix, "~> 1.2.1"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:cowboy, "~> 1.0"},
+      {:calendar, "~> 0.17.2"},
+      {:hound, "~> 1.0"},
+      {:true_story, "~> 0.1.0", only: :test}
     ]
   end
 

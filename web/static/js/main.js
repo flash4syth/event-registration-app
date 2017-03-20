@@ -8440,11 +8440,15 @@ var _user$project$Main$pageContent = function (model) {
 							_elm_lang$html$Html$input,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$type_('text'),
+								_0: _elm_lang$html$Html_Attributes$id('login'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$UpdatePassword),
-									_1: {ctor: '[]'}
+									_0: _elm_lang$html$Html_Attributes$type_('text'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$UpdatePassword),
+										_1: {ctor: '[]'}
+									}
 								}
 							},
 							{ctor: '[]'}),

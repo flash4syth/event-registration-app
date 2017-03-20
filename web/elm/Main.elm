@@ -106,7 +106,7 @@ pageContent model =
         Login ->
             section []
                 [ h1 [] [ text "Login" ]
-                , input [ type_ "text", onInput UpdatePassword ] []
+                , input [ id "login", type_ "text", onInput UpdatePassword ] []
                 ]
 
         Register ->
