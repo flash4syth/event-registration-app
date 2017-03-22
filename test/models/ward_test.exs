@@ -16,4 +16,11 @@ defmodule SR.WardTest do
     changeset = Ward.changeset(%Ward{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "create ward" do
+    %Ward{} |> Repo.insert!()
+
+    ward = Repo.all(Ward)
+    IO.inspect(ward)
+  end
 end

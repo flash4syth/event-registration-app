@@ -8490,7 +8490,7 @@ var _user$project$Main$pageContent = function (model) {
 									_elm_lang$html$Html$p,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$id('message'),
+										_0: _elm_lang$html$Html_Attributes$id('error-message'),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$html$Html_Attributes$style(

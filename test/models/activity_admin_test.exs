@@ -1,6 +1,6 @@
 defmodule SR.ActivityAdminTest do
   use SR.ModelCase
-  
+
   alias SR.ActivityAdmin
 
   @moduletag :model_test
@@ -16,4 +16,5 @@ defmodule SR.ActivityAdminTest do
     changeset = ActivityAdmin.changeset(%ActivityAdmin{}, @invalid_attrs)
     refute changeset.valid?
   end
+
 end

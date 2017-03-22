@@ -38,6 +38,6 @@ config :stake_retreat, SR.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "stake_retreat_dev",
+  database: "stake_retreat",
   hostname: "localhost",
   pool_size: 10
