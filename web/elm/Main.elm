@@ -117,7 +117,7 @@ pageContent model =
             section []
                 [ h1 [] [ text "Home" ]
                 , input [ id "login", type_ "text", onInput UpdatePassword ] []
-                , button [ onClick (SetState Registration) ] []
+                , button [ onClick (Login model.password) ] [ text "Login" ]
                 , p [ id "error-message", style [ ( "color", "red" ) ] ]
                     [ text model.loginError ]
                 ]
