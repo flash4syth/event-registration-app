@@ -91,7 +91,7 @@ update msg model =
             ( { model | state = newState }, Cmd.none )
 
         Login password ->
-            if password == "provo16stake" then
+            if (String.toLower password) == "provo16stake" then
                 ( { model | state = Registration }, Cmd.none )
             else
                 ( { model | loginError = "That password is incorrect." }
