@@ -30,6 +30,13 @@ defmodule PageTest do
 
     assert inner_text({:css, "h1"}) == "Registration"
 
+
+    # Fill out and submit registration form
+    fill_field({:css, "#first-name"})
+    fill_field({:css, "#second-name"})
+    fill_field({:css, "#email"})
+    fill_field({:css, "#phone-number"})
+    fill_field({:css, "ward"})
   end
 
 end
