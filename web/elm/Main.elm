@@ -23,14 +23,9 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { first_name = ""
-      , last_name = ""
-      , special_needs =
-            { need_type = ""
-            , description = ""
-            }
-      , meals =
+    ( { meals =
             [ { name = "Friday Dinner"
+              , event_id = 1
               , start_datetime = "Friday 6:00pm"
               , end_datetime = "Friday 8:00pm"
               , location = "Pavilion"
@@ -39,6 +34,7 @@ init =
               , long_description = ""
               }
             , { name = "Saturday Breakfast"
+              , event_id = 2
               , start_datetime = "Saturday 8:00am"
               , end_datetime = "Saturday 9:30am"
               , location = "Pavilion"
@@ -47,6 +43,7 @@ init =
               , long_description = ""
               }
             , { name = "Saturday Lunch"
+              , event_id = 3
               , start_datetime = "Saturday 12:00pm"
               , end_datetime = "Saturday 1:00pm"
               , location = "Pavilion"
@@ -57,6 +54,7 @@ init =
             ]
       , activities =
             [ { name = "Friday Night Star Gazing"
+              , event_id = 4
               , start_datetime = ""
               , end_datetime = ""
               , location = ""
@@ -65,6 +63,7 @@ init =
               , long_description = ""
               }
             , { name = "Friday Night Devotional"
+              , event_id = 5
               , start_datetime = ""
               , end_datetime = ""
               , location = ""
@@ -73,6 +72,7 @@ init =
               , long_description = ""
               }
             , { name = "Saturday Afternoon Speaker: Brad Wilcox"
+              , event_id = 6
               , start_datetime = ""
               , end_datetime = ""
               , location = ""
@@ -82,62 +82,74 @@ init =
               }
             ]
       , registration_info =
-            { reg_type = ""
+            { first_name = ""
+            , reg_type = ""
             , consented_to_email = False
+            , last_name = ""
+            , special_needs =
+                { need_type = ""
+                , description = ""
+                }
+            , gender = ""
+            , email = ""
+            , selectedWard = ""
+            , specialNeedsHidden = True
+            , activities = []
+            , meals = []
+            , wards =
+                [ "Select Ward"
+                , "93rd"
+                , "98th"
+                , "99th"
+                , "100th"
+                , "227th"
+                , "228th"
+                , "229th"
+                , "230th"
+                , "231st"
+                , "232nd"
+                , "233rd"
+                , "235th"
+                ]
             }
-      , gender = ""
-      , email = ""
       , password = ""
       , state = Registration
       , loginError = ""
-      , selectedWard = ""
-      , specialNeedsHidden = True
-      , wards =
-            [ "Select Ward"
-            , "93rd"
-            , "98th"
-            , "99th"
-            , "100th"
-            , "227th"
-            , "228th"
-            , "229th"
-            , "230th"
-            , "231st"
-            , "232nd"
-            , "233rd"
-            , "235th"
-            ]
       }
     , Cmd.none
     )
 
 
 type alias Model =
-    { first_name : String
-    , last_name : String
-    , special_needs : SpecialNeeds
-    , meals : List Event
+    { meals : List Event
     , activities : List Event
     , registration_info : RegistrationInfo
-    , gender : String
-    , email : String
     , password : String
-    , selectedWard : String
-    , wards : List String
     , state : UiState
     , loginError : String
-    , specialNeedsHidden : Bool
     }
 
 
 type alias RegistrationInfo =
-    { reg_type : String
+    { first_name : String
+    , reg_type : String
     , consented_to_email : Bool
+    , last_name : String
+    , special_needs : SpecialNeeds
+    , gender : String
+    , email : String
+    , selectedWard : String
+    , wards : List String
+    , specialNeedsHidden : Bool
+    , surveys : List Survey
+    , activities : List Activity
+    , meals : List Int
     }
 
 
 type alias Event =
     { name : String
+    , event_id : Int
     , start_datetime : String
     , end_datetime : String
     , location : String
@@ -153,6 +165,12 @@ type alias SpecialNeeds =
     }
 
 
+type alias Activity =
+    { activity_id : Int
+    , interest_level : String
+    }
+
+
 type UiState
     = Home
     | Admin
@@ -163,6 +181,7 @@ type Msg
     = UpdatePassword String
     | SetState UiState
     | Login String
+    | AddActivity Int String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -181,6 +200,36 @@ update msg model =
                 ( { model | loginError = "That password is incorrect." }
                 , Cmd.none
                 )
+
+        AddActivity event_id interest_level ->
+          let activities = []
+          in
+            ( {model | registration_info = .activities = activities}, Cmd.none )
+
+
+activityMap : (a -> a) -> (a -> Bool) -> List a -> List a
+activityMap mapper check activities =
+  List.map (\activity -> if check activity then mapper else activity)
+  activities
+{--
+            let
+              newEvents =
+                model.event
+                |> List.map
+                  (\event ->
+                  if event.event_id == event_id then
+                  {event | field = newFieldValue})
+                  else
+                    event -- unchanged event
+            in
+            ( {model | events = newEvents}, Cmd.none)
+
+
+          -- A more abstracted example:
+          mapIf : (a -> a) -> (a -> Bool) -> List a -> List a
+          mapIf mapper check xs =
+            List.map (\x -> if check x then mapper else x) xs
+            --}
 
 
 view : Model -> Html Msg
@@ -235,7 +284,7 @@ pageContent model =
                         []
                         [ text "Your Ward:"
                         , select [ mediumText ]
-                            (List.map makeOption model.wards)
+                            (List.map makeOption model.registration_info.wards)
                         ]
                     , p [ mediumText ]
                         [ text "Can we send email to you about the stake retreat?"
@@ -262,11 +311,18 @@ pageContent model =
                     , br [] []
                     , p [ mediumText, style [ ( "box-sizing", "float" ) ] ]
                         ((text "Please check which meals you will be eating:")
-                            :: (List.map makeEventCheckBox model.meals)
+                            :: (makeEventCheckBox model.meals [])
                         )
                     , p [ mediumText ]
-                        ((text "Please check which activities you will attend:")
-                            :: (List.map makeEventCheckBox model.activities)
+                        ((text
+                            ("Please check which activities you"
+                                ++ " will attend and your interest level"
+                                ++ "(1- not interested, 5- very interested):"
+                            )
+                         )
+                            :: (makeEventCheckBox model.activities
+                                    [ "Interested", "Very Interested" ]
+                               )
                         )
                     ]
                 , hr [] []
@@ -301,16 +357,44 @@ pageContent model =
                 ]
 
 
-makeEventCheckBox : Event -> Html Msg
-makeEventCheckBox event =
-    label [ mediumText ]
-        [ input [ type_ "checkbox" ] []
-        , text event.name
-        , span [ class "short-desc" ]
-            [ text
-                ("--" ++ event.short_description)
-            ]
-        ]
+makeEventCheckBox : List Event -> List String -> List (Html Msg)
+makeEventCheckBox events survey_options =
+    let
+        survey =
+            if List.isEmpty survey_options then
+                div [] []
+            else
+                div []
+                    (List.map
+                        (\option ->
+                            label [ mediumText ]
+                                [ input
+                                    [ type_ "radio"
+                                    , name "survey"
+                                    , value option
+                                    ]
+                                    []
+                                , text option
+                                ]
+                        )
+                        survey_options
+                    )
+    in
+        List.map
+            (\event ->
+                div []
+                    [ label [ mediumText ]
+                        [ input [ type_ "checkbox" ] []
+                        , text event.name
+                        , span [ class "short-desc" ]
+                            [ text
+                                ("--" ++ event.short_description)
+                            ]
+                        ]
+                    , survey
+                    ]
+            )
+            events
 
 
 makeOption : String -> Html Msg
