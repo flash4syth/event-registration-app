@@ -3,64 +3,8 @@ module Model exposing (..)
 
 initialModel : Model
 initialModel =
-    { meals =
-        [ { name = "Friday Dinner"
-          , event_id = 1
-          , start_datetime = "Friday 6:00pm"
-          , end_datetime = "Friday 8:00pm"
-          , location = "Pavilion"
-          , picture = ""
-          , short_description = "Roast Beef and Bread"
-          , long_description = ""
-          }
-        , { name = "Saturday Breakfast"
-          , event_id = 2
-          , start_datetime = "Saturday 8:00am"
-          , end_datetime = "Saturday 9:30am"
-          , location = "Pavilion"
-          , picture = ""
-          , short_description = "Breakfast Burritos"
-          , long_description = ""
-          }
-        , { name = "Saturday Lunch"
-          , event_id = 3
-          , start_datetime = "Saturday 12:00pm"
-          , end_datetime = "Saturday 1:00pm"
-          , location = "Pavilion"
-          , picture = ""
-          , short_description = "PB&J Mmmm!"
-          , long_description = ""
-          }
-        ]
-    , activities =
-        [ { name = "Friday Night Star Gazing"
-          , event_id = 4
-          , start_datetime = ""
-          , end_datetime = ""
-          , location = ""
-          , picture = ""
-          , short_description = "Explore the universe"
-          , long_description = ""
-          }
-        , { name = "Friday Night Devotional"
-          , event_id = 5
-          , start_datetime = ""
-          , end_datetime = ""
-          , location = ""
-          , picture = ""
-          , short_description = "Spiritual Feast"
-          , long_description = ""
-          }
-        , { name = "Saturday Afternoon Speaker: Brad Wilcox"
-          , event_id = 6
-          , start_datetime = ""
-          , end_datetime = ""
-          , location = ""
-          , picture = ""
-          , short_description = "A wonderful man"
-          , long_description = ""
-          }
-        ]
+    { meals = mealList
+    , activities = activityList
     , registration_info =
         { first_name = ""
         , reg_type = ""
@@ -73,29 +17,97 @@ initialModel =
         , gender = ""
         , email = ""
         , selectedWard = ""
-        , specialNeedsHidden = True
         , activities = []
         , meals = []
-        , wards =
-            [ "Select Ward"
-            , "93rd"
-            , "98th"
-            , "99th"
-            , "100th"
-            , "227th"
-            , "228th"
-            , "229th"
-            , "230th"
-            , "231st"
-            , "232nd"
-            , "233rd"
-            , "235th"
-            ]
+        , wards = wardList
         }
+    , specialNeedsHidden = True
     , password = ""
     , state = Registration
     , loginError = ""
     }
+
+
+wardList : List String
+wardList =
+    [ "Select Ward"
+    , "93rd"
+    , "98th"
+    , "99th"
+    , "100th"
+    , "227th"
+    , "228th"
+    , "229th"
+    , "230th"
+    , "231st"
+    , "232nd"
+    , "233rd"
+    , "235th"
+    ]
+
+
+mealList : List Event
+mealList =
+    [ { name = "Friday Dinner"
+      , event_id = 1
+      , start_datetime = "Friday 6:00pm"
+      , end_datetime = "Friday 8:00pm"
+      , location = "Pavilion"
+      , picture = ""
+      , short_description = "Roast Beef and Bread"
+      , long_description = ""
+      }
+    , { name = "Saturday Breakfast"
+      , event_id = 2
+      , start_datetime = "Saturday 8:00am"
+      , end_datetime = "Saturday 9:30am"
+      , location = "Pavilion"
+      , picture = ""
+      , short_description = "Breakfast Burritos"
+      , long_description = ""
+      }
+    , { name = "Saturday Lunch"
+      , event_id = 3
+      , start_datetime = "Saturday 12:00pm"
+      , end_datetime = "Saturday 1:00pm"
+      , location = "Pavilion"
+      , picture = ""
+      , short_description = "PB&J Mmmm!"
+      , long_description = ""
+      }
+    ]
+
+
+activityList : List Event
+activityList =
+    [ { name = "Friday Night Star Gazing"
+      , event_id = 4
+      , start_datetime = ""
+      , end_datetime = ""
+      , location = ""
+      , picture = ""
+      , short_description = "Explore the universe"
+      , long_description = ""
+      }
+    , { name = "Friday Night Devotional"
+      , event_id = 5
+      , start_datetime = ""
+      , end_datetime = ""
+      , location = ""
+      , picture = ""
+      , short_description = "Spiritual Feast"
+      , long_description = ""
+      }
+    , { name = "Saturday Afternoon Speaker: Brad Wilcox"
+      , event_id = 6
+      , start_datetime = ""
+      , end_datetime = ""
+      , location = ""
+      , picture = ""
+      , short_description = "A wonderful man"
+      , long_description = ""
+      }
+    ]
 
 
 type alias Model =
@@ -105,6 +117,7 @@ type alias Model =
     , password : String
     , state : UiState
     , loginError : String
+    , specialNeedsHidden : Bool
     }
 
 
@@ -118,7 +131,6 @@ type alias RegistrationInfo =
     , email : String
     , selectedWard : String
     , wards : List String
-    , specialNeedsHidden : Bool
     , activities : List Activity
     , meals : List Int
     }

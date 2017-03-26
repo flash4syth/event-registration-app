@@ -16,10 +16,24 @@ update msg model =
         Login password ->
             if (String.toLower password) == "provo16stake" then
                 ( { model | state = Registration }, Cmd.none )
+            else if password == "" then
+                ( { model | state = Registration }, Cmd.none )
             else
                 ( { model | loginError = "That password is incorrect." }
                 , Cmd.none
                 )
+
+        ToggleSpecialNeeds ->
+            let
+                truth =
+                    case model.specialNeedsHidden of
+                        True ->
+                            False
+
+                        False ->
+                            True
+            in
+                ( { model | specialNeedsHidden = truth }, Cmd.none )
 
 
 

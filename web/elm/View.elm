@@ -1,20 +1,45 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
+import Html.Events exposing (..)
 import Model exposing (..)
 import Messages exposing (..)
 
 
 view : Model -> Html Msg
 view model =
-    article [ pageStyle ]
-        [ nav []
-            [ a [ padElement, href "#", onClick (SetState Home) ] [ text "Home" ]
-            , a [ padElement, href "#", onClick (SetState Admin) ] [ text "Admin" ]
+    article []
+        [ header [ class "header" ]
+            [ nav [ attribute "role" "navigation" ]
+                [ ul [ class "nav nav-pills pull-right" ]
+                    [ li [] [ a [ href "#", onClick (SetState Home) ] [ text "Home" ] ]
+                    , li [] [ a [ href "#", onClick (SetState Admin) ] [ text "Admin" ] ]
+                    , li [] [ a [ href "#" ] [ text "Map" ] ]
+                    , li [] [ a [ href "#" ] [ text "Activities" ] ]
+                    , li [] [ a [ href "#" ] [ text "Food" ] ]
+                    , li [] [ a [ href "#" ] [ text "Full Schedule" ] ]
+                    , li [] [ a [ href "#" ] [ text "Cabins" ] ]
+                    , li [] [ a [ href "#" ] [ text "Packing List" ] ]
+                    ]
+                ]
+            , span [] [ text "Logo" ]
+              -- , span [ class "logo" ] []
             ]
         , (pageContent model)
         ]
+
+
+
+-- view : Model -> Html Msg
+-- view model =
+--     article [ pageStyle ]
+--         [ nav []
+--             [ a [ padElement, href "#", onClick (SetState Home) ] [ text "Home" ]
+--             , a [ padElement, href "#", onClick (SetState Admin) ] [ text "Admin" ]
+--             ]
+--         , (pageContent model)
+--         ]
 
 
 pageContent : Model -> Html Msg
@@ -22,11 +47,19 @@ pageContent model =
     case model.state of
         Home ->
             section []
-                [ header [] [ h1 [] [ text "Home" ] ]
+                [ header [] [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ] ]
                 , input [ id "login", type_ "text", onInput UpdatePassword ] []
-                , button [ onClick (Login model.password) ] [ text "Login" ]
+                , button [ class "btn btn-md", onClick (Login model.password) ] [ text "Login" ]
                 , p [ id "error-message", style [ ( "color", "red" ) ] ]
                     [ text model.loginError ]
+                , section []
+                    [ -- , iframe [, , frameborder "0", allowfullscreen "True"][]
+                      iframe
+                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                        , src "https://www.youtube.com/embed/oob6nNCt3DQ"
+                        ]
+                        []
+                    ]
                 ]
 
         Registration ->
@@ -70,17 +103,17 @@ pageContent model =
                     [ header [] [ h2 [] [ text "Level of Participation" ] ]
                     , p [ mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
                     , label
-                        [ mediumText ]
+                        [ padElement, mediumText ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "friday" ] []
-                        , text "Friday Only"
+                        , text " Friday Only"
                         ]
-                    , label [ mediumText ]
+                    , label [ padElement, mediumText ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "overnight" ] []
-                        , text "Overnight on Friday"
+                        , text " Overnight on Friday"
                         ]
-                    , label [ mediumText ]
+                    , label [ padElement, mediumText ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "saturday" ] []
-                        , text "Saturday Only"
+                        , text " Saturday Only"
                         ]
                     , br [] []
                     , p [ mediumText, style [ ( "box-sizing", "float" ) ] ]
@@ -91,11 +124,11 @@ pageContent model =
                         ((text
                             ("Please check which activities you"
                                 ++ " will attend and your interest level"
-                                ++ "(1- not interested, 5- very interested):"
+                                ++ "(interested or very interested):"
                             )
                          )
                             :: (makeEventCheckBox model.activities
-                                    [ "Interested", "Very Interested" ]
+                                    [ " Interested", " Very Interested" ]
                                )
                         )
                     ]
@@ -104,9 +137,16 @@ pageContent model =
                     [ header [] [ h2 [] [ text "Special Accommodations" ] ]
                     , p [ mediumText ]
                         [ text "Do you have any special needs?"
-                        , label [] [ input [ type_ "checkbox" ] [], text "Yes" ]
+                        , label []
+                            [ input
+                                [ type_ "checkbox"
+                                , onClick ToggleSpecialNeeds
+                                ]
+                                []
+                            , text "Yes"
+                            ]
                         ]
-                    , section [ hidden True ]
+                    , section [ padElement, hidden model.specialNeedsHidden ]
                         [ label [ mediumText ] [ input [ type_ "checkbox", name "wheel-chair", value "true" ] [], text "Wheel Chair Access" ]
                         , br [] []
                         , label [ mediumText ] [ input [ type_ "checkbox", name "food-allergy", value "true" ] [], text "Food Allergies" ]
@@ -116,7 +156,7 @@ pageContent model =
                         , label [] [ text "Instructions:", textarea [ mediumText, cols 60, rows 1 ] [] ]
                         ]
                     ]
-                , button [ mediumText ] [ text "Submit Registration" ]
+                , button [ class "btn btn-lg", mediumText ] [ text "Submit Registration" ]
                 ]
 
         Admin ->
@@ -141,7 +181,7 @@ makeEventCheckBox events survey_options =
                 div []
                     (List.map
                         (\option ->
-                            label [ mediumText ]
+                            label [ style [ ( "padding-left", "3px" ) ], padElement, mediumText ]
                                 [ input
                                     [ type_ "radio"
                                     , name "survey"
@@ -157,7 +197,7 @@ makeEventCheckBox events survey_options =
         List.map
             (\event ->
                 div []
-                    [ label [ mediumText ]
+                    [ label [ padElement, mediumText ]
                         [ input [ type_ "checkbox" ] []
                         , text event.name
                         , span [ class "short-desc" ]
@@ -178,7 +218,7 @@ makeOption ward =
 
 padElement : Attribute Msg
 padElement =
-    style [ ( "padding", "2px 3px 2px 3px" ) ]
+    style [ ( "margin", "2px 3px 2px 3px" ) ]
 
 
 pageStyle : Attribute Msg

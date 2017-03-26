@@ -25,7 +25,7 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    initializeModel ! []
+    initialModel ! []
 
 
 
