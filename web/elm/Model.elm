@@ -23,7 +23,7 @@ initialModel =
         }
     , specialNeedsHidden = True
     , password = ""
-    , state = Registration
+    , state = Home
     , loginError = ""
     }
 
@@ -164,3 +164,4 @@ type UiState
     = Home
     | Admin
     | Registration
+    | Map

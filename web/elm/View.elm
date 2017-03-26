@@ -15,7 +15,7 @@ view model =
                 [ ul [ class "nav nav-pills pull-right" ]
                     [ li [] [ a [ href "#", onClick (SetState Home) ] [ text "Home" ] ]
                     , li [] [ a [ href "#", onClick (SetState Admin) ] [ text "Admin" ] ]
-                    , li [] [ a [ href "#" ] [ text "Map" ] ]
+                    , li [] [ a [ href "#", onClick (SetState Map) ] [ text "Map" ] ]
                     , li [] [ a [ href "#" ] [ text "Activities" ] ]
                     , li [] [ a [ href "#" ] [ text "Food" ] ]
                     , li [] [ a [ href "#" ] [ text "Full Schedule" ] ]
@@ -23,8 +23,7 @@ view model =
                     , li [] [ a [ href "#" ] [ text "Packing List" ] ]
                     ]
                 ]
-            , span [] [ text "Logo" ]
-              -- , span [ class "logo" ] []
+            , span [ class "logo" ] []
             ]
         , (pageContent model)
         ]
@@ -56,10 +55,24 @@ pageContent model =
                     [ -- , iframe [, , frameborder "0", allowfullscreen "True"][]
                       iframe
                         [ style [ ( "width", "560" ), ( "height", "315" ) ]
-                        , src "https://www.youtube.com/embed/oob6nNCt3DQ"
+                        , src "https://www.youtube.com/embed/Ps67N0kWjNk"
+                        ]
+                        []
+                    , iframe
+                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                        , src "https://www.youtube.com/embed/ObUSqEpM7j4"
                         ]
                         []
                     ]
+                ]
+
+        Map ->
+            section []
+                [ h1 []
+                    [ text "Map of Girls Camp" ]
+                , a
+                    [ href "https://www.hebervalleycamp.org/forms/CampsSmithandEsther.pdf" ]
+                    [ text "Link to Map" ]
                 ]
 
         Registration ->
