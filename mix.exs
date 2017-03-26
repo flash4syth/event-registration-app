@@ -46,7 +46,8 @@ defmodule SR.Mixfile do
       {:cowboy, "~> 1.0"},
       {:calendar, "~> 0.17.2"},
       {:hound, "~> 1.0"},
-      {:true_story, "~> 0.1.0", only: :test}
+      {:true_story, "~> 0.1.0", only: :test},
+      {:tzdata, "~> 0.5.11"}
     ]
   end
 
