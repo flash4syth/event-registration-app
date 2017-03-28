@@ -8,7 +8,6 @@ initialModel =
     , registration_info =
         { first_name = ""
         , reg_type = ""
-        , consented_to_email = False
         , last_name = ""
         , special_needs =
             { need_type = ""
@@ -124,7 +123,6 @@ type alias Model =
 type alias RegistrationInfo =
     { first_name : String
     , reg_type : String
-    , consented_to_email : Bool
     , last_name : String
     , special_needs : SpecialNeeds
     , gender : String

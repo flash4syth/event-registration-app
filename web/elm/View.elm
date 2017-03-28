@@ -47,10 +47,7 @@ pageContent model =
         Home ->
             section []
                 [ header [] [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ] ]
-                , input [ id "login", type_ "text", onInput UpdatePassword ] []
-                , button [ class "btn btn-md", onClick (Login model.password) ] [ text "Login" ]
-                , p [ id "error-message", style [ ( "color", "red" ) ] ]
-                    [ text model.loginError ]
+                , button [ class "btn btn-md", onClick Register ] [ text "Register" ]
                 , section []
                     [ -- , iframe [, , frameborder "0", allowfullscreen "True"][]
                       iframe
@@ -105,10 +102,6 @@ pageContent model =
                         [ text "Your Ward:"
                         , select [ mediumText ]
                             (List.map makeOption model.registration_info.wards)
-                        ]
-                    , p [ mediumText ]
-                        [ text "Can we send email to you about the stake retreat?"
-                        , label [] [ input [ type_ "checkbox", name "can-email", value "true" ] [], text "Yes" ]
                         ]
                     ]
                 , hr [] []

@@ -13,15 +13,8 @@ update msg model =
         SetState newState ->
             ( { model | state = newState }, Cmd.none )
 
-        Login password ->
-            if (String.toLower password) == "provo16stake" then
-                ( { model | state = Registration }, Cmd.none )
-            else if password == "" then
-                ( { model | state = Registration }, Cmd.none )
-            else
-                ( { model | loginError = "That password is incorrect." }
-                , Cmd.none
-                )
+        Register ->
+            ( { model | state = Registration }, Cmd.none )
 
         ToggleSpecialNeeds ->
             let

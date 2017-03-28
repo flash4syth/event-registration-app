@@ -4,9 +4,8 @@ import Model exposing (..)
 
 
 type Msg
-    = UpdatePassword String
-    | SetState UiState
-    | Login String
+    = SetState UiState
+    | Register
     | ToggleSpecialNeeds
 
 
