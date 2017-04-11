@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :stake_retreat, SR.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "stake_retreat",
-  hostname: "localhost",
+  username: Application.get_env(:stake_retreat, :db_user),
+  password: Application.get_env(:stake_retreat, :db_pass),
+  database: Application.get_env(:stake_retreat, :db_name),
+  hostname: Application.get_env(:stake_retreat, :db_host),
   pool: Ecto.Adapters.SQL.Sandbox
