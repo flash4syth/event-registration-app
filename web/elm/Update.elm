@@ -7,9 +7,6 @@ import Model exposing (..)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UpdatePassword newPassword ->
-            ( { model | password = newPassword }, Cmd.none )
-
         SetState newState ->
             ( { model | state = newState }, Cmd.none )
 

@@ -19,10 +19,10 @@ defmodule SR.Mixfile do
   def application do
 
     [mod: {SR, []},
-      env: [db_name: System.get_env("SR_DB_NAME"),
-        db_pass: System.get_env("SR_DB_PASS"),
-        hostname: System.get_env("HOST_NAME"),
-        db_port: System.get_env("SR_DB_PORT")
+      env: [db_name: "gonano",
+        db_pass: System.get_env("DATA_DB_PASS"),
+        db_user: System.get_env("DATA_DB_USER"),
+        db_host: System.get_env("DATA_DB_HOST"),
       ],
      extra_applications: [:logger]]
   end

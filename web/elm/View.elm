@@ -46,8 +46,11 @@ pageContent model =
     case model.state of
         Home ->
             section []
-                [ header [] [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ] ]
-                , button [ class "btn btn-md", onClick Register ] [ text "Register" ]
+                [ header []
+                    [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ]
+                    , h2 [] [ text "Fun activities!  Catered meals!  Fun with Friends!" ]
+                    ]
+                , button [ class "btn btn-info btn-lg", onClick Register ] [ text "Register" ]
                 , section []
                     [ -- , iframe [, , frameborder "0", allowfullscreen "True"][]
                       iframe
@@ -60,16 +63,20 @@ pageContent model =
                         , src "https://www.youtube.com/embed/ObUSqEpM7j4"
                         ]
                         []
+                    , p [] [ text "For questions contact your ward activities co-chairs." ]
                     ]
                 ]
 
         Map ->
             section []
-                [ h1 []
-                    [ text "Map of Girls Camp" ]
-                , a
-                    [ href "https://www.hebervalleycamp.org/forms/CampsSmithandEsther.pdf" ]
-                    [ text "Link to Map" ]
+                [ ul []
+                    [ li [] [ a [ href "#" ] [ text "Directions" ] ]
+                    , li []
+                        [ a
+                            [ href "https://www.hebervalleycamp.org/forms/CampsSmithandEsther.pdf" ]
+                            [ text "Map of Heber Valley Girls Camp" ]
+                        ]
+                    ]
                 ]
 
         Registration ->
