@@ -63,8 +63,8 @@ import_config "prod.secret.exs"
 # Configure your database
 config :stake_retreat, SR.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: Application.get_env(:stake_retreat, :db_user),
-  password: Application.get_env(:stake_retreat, :db_pass),
-  database: Application.get_env(:stake_retreat, :db_name),
-  host_name: Application.get_env(:stake_retreat, :db_host),
+  username: System.get_env("DATA_DB_USER"),
+  password: System.get_env("DATA_DB_PASS"),
+  database: "gonano",
+  hostname: System.get_env("DATA_DB_HOST"),
   pool_size: 10
