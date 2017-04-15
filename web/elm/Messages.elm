@@ -5,9 +5,16 @@ import Model exposing (..)
 
 type Msg
     = SetState UiState
-    | Register
     | ToggleSpecialNeeds
     | Blur
+    | DropDownClicked
+    | Register
+    | Map
+    | Activities
+    | Food
+    | Schedule
+    | Cabins
+    | Packing
 
 
 

@@ -13,6 +13,24 @@ update msg model =
         Register ->
             { model | state = Registration } ! []
 
+        Map ->
+            { model | state = MapPage } ! []
+
+        Activities ->
+            { model | state = ActivitiesPage } ! []
+
+        Food ->
+            { model | state = FoodPage } ! []
+
+        Schedule ->
+            { model | state = SchedulePage } ! []
+
+        Cabins ->
+            { model | state = CabinsPage } ! []
+
+        Packing ->
+            { model | state = PackingPage } ! []
+
         ToggleSpecialNeeds ->
             let
                 truth =
@@ -27,6 +45,9 @@ update msg model =
 
         Blur ->
             { model | menuOptionsHidden = True } ! []
+
+        DropDownClicked ->
+            { model | menuOptionsHidden = not model.menuOptionsHidden } ! []
 
 
 

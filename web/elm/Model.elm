@@ -23,7 +23,7 @@ initialModel =
     , specialNeedsHidden = True
     , menuOptionsHidden = True
     , password = ""
-    , state = Home
+    , state = HomePage
     , loginError = ""
     }
 
@@ -161,7 +161,12 @@ type alias Activity =
 
 
 type UiState
-    = Home
-    | Admin
+    = HomePage
+    | AdminPage
     | Registration
-    | Map
+    | MapPage
+    | ActivitiesPage
+    | FoodPage
+    | SchedulePage
+    | CabinsPage
+    | PackingPage

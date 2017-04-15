@@ -2,73 +2,107 @@ module View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (..)
+import Html.Events exposing (onWithOptions)
+import Json.Decode as JDecode
 import Model exposing (..)
 import Messages exposing (..)
+import Styles.Styles as Styles
 
 
-optionList : List String
+optionList : List ( String, Msg )
 optionList =
-    [ "Map", "Activities", "Food", "Schedule", "Cabins", "Packing List" ]
+    [ ( "Map", Map )
+    , ( "Activities", Activities )
+    , ( "Food", Food )
+    , ( "Schedule", Schedule )
+    , ( "Cabins", Cabins )
+    , ( "Packing List", Packing )
+    ]
+
+
+
+-- helper to cancel click anywhere
+
+
+onClick : msg -> Attribute msg
+onClick message =
+    onWithOptions
+        "click"
+        { stopPropagation = True
+        , preventDefault = False
+        }
+        (JDecode.succeed message)
 
 
 view : Model -> Html Msg
 view model =
-    article []
-        [ header [ class "header" ]
-            [ nav [ attribute "role" "navigation" ]
-                [ ul [ class "nav nav-pills pull-left" ]
-                    -- [ ul [ class "nav nav-pills pull-right" ]
-                    [ li [] [ div [] [ a [ href "#", onClick (SetState Home) ] [ text "Home" ] ] ]
-                    , li [] [ div [] [ a [ href "#" ] [ text "Login" ] ] ]
-                      -- , li [] [ a [ href "#", onClick (SetState Admin) ] [ text "Admin" ] ]
-                    , li []
-                        [ div []
-                            [ a [ href "#" ]
-                                [ text "More Info"
-                                , span [ class "caret" ] []
-                                ]
-                            , ul [ style [ ( "display", "none" ) ] ]
-                                [ li [ href "#" ]
-                                    [ text "Link 1" ]
-                                , li [ href "#" ] [ text "Link 2" ]
-                                , li [ href "#" ] [ text "Link 3" ]
-                                , li [ href "#" ] [ text "Link 4" ]
+    let
+        optionsDisplay =
+            if model.menuOptionsHidden then
+                ( "display", "none" )
+            else
+                ( "display", "block" )
+    in
+        article []
+            [ header [ class "header" ]
+                [ nav
+                    [ attribute "role" "navigation"
+                    ]
+                    [ ul
+                        [ style Styles.dropdownContainer
+                        , class "nav nav-pills pull-left"
+                        ]
+                        -- [ ul [ class "nav nav-pills pull-right" ]
+                        [ li [ style Styles.padElement ] [ div [] [ a [ href "#", onClick (SetState HomePage) ] [ text "Home" ] ] ]
+                        , li [ style Styles.padElement ] [ div [] [ a [ href "#" ] [ text "Login" ] ] ]
+                          -- , li [] [ a [ href "#", onClick (SetState AdminPage) ] [ text "Admin" ] ]
+                        , li [ style Styles.padElement, onClick DropDownClicked ]
+                            [ div []
+                                [ a [ href "#" ]
+                                    [ text "More Info"
+                                    , span [ class "caret" ] []
+                                    ]
+                                , ul [ style <| optionsDisplay :: Styles.dropdownList ]
+                                    (List.map optionView optionList)
                                 ]
                             ]
+                          -- , li [] [ a [ href "#", onClick (SetState Map) ] [ text "Map" ] ]
+                          -- , li [] [ a [ href "#" ] [ text "Activities" ] ]
+                          -- , li [] [ a [ href "#" ] [ text "Food" ] ]
+                          -- , li [] [ a [ href "#" ] [ text "Full Schedule" ] ]
+                          -- , li [] [ a [ href "#" ] [ text "Cabins" ] ]
+                          -- , li [] [ a [ href "#" ] [ text "Packing List" ] ]
                         ]
-                      -- , li [] [ a [ href "#", onClick (SetState Map) ] [ text "Map" ] ]
-                      -- , li [] [ a [ href "#" ] [ text "Activities" ] ]
-                      -- , li [] [ a [ href "#" ] [ text "Food" ] ]
-                      -- , li [] [ a [ href "#" ] [ text "Full Schedule" ] ]
-                      -- , li [] [ a [ href "#" ] [ text "Cabins" ] ]
-                      -- , li [] [ a [ href "#" ] [ text "Packing List" ] ]
                     ]
                 ]
-            , span [ class "logo" ] []
+            , (pageContent model)
             ]
-        , (pageContent model)
+
+
+optionView : ( String, Msg ) -> Html Msg
+optionView ( option, msg ) =
+    li [ style Styles.dropdownListItem ]
+        [ a [ href "#", onClick msg ] [ text option ] ]
+
+
+registerButton : Html Msg
+registerButton =
+    button
+        [ class "btn btn-primary btn-lg btn-block"
+        , onClick Register
         ]
-
-
-
--- view : Model -> Html Msg
--- view model =
---     article [ pageStyle ]
---         [ nav []
---             [ a [ padElement, href "#", onClick (SetState Home) ] [ text "Home" ]
---             , a [ padElement, href "#", onClick (SetState Admin) ] [ text "Admin" ]
---             ]
---         , (pageContent model)
---         ]
+        [ text "REGISTER NOW!" ]
 
 
 pageContent : Model -> Html Msg
 pageContent model =
     case model.state of
-        Home ->
+        HomePage ->
             div [ class "jumbotron" ]
-                [ header []
+                [ p [ class "logo" ] []
+                , hr [] []
+                , registerButton
+                , header []
                     [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ]
                     , h2 [] [ text "Overnight trip at Heber Valley Girl's Camp" ]
                     , h3 [] [ text "June 9 - 10, 2017" ]
@@ -86,13 +120,13 @@ pageContent model =
                         , src "https://www.youtube.com/embed/ObUSqEpM7j4"
                         ]
                         []
-                    , p [] [ text "For questions contact your ward activities co-chairs." ]
+                    , p []
+                        [ text "For questions contact your ward activities co-chairs." ]
                     ]
-                , button [ class "btn btn-primary btn-lg btn-block", onClick Register ]
-                    [ text "REGISTER NOW!" ]
+                , registerButton
                 ]
 
-        Map ->
+        MapPage ->
             section []
                 [ ul []
                     [ li [] [ a [ href "#" ] [ text "Directions" ] ]
@@ -109,56 +143,56 @@ pageContent model =
                 [ header [] [ h1 [] [ text "Registration" ] ]
                 , section []
                     [ header [] [ h2 [] [ text "Personal Information" ] ]
-                    , input [ mediumText, type_ "text", placeholder "First Name" ] []
+                    , input [ style Styles.mediumText, type_ "text", placeholder "First Name" ] []
                     , br [] []
-                    , input [ mediumText, type_ "text", placeholder "Last Name" ] []
+                    , input [ style Styles.mediumText, type_ "text", placeholder "Last Name" ] []
                     , br [] []
-                    , input [ mediumText, type_ "text", placeholder "Email" ] []
+                    , input [ style Styles.mediumText, type_ "text", placeholder "Email" ] []
                     , br [] []
-                    , input [ mediumText, type_ "text", placeholder "Phone Number" ] []
+                    , input [ style Styles.mediumText, type_ "text", placeholder "Phone Number" ] []
                     , br [] []
-                    , span [ mediumText ]
+                    , span [ style Styles.mediumText ]
                         [ text "Gender:" ]
                     , label
                         []
-                        [ input [ mediumText, type_ "radio", name "gender", Attr.value "Female" ] []
+                        [ input [ style Styles.mediumText, type_ "radio", name "gender", Attr.value "Female" ] []
                         , text "Female"
                         ]
                     , label []
-                        [ input [ mediumText, type_ "radio", name "gender", Attr.value "Male" ] []
+                        [ input [ style Styles.mediumText, type_ "radio", name "gender", Attr.value "Male" ] []
                         , text "Male"
                         ]
                     , br [] []
                     , label
                         []
                         [ text "Your Ward:"
-                        , select [ mediumText ]
+                        , select [ style Styles.mediumText ]
                             (List.map makeOption model.registration_info.wards)
                         ]
                     ]
                 , hr [] []
                 , section []
                     [ header [] [ h2 [] [ text "Level of Participation" ] ]
-                    , p [ mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
+                    , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
                     , label
-                        [ padElement, mediumText ]
+                        [ style (List.append Styles.padElement Styles.mediumText) ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "friday" ] []
                         , text " Friday Only"
                         ]
-                    , label [ padElement, mediumText ]
+                    , label [ style (List.append Styles.padElement Styles.mediumText) ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "overnight" ] []
                         , text " Overnight on Friday"
                         ]
-                    , label [ padElement, mediumText ]
+                    , label [ style (List.append Styles.padElement Styles.mediumText) ]
                         [ input [ type_ "radio", name "length-of-stay", Attr.value "saturday" ] []
                         , text " Saturday Only"
                         ]
                     , br [] []
-                    , p [ mediumText, style [ ( "box-sizing", "float" ) ] ]
+                    , p [ style (List.append Styles.mediumText [ ( "box-sizing", "float" ) ]) ]
                         ((text "Please check which meals you will be eating:")
                             :: (makeEventCheckBox model.meals [])
                         )
-                    , p [ mediumText ]
+                    , p [ style Styles.mediumText ]
                         ((text
                             ("Please check which activities you"
                                 ++ " will attend and your interest level"
@@ -173,7 +207,7 @@ pageContent model =
                 , hr [] []
                 , section []
                     [ header [] [ h2 [] [ text "Special Accommodations" ] ]
-                    , p [ mediumText ]
+                    , p [ style Styles.mediumText ]
                         [ text "Do you have any special needs?"
                         , label []
                             [ input
@@ -184,20 +218,20 @@ pageContent model =
                             , text "Yes"
                             ]
                         ]
-                    , section [ padElement, hidden model.specialNeedsHidden ]
-                        [ label [ mediumText ] [ input [ type_ "checkbox", name "wheel-chair", value "true" ] [], text "Wheel Chair Access" ]
+                    , section [ style Styles.padElement, hidden model.specialNeedsHidden ]
+                        [ label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "wheel-chair", value "true" ] [], text "Wheel Chair Access" ]
                         , br [] []
-                        , label [ mediumText ] [ input [ type_ "checkbox", name "food-allergy", value "true" ] [], text "Food Allergies" ]
+                        , label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "food-allergy", value "true" ] [], text "Food Allergies" ]
                         , br [] []
-                        , label [ mediumText ] [ input [ type_ "checkbox", name "other", value "true" ] [], text "Other" ]
+                        , label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "other", value "true" ] [], text "Other" ]
                         , br [] []
-                        , label [] [ text "Instructions:", textarea [ mediumText, cols 60, rows 1 ] [] ]
+                        , label [] [ text "Instructions:", textarea [ style Styles.mediumText, cols 60, rows 1 ] [] ]
                         ]
                     ]
-                , button [ class "btn btn-lg", mediumText ] [ text "Submit Registration" ]
+                , button [ class "btn btn-lg", style Styles.mediumText ] [ text "Submit Registration" ]
                 ]
 
-        Admin ->
+        AdminPage ->
             section []
                 [ h1 [] [ text "Administration Page" ]
                 , table [ style [ ( "border", "2px solid black" ) ] ]
@@ -207,6 +241,21 @@ pageContent model =
                     , tr [] [ td [] [ text "Lunch Count:" ], td [] [ text (toString 100) ] ]
                     ]
                 ]
+
+        ActivitiesPage ->
+            h1 [] [ text "Activities" ]
+
+        FoodPage ->
+            h1 [] [ text "Food" ]
+
+        SchedulePage ->
+            h1 [] [ text "Schedule" ]
+
+        CabinsPage ->
+            h1 [] [ text "Cabins" ]
+
+        PackingPage ->
+            h1 [] [ text "Packing List" ]
 
 
 makeEventCheckBox : List Event -> List String -> List (Html Msg)
@@ -219,7 +268,7 @@ makeEventCheckBox events survey_options =
                 div []
                     (List.map
                         (\option ->
-                            label [ style [ ( "padding-left", "3px" ) ], padElement, mediumText ]
+                            label [ style (List.concat [ [ ( "padding-left", "3px" ) ], Styles.padElement, Styles.mediumText ]) ]
                                 [ input
                                     [ type_ "radio"
                                     , name "survey"
@@ -235,7 +284,7 @@ makeEventCheckBox events survey_options =
         List.map
             (\event ->
                 div []
-                    [ label [ padElement, mediumText ]
+                    [ label [ style (List.append Styles.padElement Styles.mediumText) ]
                         [ input [ type_ "checkbox" ] []
                         , text event.name
                         , span [ class "short-desc" ]
@@ -252,18 +301,3 @@ makeEventCheckBox events survey_options =
 makeOption : String -> Html Msg
 makeOption ward =
     option [ value ward ] [ text ward ]
-
-
-padElement : Attribute Msg
-padElement =
-    style [ ( "margin", "2px 3px 2px 3px" ) ]
-
-
-pageStyle : Attribute Msg
-pageStyle =
-    style [ ( "margin", "50px 0px 0px 150px" ), ( "font-size", "1.2em" ) ]
-
-
-mediumText : Attribute Msg
-mediumText =
-    style [ ( "font-size", "1.2em" ) ]

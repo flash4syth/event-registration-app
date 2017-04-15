@@ -5,6 +5,7 @@ import Messages exposing (Msg(..))
 import Model exposing (..)
 import Update exposing (..)
 import View exposing (view)
+import Mouse
 
 
 -- import Http
@@ -34,4 +35,7 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    if not model.menuOptionsHidden then
+        Mouse.clicks (always Blur)
+    else
+        Sub.none
