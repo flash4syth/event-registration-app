@@ -7,6 +7,7 @@ type Msg
     = SetState UiState
     | Register
     | ToggleSpecialNeeds
+    | Blur
 
 
 

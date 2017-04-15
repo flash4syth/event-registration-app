@@ -7,6 +7,11 @@ import Model exposing (..)
 import Messages exposing (..)
 
 
+optionList : List String
+optionList =
+    [ "Map", "Activities", "Food", "Schedule", "Cabins", "Packing List" ]
+
+
 view : Model -> Html Msg
 view model =
     article []

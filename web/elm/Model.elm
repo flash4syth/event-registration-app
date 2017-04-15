@@ -21,6 +21,7 @@ initialModel =
         , wards = wardList
         }
     , specialNeedsHidden = True
+    , menuOptionsHidden = True
     , password = ""
     , state = Home
     , loginError = ""
@@ -117,6 +118,7 @@ type alias Model =
     , state : UiState
     , loginError : String
     , specialNeedsHidden : Bool
+    , menuOptionsHidden : Bool
     }
 
 

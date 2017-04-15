@@ -8,10 +8,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         SetState newState ->
-            ( { model | state = newState }, Cmd.none )
+            { model | state = newState } ! []
 
         Register ->
-            ( { model | state = Registration }, Cmd.none )
+            { model | state = Registration } ! []
 
         ToggleSpecialNeeds ->
             let
@@ -23,7 +23,10 @@ update msg model =
                         False ->
                             True
             in
-                ( { model | specialNeedsHidden = truth }, Cmd.none )
+                { model | specialNeedsHidden = truth } ! []
+
+        Blur ->
+            { model | menuOptionsHidden = True } ! []
 
 
 
