@@ -14,22 +14,46 @@ update msg model =
             { model | state = Registration } ! []
 
         Map ->
-            { model | state = MapPage } ! []
+            { model
+                | state = MapPage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         Activities ->
-            { model | state = ActivitiesPage } ! []
+            { model
+                | state = ActivitiesPage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         Food ->
-            { model | state = FoodPage } ! []
+            { model
+                | state = FoodPage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         Schedule ->
-            { model | state = SchedulePage } ! []
+            { model
+                | state = SchedulePage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         Cabins ->
-            { model | state = CabinsPage } ! []
+            { model
+                | state = CabinsPage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         Packing ->
-            { model | state = PackingPage } ! []
+            { model
+                | state = PackingPage
+                , menuOptionsHidden = True
+            }
+                ! []
 
         ToggleSpecialNeeds ->
             let
