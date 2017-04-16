@@ -43,8 +43,24 @@ view model =
             ]
         , hr [] []
         , section [ class "jumbotron custom" ]
-            [ header [] [ h2 [] [ text "Level of Participation" ] ]
+            [ header []
+                [ h2 [] [ text "Choose Your Activities" ]
+                , h3 []
+                    [ a
+                        [ class "btn btn-info btn-md"
+                        , onClick (SetState ActivitiesPage)
+                        ]
+                        [ text "See Activity List Details" ]
+                    ]
+                ]
             , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
+            , p []
+                [ text
+                    ("For those staying overnight, the bed availability is on "
+                        ++ "a first come first server basis.  You will need to be prepared to "
+                        ++ "sleep on the floor."
+                    )
+                ]
             , label
                 [ style (List.append Styles.padElement Styles.mediumText) ]
                 [ input [ type_ "radio", name "length-of-stay", Attr.value "friday" ] []

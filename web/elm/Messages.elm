@@ -8,13 +8,6 @@ type Msg
     | ToggleSpecialNeeds
     | Blur
     | DropDownClicked
-    | Register
-    | Map
-    | Activities
-    | Food
-    | Schedule
-    | Cabins
-    | Packing
 
 
 

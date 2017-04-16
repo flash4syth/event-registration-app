@@ -19,12 +19,12 @@ import Views.FoodView as FoodView
 
 optionList : List ( String, Msg )
 optionList =
-    [ ( "Map", Map )
-    , ( "Activities", Activities )
-    , ( "Food", Food )
-    , ( "Schedule", Schedule )
-    , ( "Cabins", Cabins )
-    , ( "Packing List", Packing )
+    [ ( "Map", SetState MapPage )
+    , ( "Activities", SetState ActivitiesPage )
+    , ( "Food", SetState FoodPage )
+    , ( "Schedule", SetState SchedulePage )
+    , ( "Cabins", SetState CabinsPage )
+    , ( "Packing List", SetState PackingPage )
     ]
 
 
@@ -97,7 +97,7 @@ registerButton : Html Msg
 registerButton =
     button
         [ class "btn btn-primary btn-lg btn-block"
-        , onClick Register
+        , onClick (SetState RegistrationPage)
         ]
         [ text "REGISTER NOW!" ]
 

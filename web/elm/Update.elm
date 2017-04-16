@@ -8,49 +8,8 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         SetState newState ->
-            { model | state = newState } ! []
-
-        Register ->
-            { model | state = RegistrationPage } ! []
-
-        Map ->
             { model
-                | state = MapPage
-                , menuOptionsHidden = True
-            }
-                ! []
-
-        Activities ->
-            { model
-                | state = ActivitiesPage
-                , menuOptionsHidden = True
-            }
-                ! []
-
-        Food ->
-            { model
-                | state = FoodPage
-                , menuOptionsHidden = True
-            }
-                ! []
-
-        Schedule ->
-            { model
-                | state = SchedulePage
-                , menuOptionsHidden = True
-            }
-                ! []
-
-        Cabins ->
-            { model
-                | state = CabinsPage
-                , menuOptionsHidden = True
-            }
-                ! []
-
-        Packing ->
-            { model
-                | state = PackingPage
+                | state = newState
                 , menuOptionsHidden = True
             }
                 ! []
