@@ -16,14 +16,13 @@ initialModel =
         , gender = ""
         , email = ""
         , selectedWard = ""
-        , activities = []
         , meals = []
         , wards = wardList
         }
     , specialNeedsHidden = True
     , menuOptionsHidden = True
     , password = ""
-    , state = HomePage
+    , state = RegistrationPage
     , loginError = ""
     }
 
@@ -131,9 +130,12 @@ type alias RegistrationInfo =
     , email : String
     , selectedWard : String
     , wards : List String
-    , activities : List Activity
     , meals : List Int
     }
+
+
+
+-- Includes Meals and Activities
 
 
 type alias Event =
@@ -154,16 +156,10 @@ type alias SpecialNeeds =
     }
 
 
-type alias Activity =
-    { activity_id : Int
-    , interest_level : String
-    }
-
-
 type UiState
     = HomePage
     | AdminPage
-    | Registration
+    | RegistrationPage
     | MapPage
     | ActivitiesPage
     | FoodPage

@@ -11,7 +11,7 @@ update msg model =
             { model | state = newState } ! []
 
         Register ->
-            { model | state = Registration } ! []
+            { model | state = RegistrationPage } ! []
 
         Map ->
             { model

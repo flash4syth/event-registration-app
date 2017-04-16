@@ -62,7 +62,7 @@ view model =
                         ]
                         -- [ ul [ class "nav nav-pills pull-right" ]
                         [ li [ style Styles.padElement ] [ div [] [ a [ href "#", onClick (SetState HomePage) ] [ text "Home  -  " ] ] ]
-                        , li [ style Styles.padElement ] [ div [] [ a [ href "#" ] [ text "Login  -  " ] ] ]
+                          -- , li [ style Styles.padElement ] [ div [] [ a [ href "#" ] [ text "Login  -  " ] ] ]
                           -- , li [] [ a [ href "#", onClick (SetState AdminPage) ] [ text "Admin" ] ]
                         , li [ style Styles.padElement, onClick DropDownClicked ]
                             [ div []
@@ -137,7 +137,7 @@ pageContent model =
         MapPage ->
             MapView.view
 
-        Registration ->
+        RegistrationPage ->
             RegistrationView.view model
 
         AdminPage ->

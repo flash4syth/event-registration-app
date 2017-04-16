@@ -10,9 +10,9 @@ import Model exposing (..)
 
 view : Model -> Html Msg
 view model =
-    section []
+    section [ class "jumbotron" ]
         [ header [] [ h1 [] [ text "Registration" ] ]
-        , section []
+        , section [ class "row col-lg-12" ]
             [ header [] [ h2 [] [ text "Personal Information" ] ]
             , input [ style Styles.mediumText, type_ "text", placeholder "First Name" ] []
             , br [] []
@@ -64,16 +64,7 @@ view model =
                     :: (makeEventCheckBox model.meals [])
                 )
             , p [ style Styles.mediumText ]
-                ((text
-                    ("Please check which activities you"
-                        ++ " will attend and your interest level"
-                        ++ "(interested or very interested):"
-                    )
-                 )
-                    :: (makeEventCheckBox model.activities
-                            [ " Interested", " Very Interested" ]
-                       )
-                )
+                [ text "Please check which activities you will attend" ]
             ]
         , hr [] []
         , section []
@@ -99,7 +90,7 @@ view model =
                 , label [] [ text "Instructions:", textarea [ style Styles.mediumText, cols 60, rows 1 ] [] ]
                 ]
             ]
-        , button [ class "btn btn-lg", style Styles.mediumText ] [ text "Submit Registration" ]
+        , button [ class "btn btn-info btn-lg btn-block", style Styles.mediumText ] [ text "Submit Registration" ]
         ]
 
 
