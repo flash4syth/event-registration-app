@@ -4,7 +4,7 @@ import Html
 import Messages exposing (Msg(..))
 import Model exposing (..)
 import Update exposing (..)
-import View exposing (view)
+import Views.MainView exposing (view)
 import Mouse
 
 
