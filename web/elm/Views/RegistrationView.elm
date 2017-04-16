@@ -10,10 +10,10 @@ import Model exposing (..)
 
 view : Model -> Html Msg
 view model =
-    section [ class "jumbotron" ]
+    section [ class "row" ]
         [ header [] [ h1 [] [ text "Registration" ] ]
-        , section [ class "row col-lg-12" ]
-            [ header [] [ h2 [] [ text "Personal Information" ] ]
+        , section [ class "jumbotron custom" ]
+            [ header [] [ h2 [] [ text "Enter Personal Information" ] ]
             , input [ style Styles.mediumText, type_ "text", placeholder "First Name" ] []
             , br [] []
             , input [ style Styles.mediumText, type_ "text", placeholder "Last Name" ] []
@@ -42,7 +42,7 @@ view model =
                 ]
             ]
         , hr [] []
-        , section []
+        , section [ class "jumbotron custom" ]
             [ header [] [ h2 [] [ text "Level of Participation" ] ]
             , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
             , label
@@ -67,7 +67,7 @@ view model =
                 [ text "Please check which activities you will attend" ]
             ]
         , hr [] []
-        , section []
+        , section [ class "jumbotron custom" ]
             [ header [] [ h2 [] [ text "Special Accommodations" ] ]
             , p [ style Styles.mediumText ]
                 [ text "Do you have any special needs?"
@@ -87,10 +87,17 @@ view model =
                 , br [] []
                 , label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "other", value "true" ] [], text "Other" ]
                 , br [] []
-                , label [] [ text "Instructions:", textarea [ style Styles.mediumText, cols 60, rows 1 ] [] ]
+                , h3 [] [ text "How can we best accomodate you?" ]
+                , textarea [ style Styles.mediumText, cols 60, rows 3 ] []
                 ]
             ]
-        , button [ class "btn btn-info btn-lg btn-block", style Styles.mediumText ] [ text "Submit Registration" ]
+        , p [ style (( "font-weight", "bold" ) :: Styles.mediumText) ]
+            [ text "Please Note: NO PETS ALLOWED" ]
+        , button
+            [ class "btn btn-info btn-lg btn-block"
+            , style Styles.mediumText
+            ]
+            [ text "Submit Registration" ]
         ]
 
 
