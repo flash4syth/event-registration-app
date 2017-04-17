@@ -13,15 +13,36 @@ view model addLogo =
     section [ class "row" ]
         (addLogo
             :: [ header [] [ h1 [ style Styles.centerText ] [ text "Registration" ] ]
-               , section [ class "jumbotron custom" ]
+               , section [ class "col-xs-12" ]
+                    --  , section [ class "jumbotron custom" ]
                     [ header [] [ h2 [] [ text "Enter Personal Information" ] ]
-                    , input [ style Styles.mediumText, type_ "text", placeholder "First Name" ] []
+                    , input
+                        [ style Styles.mediumText
+                        , type_ "text"
+                        , placeholder "First Name"
+                        ]
+                        []
                     , br [] []
-                    , input [ style Styles.mediumText, type_ "text", placeholder "Last Name" ] []
+                    , input
+                        [ style Styles.mediumText
+                        , type_ "text"
+                        , placeholder "Last Name"
+                        ]
+                        []
                     , br [] []
-                    , input [ style Styles.mediumText, type_ "text", placeholder "Email" ] []
+                    , input
+                        [ style Styles.mediumText
+                        , type_ "text"
+                        , placeholder "Email"
+                        ]
+                        []
                     , br [] []
-                    , input [ style Styles.mediumText, type_ "text", placeholder "Phone Number" ] []
+                    , input
+                        [ style Styles.mediumText
+                        , type_ "text"
+                        , placeholder "Phone Number"
+                        ]
+                        []
                     , br [] []
                     , span [ style Styles.mediumText ]
                         [ text "Gender:" ]
@@ -43,7 +64,8 @@ view model addLogo =
                         ]
                     ]
                , hr [] []
-               , section [ class "jumbotron custom" ]
+               , section [ class "col-xs-12" ]
+                    --  , section [ class "jumbotron custom" ]
                     [ header []
                         [ h2 [] [ text "Choose Your Activities" ]
                         , h3 []
@@ -63,20 +85,46 @@ view model addLogo =
                         ]
                     , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
                     , label
-                        [ style (List.append Styles.padElement Styles.mediumText) ]
-                        [ input [ type_ "radio", name "length-of-stay", Attr.value "friday" ] []
+                        [ style
+                            (List.append
+                                Styles.padElement
+                                Styles.mediumText
+                            )
+                        ]
+                        [ input
+                            [ type_ "radio"
+                            , name "length-of-stay"
+                            , Attr.value "friday"
+                            ]
+                            []
                         , text " Friday Only"
                         ]
                     , label [ style (List.append Styles.padElement Styles.mediumText) ]
-                        [ input [ type_ "radio", name "length-of-stay", Attr.value "overnight" ] []
+                        [ input
+                            [ type_ "radio"
+                            , name "length-of-stay"
+                            , Attr.value "overnight"
+                            ]
+                            []
                         , text " Overnight on Friday"
                         ]
                     , label [ style (List.append Styles.padElement Styles.mediumText) ]
-                        [ input [ type_ "radio", name "length-of-stay", Attr.value "saturday" ] []
+                        [ input
+                            [ type_ "radio"
+                            , name "length-of-stay"
+                            , Attr.value "saturday"
+                            ]
+                            []
                         , text " Saturday Only"
                         ]
                     , br [] []
-                    , p [ style (List.append Styles.mediumText [ ( "box-sizing", "float" ) ]) ]
+                    , p
+                        [ style
+                            (List.append Styles.mediumText
+                                [ ( "box-sizing", "float" )
+                                ]
+                            )
+                        ]
                         ((text "Please check which meals you will be eating:")
                             :: (makeEventCheckBox model.meals [])
                         )
@@ -84,7 +132,8 @@ view model addLogo =
                         [ text "Please check which activities you will attend" ]
                     ]
                , hr [] []
-               , section [ class "jumbotron custom" ]
+               , section [ class "col-xs-12" ]
+                    --  , section [ class "jumbotron custom" ]
                     [ header [] [ h2 [] [ text "Special Accommodations" ] ]
                     , p [ style Styles.mediumText ]
                         [ text "Do you have any special needs?"
@@ -97,15 +146,44 @@ view model addLogo =
                             , text "Yes"
                             ]
                         ]
-                    , section [ style Styles.padElement, hidden model.specialNeedsHidden ]
-                        [ label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "wheel-chair", value "true" ] [], text "Wheel Chair Access" ]
+                    , section
+                        [ class "col-xs-12"
+                        , style Styles.padElement
+                        , hidden model.specialNeedsHidden
+                        ]
+                        [ label [ style Styles.mediumText ]
+                            [ input
+                                [ type_ "checkbox"
+                                , name "wheel-chair"
+                                , value "true"
+                                ]
+                                []
+                            , text "Wheel Chair Access"
+                            ]
                         , br [] []
-                        , label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "food-allergy", value "true" ] [], text "Food Allergies" ]
+                        , label [ style Styles.mediumText ]
+                            [ input
+                                [ type_ "checkbox"
+                                , name "food-allergy"
+                                , value "true"
+                                ]
+                                []
+                            , text "Food Allergies"
+                            ]
                         , br [] []
-                        , label [ style Styles.mediumText ] [ input [ type_ "checkbox", name "other", value "true" ] [], text "Other" ]
+                        , label [ style Styles.mediumText ]
+                            [ input
+                                [ type_ "checkbox"
+                                , name "other"
+                                , value "true"
+                                ]
+                                []
+                            , text "Other"
+                            ]
                         , br [] []
                         , h3 [] [ text "How can we best accomodate you?" ]
-                        , textarea [ style Styles.mediumText, cols 60, rows 3 ] []
+                        , textarea [ style Styles.mediumText, cols 60, rows 3 ]
+                            []
                         ]
                     ]
                , p
@@ -143,7 +221,16 @@ makeEventCheckBox events survey_options =
                 div []
                     (List.map
                         (\option ->
-                            label [ style (List.concat [ [ ( "padding-left", "3px" ) ], Styles.padElement, Styles.mediumText ]) ]
+                            label
+                                [ style
+                                    (List.concat
+                                        [ [ ( "padding-left", "3px" )
+                                          ]
+                                        , Styles.padElement
+                                        , Styles.mediumText
+                                        ]
+                                    )
+                                ]
                                 [ input
                                     [ type_ "radio"
                                     , name "survey"
@@ -159,7 +246,13 @@ makeEventCheckBox events survey_options =
         List.map
             (\event ->
                 div []
-                    [ label [ style (List.append Styles.padElement Styles.mediumText) ]
+                    [ label
+                        [ style
+                            (List.append
+                                Styles.padElement
+                                Styles.mediumText
+                            )
+                        ]
                         [ input [ type_ "checkbox" ] []
                         , text event.name
                         , span [ class "short-desc" ]
