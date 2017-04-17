@@ -147,7 +147,7 @@ pageContent model =
             ActivityView.view model addLogo
 
         FoodPage ->
-            FoodView.view model
+            FoodView.view model addLogo
 
         SchedulePage ->
             ScheduleView.view model
