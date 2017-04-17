@@ -7,12 +7,19 @@ import Model exposing (..)
 import Styles.Styles as Styles
 
 
-view : Model -> Html Msg -> Html Msg
-view model addLogo =
+view : Model -> Html Msg -> Html Msg -> Html Msg
+view model addLogo registerButton =
     section [ class "row" ]
-        (addLogo
-            :: header [ class "col-xs-11" ] [ h1 [ style Styles.centerText ] [ text "Activities" ] ]
-            :: makeActivities model
+        (List.concat
+            [ [ addLogo
+              , header [ class "col-xs-11" ]
+                    [ h1 [ style Styles.centerText ]
+                        [ text "Activities" ]
+                    ]
+              ]
+            , (makeActivities model)
+            , [ registerButton ]
+            ]
         )
 
 

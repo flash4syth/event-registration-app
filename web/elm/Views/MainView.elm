@@ -144,7 +144,7 @@ pageContent model =
             AdminView.view model
 
         ActivitiesPage ->
-            ActivityView.view model addLogo
+            ActivityView.view model addLogo registerButton
 
         FoodPage ->
             FoodView.view model addLogo

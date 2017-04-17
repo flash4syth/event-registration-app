@@ -73,7 +73,7 @@ view model addLogo =
                                 [ class "btn btn-info btn-md"
                                 , onClick (SetState ActivitiesPage)
                                 ]
-                                [ text "See Activity List Details" ]
+                                [ text "See Activity Details" ]
                             ]
                         ]
                     , p []
