@@ -117,7 +117,13 @@ view model addLogo =
                             ]
                         )
                     ]
-                    [ text "Please Note: NO PETS ALLOWED" ]
+                    [ span []
+                        [ img
+                            [ height 50, width 50, src "/images/no_pets.png" ]
+                            []
+                        ]
+                    , text "Please Note: NO PETS ALLOWED"
+                    ]
                , button
                     [ class "btn btn-info btn-lg btn-block"
                     , style Styles.mediumText
