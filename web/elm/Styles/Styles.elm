@@ -105,4 +105,12 @@ pageStyle =
 
 mediumText : List ( String, String )
 mediumText =
-    [ ( "font-size", "1.2em" ) ]
+    [ ( "font-size", "1.2em" )
+    , ( "font-weight", "200" )
+    , ( "font-family", "'Helvetica Neue',Helvetica,Arial,sans-serif" )
+    ]
+
+
+centerText : List ( String, String )
+centerText =
+    [ ( "text-align", "center" ) ]

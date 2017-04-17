@@ -135,16 +135,16 @@ pageContent model =
                 ]
 
         MapPage ->
-            MapView.view
+            MapView.view addLogo
 
         RegistrationPage ->
-            RegistrationView.view model
+            RegistrationView.view model addLogo
 
         AdminPage ->
             AdminView.view model
 
         ActivitiesPage ->
-            ActivityView.view model
+            ActivityView.view model addLogo
 
         FoodPage ->
             FoodView.view model
@@ -157,3 +157,8 @@ pageContent model =
 
         PackingPage ->
             PackingView.view model
+
+
+addLogo : Html Msg
+addLogo =
+    div [ class "jumbotron" ] [ p [ class "logo" ] [] ]

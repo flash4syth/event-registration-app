@@ -72,7 +72,7 @@ mealList =
       , location = "Pavilion"
       , picture = ""
       , short_description = "PB&J Mmmm!"
-      , long_description = ""
+      , long_description = "Here is a long description that will go on and on and on."
       }
     ]
 
@@ -86,7 +86,7 @@ activityList =
       , location = ""
       , picture = ""
       , short_description = "Explore the universe"
-      , long_description = ""
+      , long_description = "Here is a long description that will go on and on and on."
       }
     , { name = "Friday Night Devotional"
       , event_id = 5
@@ -95,7 +95,7 @@ activityList =
       , location = ""
       , picture = ""
       , short_description = "Spiritual Feast"
-      , long_description = ""
+      , long_description = "Here is a long description that will go on and on and on."
       }
     , { name = "Saturday Afternoon Speaker: Brad Wilcox"
       , event_id = 6
@@ -104,7 +104,7 @@ activityList =
       , location = ""
       , picture = ""
       , short_description = "A wonderful man"
-      , long_description = ""
+      , long_description = "Here is a long description that will go on and on and on."
       }
     ]
 
