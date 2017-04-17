@@ -156,7 +156,7 @@ pageContent model =
             CabinView.view model addLogo
 
         PackingPage ->
-            PackingView.view model
+            PackingView.view model addLogo
 
 
 addLogo : Html Msg
