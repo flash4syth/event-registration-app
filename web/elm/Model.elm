@@ -81,27 +81,27 @@ activityList : List Event
 activityList =
     [ { name = "Friday Night Star Gazing"
       , event_id = 4
-      , start_datetime = ""
+      , start_datetime = "Friday 8:00pm"
       , end_datetime = ""
-      , location = ""
+      , location = "Pavilion"
       , picture = ""
       , short_description = "Explore the universe"
       , long_description = "Here is a long description that will go on and on and on."
       }
     , { name = "Friday Night Devotional"
       , event_id = 5
-      , start_datetime = ""
+      , start_datetime = "Friday 6:30pm"
       , end_datetime = ""
-      , location = ""
+      , location = "Pavilion"
       , picture = ""
       , short_description = "Spiritual Feast"
       , long_description = "Here is a long description that will go on and on and on."
       }
     , { name = "Saturday Afternoon Speaker: Brad Wilcox"
       , event_id = 6
-      , start_datetime = ""
+      , start_datetime = "Saturday 1:00pm"
       , end_datetime = ""
-      , location = ""
+      , location = "Pavilion"
       , picture = ""
       , short_description = "A wonderful man"
       , long_description = "Here is a long description that will go on and on and on."

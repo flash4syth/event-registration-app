@@ -150,7 +150,7 @@ pageContent model =
             FoodView.view model addLogo
 
         SchedulePage ->
-            ScheduleView.view model
+            ScheduleView.view model addLogo
 
         CabinsPage ->
             CabinView.view model
