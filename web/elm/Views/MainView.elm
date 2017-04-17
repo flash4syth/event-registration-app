@@ -153,7 +153,7 @@ pageContent model =
             ScheduleView.view model addLogo
 
         CabinsPage ->
-            CabinView.view model
+            CabinView.view model addLogo
 
         PackingPage ->
             PackingView.view model
