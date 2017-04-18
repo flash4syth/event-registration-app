@@ -11,6 +11,9 @@ type Msg
     | ToggleEditMode
     | AddEvent
     | UpdateFood
+      {--Id--}
+    | UpdateActivityDescription Id String
+    | UpdateActivityBlurb Id String
 
 
 

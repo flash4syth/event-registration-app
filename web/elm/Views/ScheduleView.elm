@@ -6,32 +6,37 @@ import Html.Attributes exposing (..)
 import Model exposing (..)
 import Styles.Styles as Styles
 import Views.HelperFunctions exposing (..)
+import Dict exposing (..)
 
 
 view : Model -> Html Msg
 view model =
-    section [ class "row" ]
-        (addLogo
-            :: [ header []
-                    [ h1 [ style Styles.centerText ] [ text "Full Schedule" ] ]
-               , table
-                    [ class "table table-bordered table-striped" ]
-                    [ thead []
-                        [ tr []
-                            [ th [] [ text "Date" ]
-                            , th [] [ text "Location" ]
-                            , th [] [ text "Description" ]
+    let
+        allEvents =
+            List.append (Dict.values model.activities) (Dict.values model.meals)
+    in
+        section [ class "row" ]
+            (addLogo
+                :: [ header []
+                        [ h1 [ style Styles.centerText ] [ text "Full Schedule" ] ]
+                   , table
+                        [ class "table table-bordered table-striped" ]
+                        [ thead []
+                            [ tr []
+                                [ th [] [ text "Date" ]
+                                , th [] [ text "Location" ]
+                                , th [] [ text "Description" ]
+                                ]
                             ]
+                        , tbody []
+                            (makeRows allEvents)
                         ]
-                    , tbody []
-                        (makeRows (List.append model.activities model.meals))
-                    ]
-               ]
-        )
+                   ]
+            )
 
 
 makeRows : List Event -> List (Html Msg)
-makeRows eventList =
+makeRows allEvents =
     List.map
         (\event ->
             tr []
@@ -40,4 +45,4 @@ makeRows eventList =
                 , td [] [ text event.short_description ]
                 ]
         )
-        eventList
+        allEvents

@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Model exposing (..)
 import Styles.Styles as Styles
 import Views.HelperFunctions exposing (..)
+import Dict exposing (..)
 
 
 view : Model -> Html Msg
@@ -49,7 +50,7 @@ view model =
 makeRows : Model -> List (Html Msg)
 makeRows model =
     List.map
-        (\meal ->
+        (\( id, meal ) ->
             tr [ name "id", value "0" ]
                 [ td
                     [ attribute "contenteditable"
@@ -68,4 +69,5 @@ makeRows model =
                     [ text meal.short_description ]
                 ]
         )
-        model.meals
+    <|
+        Dict.toList model.meals

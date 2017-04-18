@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Messages exposing (..)
 import Model exposing (..)
+import Dict exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -39,7 +40,6 @@ update msg model =
             let
                 newActivity =
                     { name = "New"
-                    , event_id = -1
                     , start_datetime = "Needs Time"
                     , end_datetime = ""
                     , location = "Needs Location"
@@ -48,14 +48,13 @@ update msg model =
                     , long_description = "Needs Description"
                     }
 
-                reverseActivityList =
-                    List.reverse model.activities
-
-                newActivityList =
-                    List.reverse (newActivity :: reverseActivityList)
+                -- reverseActivityList =
+                --     List.reverse model.activities
+                newActivityDict =
+                    Dict.insert -1 newActivity model.activities
             in
                 ({ model
-                    | activities = newActivityList
+                    | activities = newActivityDict
                     , editModeActive = True
                  }
                     ! []
@@ -63,6 +62,12 @@ update msg model =
 
         UpdateFood ->
             ({ model | editModeActive = False } ! [])
+
+        UpdateActivityDescription id inputText ->
+            (model ! [])
+
+        UpdateActivityBlurb id inputText ->
+            (model ! [])
 
 
 

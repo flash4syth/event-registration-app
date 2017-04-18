@@ -10,6 +10,7 @@ import Styles.Styles as Styles
 import Messages exposing (..)
 import Model exposing (..)
 import Views.HelperFunctions exposing (..)
+import Dict exposing (..)
 
 
 view : Model -> Html Msg
@@ -88,39 +89,13 @@ view model =
                             )
                         ]
                     , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
-                    , label
-                        [ style
-                            (List.append
-                                Styles.padElement
-                                Styles.mediumText
-                            )
-                        ]
-                        [ input
-                            [ type_ "radio"
-                            , name "length-of-stay"
-                            , Attr.value "friday"
+                    , div []
+                        (lengthOfStayOptions
+                            [ ( "friday", " Friday Only" )
+                            , ( "fridaynight", " Overnight on Friday" )
+                            , ( "saturday", " Saturday Only" )
                             ]
-                            []
-                        , text " Friday Only"
-                        ]
-                    , label [ style (List.append Styles.padElement Styles.mediumText) ]
-                        [ input
-                            [ type_ "radio"
-                            , name "length-of-stay"
-                            , Attr.value "overnight"
-                            ]
-                            []
-                        , text " Overnight on Friday"
-                        ]
-                    , label [ style (List.append Styles.padElement Styles.mediumText) ]
-                        [ input
-                            [ type_ "radio"
-                            , name "length-of-stay"
-                            , Attr.value "saturday"
-                            ]
-                            []
-                        , text " Saturday Only"
-                        ]
+                        )
                     , br [] []
                     , p
                         [ style
@@ -130,7 +105,7 @@ view model =
                             )
                         ]
                         ((text "Please check which meals you will be eating:")
-                            :: (makeEventCheckBox model.meals [])
+                            :: (makeEventCheckBox model.meals)
                         )
                     , p [ style Styles.mediumText ]
                         [ text "Please check which activities you will attend" ]
@@ -215,59 +190,52 @@ view model =
         )
 
 
-makeEventCheckBox : List Event -> List String -> List (Html Msg)
-makeEventCheckBox events survey_options =
-    let
-        survey =
-            if List.isEmpty survey_options then
-                div [] []
-            else
-                div []
-                    (List.map
-                        (\option ->
-                            label
-                                [ style
-                                    (List.concat
-                                        [ [ ( "padding-left", "3px" )
-                                          ]
-                                        , Styles.padElement
-                                        , Styles.mediumText
-                                        ]
-                                    )
-                                ]
-                                [ input
-                                    [ type_ "radio"
-                                    , name "survey"
-                                    , value option
-                                    ]
-                                    []
-                                , text option
-                                ]
-                        )
-                        survey_options
+lengthOfStayOptions : List ( String, String ) -> List (Html Msg)
+lengthOfStayOptions optionList =
+    List.map
+        (\( value_, text_ ) ->
+            label
+                [ style
+                    (List.append
+                        Styles.padElement
+                        Styles.mediumText
                     )
-    in
-        List.map
-            (\event ->
-                div []
-                    [ label
-                        [ style
-                            (List.append
-                                Styles.padElement
-                                Styles.mediumText
-                            )
-                        ]
-                        [ input [ type_ "checkbox" ] []
-                        , text event.name
-                        , span [ class "short-desc" ]
-                            [ text
-                                ("--" ++ event.short_description)
-                            ]
-                        ]
-                    , survey
+                ]
+                [ input
+                    [ type_ "radio"
+                    , name "length-of-stay"
+                    , Attr.value value_
                     ]
-            )
-            events
+                    []
+                , text text_
+                ]
+        )
+        optionList
+
+
+makeEventCheckBox : Dict Id Event -> List (Html Msg)
+makeEventCheckBox eventDict =
+    List.map
+        (\( id, event ) ->
+            div []
+                [ label
+                    [ style
+                        (List.append
+                            Styles.padElement
+                            Styles.mediumText
+                        )
+                    ]
+                    [ input [ type_ "checkbox" ] []
+                    , text event.name
+                    , span [ class "short-desc" ]
+                        [ text
+                            ("--" ++ event.short_description)
+                        ]
+                    ]
+                ]
+        )
+    <|
+        Dict.toList eventDict
 
 
 makeOption : String -> Html Msg

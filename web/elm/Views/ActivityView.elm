@@ -3,9 +3,11 @@ module Views.ActivityView exposing (..)
 import Messages exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onInput)
 import Model exposing (..)
 import Styles.Styles as Styles
 import Views.HelperFunctions exposing (..)
+import Dict exposing (..)
 
 
 view : Model -> Html Msg
@@ -55,7 +57,7 @@ view model =
 makeActivities : Model -> List (Html Msg)
 makeActivities model =
     List.map
-        (\activity ->
+        (\( id, activity ) ->
             section [ class "col-xs-11" ]
                 [ header []
                     [ h2
@@ -69,6 +71,7 @@ makeActivities model =
                         [ text "Need Photo" ]
                     , p
                         [ style Styles.mediumText
+                        , onInput (UpdateActivityBlurb id)
                         , attribute "contenteditable" <|
                             setEditableStatus model.editModeActive
                         ]
@@ -77,6 +80,7 @@ makeActivities model =
                 , div [ class "col-xs-12 col-md-4" ]
                     [ p
                         [ style Styles.mediumText
+                        , onInput (UpdateActivityDescription id)
                         , attribute "contenteditable" <|
                             setEditableStatus model.editModeActive
                         ]
@@ -85,4 +89,5 @@ makeActivities model =
                   -- , div [ class "col-xs-12 col-md-4 col-md-offset-2" ] [ p [] [ text activity.long_description ] ]
                 ]
         )
-        model.activities
+    <|
+        Dict.toList model.activities
