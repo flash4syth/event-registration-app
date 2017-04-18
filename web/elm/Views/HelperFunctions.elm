@@ -3,6 +3,7 @@ module Views.HelperFunctions exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as JDecode
+import Json.Encode as JEncode
 import Html.Events exposing (onWithOptions)
 import Messages exposing (..)
 import Model exposing (..)
@@ -44,3 +45,8 @@ registerButton =
         , onClick (SetState RegistrationPage)
         ]
         [ text "REGISTER NOW!" ]
+
+
+updateFood : List Event -> Cmd Msg
+updateFood meals =
+    Cmd.none

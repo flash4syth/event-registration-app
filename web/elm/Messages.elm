@@ -10,6 +10,7 @@ type Msg
     | DropDownClicked
     | ToggleEditMode
     | AddEvent
+    | UpdateFood
 
 
 

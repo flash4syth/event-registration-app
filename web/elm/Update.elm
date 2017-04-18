@@ -54,12 +54,15 @@ update msg model =
                 newActivityList =
                     List.reverse (newActivity :: reverseActivityList)
             in
-                ( { model
+                ({ model
                     | activities = newActivityList
                     , editModeActive = True
-                  }
-                , Cmd.none
+                 }
+                    ! []
                 )
+
+        UpdateFood ->
+            ({ model | editModeActive = False } ! [])
 
 
 

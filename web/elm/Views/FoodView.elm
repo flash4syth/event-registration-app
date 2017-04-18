@@ -1,6 +1,6 @@
 module Views.FoodView exposing (..)
 
-import Messages exposing (Msg)
+import Messages exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (..)
@@ -24,20 +24,48 @@ view model =
                             ]
                         ]
                     , tbody []
-                        (makeRows model.meals)
+                        (makeRows model)
                     ]
+               , (if model.userType == AdminUser then
+                    if model.editModeActive then
+                        button
+                            [ class "btn btn-info btn-lg"
+                            , onClick UpdateFood
+                            ]
+                            [ text "Save" ]
+                    else
+                        button
+                            [ class "btn btn-warning btn-lg"
+                            , onClick ToggleEditMode
+                            ]
+                            [ text "Edit Meals" ]
+                  else
+                    p [] []
+                 )
                ]
         )
 
 
-makeRows : List Event -> List (Html Msg)
-makeRows mealList =
+makeRows : Model -> List (Html Msg)
+makeRows model =
     List.map
         (\meal ->
-            tr []
-                [ td [] [ text meal.start_datetime ]
-                , td [] [ text meal.location ]
-                , td [] [ text meal.short_description ]
+            tr [ name "id", value "0" ]
+                [ td
+                    [ attribute "contenteditable"
+                        (setEditableStatus model.editModeActive)
+                    ]
+                    [ text meal.start_datetime ]
+                , td
+                    [ attribute "contenteditable"
+                        (setEditableStatus model.editModeActive)
+                    ]
+                    [ text meal.location ]
+                , td
+                    [ attribute "contenteditable"
+                        (setEditableStatus model.editModeActive)
+                    ]
+                    [ text meal.short_description ]
                 ]
         )
-        mealList
+        model.meals
