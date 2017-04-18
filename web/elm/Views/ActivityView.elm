@@ -57,20 +57,28 @@ makeActivities model =
     List.map
         (\activity ->
             section [ class "col-xs-11" ]
-                [ header [] [ h2 [] [ text activity.name ] ]
+                [ header []
+                    [ h2
+                        [ attribute "contenteditable" <|
+                            setEditableStatus model.editModeActive
+                        ]
+                        [ text activity.name ]
+                    ]
                 , div [ class "col-xs-12 col-md-4" ]
                     [ img [ height 200, width 200, src activity.picture ]
                         [ text "Need Photo" ]
                     , p
                         [ style Styles.mediumText
-                        , attribute "contenteditable" <| setEditableStatus model.editModeActive
+                        , attribute "contenteditable" <|
+                            setEditableStatus model.editModeActive
                         ]
                         [ text activity.short_description ]
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
                     [ p
                         [ style Styles.mediumText
-                        , attribute "contenteditable" <| setEditableStatus model.editModeActive
+                        , attribute "contenteditable" <|
+                            setEditableStatus model.editModeActive
                         ]
                         [ text activity.long_description ]
                     ]

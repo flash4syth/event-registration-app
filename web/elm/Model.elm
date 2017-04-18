@@ -23,8 +23,8 @@ initialModel =
     , specialNeedsHidden = True
     , menuOptionsHidden = True
     , password = ""
-    , state = RegistrationPage
-    , userType = AdminUser
+    , state = HomePage
+    , userType = AnonymousUser
     , loginError = ""
     }
 
