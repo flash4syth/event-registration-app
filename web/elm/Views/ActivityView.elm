@@ -28,11 +28,18 @@ view model =
                                 ]
                                 [ text "Save" ]
                         else
-                            button
-                                [ class "btn btn-warning btn-lg"
-                                , onClick ToggleEditMode
+                            div []
+                                [ button
+                                    [ class "btn btn-warning btn-lg"
+                                    , onClick ToggleEditMode
+                                    ]
+                                    [ text "Edit Activities" ]
+                                , button
+                                    [ class "btn btn-warning btn-lg"
+                                    , onClick AddEvent
+                                    ]
+                                    [ text "Add Activity" ]
                                 ]
-                                [ text "Edit Activities" ]
 
                     MemberUser ->
                         p [] []

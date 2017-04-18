@@ -9,6 +9,7 @@ type Msg
     | Blur
     | DropDownClicked
     | ToggleEditMode
+    | AddEvent
 
 
 

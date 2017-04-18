@@ -35,14 +35,35 @@ update msg model =
         ToggleEditMode ->
             { model | editModeActive = not model.editModeActive } ! []
 
+        AddEvent ->
+            let
+                newActivity =
+                    { name = "New"
+                    , event_id = -1
+                    , start_datetime = "Needs Time"
+                    , end_datetime = ""
+                    , location = "Needs Location"
+                    , picture = ""
+                    , short_description = "Needs Blurb"
+                    , long_description = "Needs Description"
+                    }
+
+                reverseActivityList =
+                    List.reverse model.activities
+
+                newActivityList =
+                    List.reverse (newActivity :: reverseActivityList)
+            in
+                ( { model
+                    | activities = newActivityList
+                    , editModeActive = True
+                  }
+                , Cmd.none
+                )
 
 
-{--AddActivity event_id interest_level ->
-          let activities = []
-          in
-            ( {model | registration_info = .activities = activities}, Cmd.none )
 
-
+{--
 activityMap : (a -> a) -> (a -> Bool) -> List a -> List a
 activityMap mapper check activities =
   List.map (\activity -> if check activity then mapper else activity)
