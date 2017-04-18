@@ -32,6 +32,9 @@ update msg model =
         DropDownClicked ->
             { model | menuOptionsHidden = not model.menuOptionsHidden } ! []
 
+        ToggleEditMode ->
+            { model | editModeActive = not model.editModeActive } ! []
+
 
 
 {--AddActivity event_id interest_level ->

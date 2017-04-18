@@ -1,14 +1,15 @@
 module Views.ActivityView exposing (..)
 
-import Messages exposing (Msg)
+import Messages exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (..)
 import Styles.Styles as Styles
+import Views.HelperFunctions exposing (..)
 
 
-view : Model -> Html Msg -> Html Msg -> Html Msg
-view model addLogo registerButton =
+view : Model -> Html Msg
+view model =
     section [ class "row" ]
         (List.concat
             [ [ addLogo
@@ -18,7 +19,28 @@ view model addLogo registerButton =
                     ]
               ]
             , (makeActivities model)
-            , [ registerButton ]
+            , [ (case model.userType of
+                    AdminUser ->
+                        if model.editModeActive then
+                            button
+                                [ class "btn btn-info btn-lg"
+                                , onClick ToggleEditMode
+                                ]
+                                [ text "Save" ]
+                        else
+                            button
+                                [ class "btn btn-warning btn-lg"
+                                , onClick ToggleEditMode
+                                ]
+                                [ text "Edit Activities" ]
+
+                    MemberUser ->
+                        p [] []
+
+                    AnonymousUser ->
+                        registerButton
+                )
+              ]
             ]
         )
 
@@ -30,11 +52,20 @@ makeActivities model =
             section [ class "col-xs-11" ]
                 [ header [] [ h2 [] [ text activity.name ] ]
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ img [ height 200, width 200, src activity.picture ] [ text "Need Photo" ]
-                    , p [ style Styles.mediumText ] [ text activity.short_description ]
+                    [ img [ height 200, width 200, src activity.picture ]
+                        [ text "Need Photo" ]
+                    , p
+                        [ style Styles.mediumText
+                        , attribute "contenteditable" <| setEditableStatus model.editModeActive
+                        ]
+                        [ text activity.short_description ]
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ p [ style Styles.mediumText ] [ text activity.long_description ]
+                    [ p
+                        [ style Styles.mediumText
+                        , attribute "contenteditable" <| setEditableStatus model.editModeActive
+                        ]
+                        [ text activity.long_description ]
                     ]
                   -- , div [ class "col-xs-12 col-md-4 col-md-offset-2" ] [ p [] [ text activity.long_description ] ]
                 ]

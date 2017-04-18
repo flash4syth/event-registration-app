@@ -4,10 +4,11 @@ import Messages exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Styles.Styles as Styles
+import Views.HelperFunctions exposing (..)
 
 
-view : Html Msg -> Html Msg
-view addLogo =
+view : Html Msg
+view =
     section [ class "row" ]
         (addLogo
             :: [ header [] [ h1 [ style Styles.centerText ] [ text "Map" ] ]

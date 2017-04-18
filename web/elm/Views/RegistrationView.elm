@@ -2,14 +2,18 @@ module Views.RegistrationView exposing (..)
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (..)
+
+
+-- import Html.Events exposing (..)
+
 import Styles.Styles as Styles
 import Messages exposing (..)
 import Model exposing (..)
+import Views.HelperFunctions exposing (..)
 
 
-view : Model -> Html Msg -> Html Msg
-view model addLogo =
+view : Model -> Html Msg
+view model =
     section [ class "row" ]
         (addLogo
             :: [ header [] [ h1 [ style Styles.centerText ] [ text "Registration" ] ]

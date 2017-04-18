@@ -8,6 +8,7 @@ type Msg
     | ToggleSpecialNeeds
     | Blur
     | DropDownClicked
+    | ToggleEditMode
 
 
 

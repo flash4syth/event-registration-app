@@ -5,10 +5,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (..)
 import Styles.Styles as Styles
+import Views.HelperFunctions exposing (..)
 
 
-view : Model -> Html Msg -> Html Msg
-view model addLogo =
+view : Model -> Html Msg
+view model =
     section [ class "row" ]
         (addLogo
             :: [ header [ class "col-xs-12 col-md-12" ] [ h1 [ style Styles.centerText ] [ text "Cabins & Facilities" ] ]

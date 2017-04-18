@@ -19,10 +19,12 @@ initialModel =
         , meals = []
         , wards = wardList
         }
+    , editModeActive = False
     , specialNeedsHidden = True
     , menuOptionsHidden = True
     , password = ""
     , state = RegistrationPage
+    , userType = AdminUser
     , loginError = ""
     }
 
@@ -115,9 +117,11 @@ type alias Model =
     , registration_info : RegistrationInfo
     , password : String
     , state : UiState
+    , userType : UserType
     , loginError : String
     , specialNeedsHidden : Bool
     , menuOptionsHidden : Bool
+    , editModeActive : Bool
     }
 
 
@@ -166,3 +170,9 @@ type UiState
     | SchedulePage
     | CabinsPage
     | PackingPage
+
+
+type UserType
+    = AdminUser
+    | MemberUser
+    | AnonymousUser

@@ -2,8 +2,6 @@ module Views.MainView exposing (..)
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (onWithOptions)
-import Json.Decode as JDecode
 import Model exposing (..)
 import Messages exposing (..)
 import Styles.Styles as Styles
@@ -15,6 +13,7 @@ import Views.PackingView as PackingView
 import Views.ScheduleView as ScheduleView
 import Views.CabinView as CabinView
 import Views.FoodView as FoodView
+import Views.HelperFunctions exposing (..)
 
 
 optionList : List ( String, Msg )
@@ -26,20 +25,6 @@ optionList =
     , ( "Cabins", SetState CabinsPage )
     , ( "Packing List", SetState PackingPage )
     ]
-
-
-
--- helper to cancel click anywhere
-
-
-onClick : msg -> Attribute msg
-onClick message =
-    onWithOptions
-        "click"
-        { stopPropagation = True
-        , preventDefault = False
-        }
-        (JDecode.succeed message)
 
 
 view : Model -> Html Msg
@@ -93,15 +78,6 @@ optionView ( option, msg ) =
         [ a [ href "#", onClick msg ] [ text option ] ]
 
 
-registerButton : Html Msg
-registerButton =
-    button
-        [ class "btn btn-primary btn-lg btn-block"
-        , onClick (SetState RegistrationPage)
-        ]
-        [ text "REGISTER NOW!" ]
-
-
 pageContent : Model -> Html Msg
 pageContent model =
     case model.state of
@@ -135,30 +111,25 @@ pageContent model =
                 ]
 
         MapPage ->
-            MapView.view addLogo
+            MapView.view
 
         RegistrationPage ->
-            RegistrationView.view model addLogo
+            RegistrationView.view model
 
         AdminPage ->
             AdminView.view model
 
         ActivitiesPage ->
-            ActivityView.view model addLogo registerButton
+            ActivityView.view model
 
         FoodPage ->
-            FoodView.view model addLogo
+            FoodView.view model
 
         SchedulePage ->
-            ScheduleView.view model addLogo
+            ScheduleView.view model
 
         CabinsPage ->
-            CabinView.view model addLogo
+            CabinView.view model
 
         PackingPage ->
-            PackingView.view model addLogo
-
-
-addLogo : Html Msg
-addLogo =
-    div [ class "jumbotron" ] [ p [ class "logo" ] [] ]
+            PackingView.view model
