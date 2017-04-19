@@ -7,6 +7,10 @@ type alias Id =
     Int
 
 
+type TagType tag
+    = TagType tag
+
+
 initialModel : Model
 initialModel =
     { meals = mealDict
@@ -30,7 +34,7 @@ initialModel =
     , menuOptionsHidden = True
     , password = ""
     , state = HomePage
-    , userType = AnonymousUser
+    , userType = AdminUser
     , loginError = ""
     }
 

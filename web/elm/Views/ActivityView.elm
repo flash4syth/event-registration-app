@@ -67,27 +67,41 @@ makeActivities model =
                         [ text activity.name ]
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ img [ height 200, width 200, src activity.picture ]
+                    ([ img [ height 200, width 200, src activity.picture ]
                         [ text "Need Photo" ]
-                    , p
-                        [ style Styles.mediumText
-                        , onInput (UpdateActivityBlurb id)
-                        , attribute "contenteditable" <|
-                            setEditableStatus model.editModeActive
-                        ]
-                        [ text activity.short_description ]
-                    ]
+                     ]
+                        ++ [ (makeEditableTag model
+                                (UpdateEvent Blurb id)
+                                activity.short_description
+                             )
+                           ]
+                    )
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ p
-                        [ style Styles.mediumText
-                        , onInput (UpdateActivityDescription id)
-                        , attribute "contenteditable" <|
-                            setEditableStatus model.editModeActive
-                        ]
-                        [ text activity.long_description ]
+                    [ (makeEditableTag model
+                        (UpdateEvent Description id)
+                        activity.long_description
+                      )
                     ]
                   -- , div [ class "col-xs-12 col-md-4 col-md-offset-2" ] [ p [] [ text activity.long_description ] ]
                 ]
         )
     <|
         Dict.toList model.activities
+
+
+makeEditableTag : Model -> (String -> Msg) -> String -> Html Msg
+makeEditableTag model func text_content =
+    case model.editModeActive of
+        True ->
+            input
+                [ type_ "text"
+                , style Styles.mediumText
+                , onInput func
+                ]
+                [ text text_content ]
+
+        False ->
+            p
+                [ style Styles.mediumText
+                ]
+                [ text text_content ]

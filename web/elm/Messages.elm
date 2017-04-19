@@ -12,8 +12,13 @@ type Msg
     | AddEvent
     | UpdateFood
       {--Id--}
-    | UpdateActivityDescription Id String
-    | UpdateActivityBlurb Id String
+    | UpdateEvent EventField Id String
+
+
+type EventField
+    = Blurb
+    | Description
+    | Name
 
 
 

@@ -3,7 +3,10 @@ module Views.HelperFunctions exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as JDecode
-import Json.Encode as JEncode
+
+
+-- import Json.Encode as JEncode
+
 import Html.Events exposing (onWithOptions)
 import Messages exposing (..)
 import Model exposing (..)

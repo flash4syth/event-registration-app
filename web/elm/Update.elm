@@ -63,14 +63,46 @@ update msg model =
         UpdateFood ->
             ({ model | editModeActive = False } ! [])
 
-        UpdateActivityDescription id inputText ->
-            (model ! [])
+        UpdateEvent field id inputText ->
+            let
+                updatedActivities =
+                    case Dict.get id model.activities of
+                        Nothing ->
+                            model.activities
 
-        UpdateActivityBlurb id inputText ->
-            (model ! [])
+                        Just event ->
+                            Dict.insert id
+                                (case field of
+                                    Blurb ->
+                                        { event | short_description = inputText }
+
+                                    Description ->
+                                        { event | long_description = inputText }
+
+                                    Name ->
+                                        { event | name = inputText }
+                                )
+                                model.activities
+            in
+                ({ model | activities = updatedActivities } ! [])
 
 
 
+--             let
+--                 updatedActivities = updateEventDict id model.activities inputText
+--             in
+--                 ({ model | activities = updatedActivities } ! [])
+--
+-- updateEventDict : Id -> Dict Id Event -> String -> Dict Id Event
+-- updateEventDict id eventDict inputText
+--   case (Dict.get id eventDict) of
+--       Nothing ->
+--           eventDict
+--
+--       Just event ->
+--           Dict.insert id
+--               { event | long_description = inputText }
+--               eventDict
 {--
 activityMap : (a -> a) -> (a -> Bool) -> List a -> List a
 activityMap mapper check activities =
