@@ -46,6 +46,7 @@ update msg model =
                     , picture = ""
                     , short_description = "Needs Blurb"
                     , long_description = "Needs Description"
+                    , eventModified = True
                     }
 
                 -- reverseActivityList =
@@ -74,13 +75,34 @@ update msg model =
                             Dict.insert id
                                 (case field of
                                     Blurb ->
-                                        { event | short_description = inputText }
+                                        { event
+                                            | short_description = inputText
+                                            , eventModified = True
+                                        }
 
                                     Description ->
-                                        { event | long_description = inputText }
+                                        { event
+                                            | long_description = inputText
+                                            , eventModified = True
+                                        }
 
                                     Name ->
-                                        { event | name = inputText }
+                                        { event
+                                            | name = inputText
+                                            , eventModified = True
+                                        }
+
+                                    StartTime ->
+                                        { event
+                                            | start_datetime = inputText
+                                            , eventModified = True
+                                        }
+
+                                    Location ->
+                                        { event
+                                            | start_datetime = inputText
+                                            , eventModified = True
+                                        }
                                 )
                                 model.activities
             in

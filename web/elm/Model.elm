@@ -68,6 +68,7 @@ mealDict =
             , picture = ""
             , short_description = "Roast Beef and Bread"
             , long_description = ""
+            , eventModified = False
             }
           )
         , ( 1
@@ -78,6 +79,7 @@ mealDict =
             , picture = ""
             , short_description = "Breakfast Burritos"
             , long_description = ""
+            , eventModified = False
             }
           )
         , ( 2
@@ -88,6 +90,7 @@ mealDict =
             , picture = ""
             , short_description = "PB&J Mmmm!"
             , long_description = "Here is a long description that will go on and on and on."
+            , eventModified = False
             }
           )
         ]
@@ -104,6 +107,7 @@ activityDict =
             , picture = ""
             , short_description = "Explore the universe"
             , long_description = "Here is a long description that will go on and on and on."
+            , eventModified = False
             }
           )
         , ( 1
@@ -114,6 +118,7 @@ activityDict =
             , picture = ""
             , short_description = "Spiritual Feast"
             , long_description = "Here is a long description that will go on and on and on."
+            , eventModified = False
             }
           )
         , ( 2
@@ -124,6 +129,7 @@ activityDict =
             , picture = ""
             , short_description = "A wonderful man"
             , long_description = "Here is a long description that will go on and on and on."
+            , eventModified = False
             }
           )
         ]
@@ -170,6 +176,7 @@ type alias Event =
     , picture : String
     , short_description : String
     , long_description : String
+    , eventModified : Bool
     }
 
 

@@ -19,6 +19,8 @@ type EventField
     = Blurb
     | Description
     | Name
+    | StartTime
+    | Location
 
 
 

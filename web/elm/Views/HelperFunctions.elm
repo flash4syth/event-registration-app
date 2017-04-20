@@ -7,19 +7,37 @@ import Json.Decode as JDecode
 
 -- import Json.Encode as JEncode
 
-import Html.Events exposing (onWithOptions)
+import Html.Events exposing (onWithOptions, onInput)
 import Messages exposing (..)
 import Model exposing (..)
+import Styles.Styles as Styles
 
 
-setEditableStatus : Bool -> String
-setEditableStatus editModeActive =
-    case editModeActive of
+makeEditableTag :
+    ( Model
+    , List (Attribute Msg)
+      -> List (Html Msg)
+      -> Html Msg
+    , String -> Msg
+    , String
+    )
+    -> Html Msg
+makeEditableTag ( model, tag_func, msg_func, text_content ) =
+    case model.editModeActive of
         True ->
-            "true"
+            input
+                [ type_ "text"
+                , style Styles.mediumText
+                , onInput msg_func
+                , value text_content
+                ]
+                []
 
         False ->
-            "false"
+            tag_func
+                [ style Styles.mediumText
+                ]
+                [ text text_content ]
 
 
 

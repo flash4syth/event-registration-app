@@ -27,22 +27,22 @@ view model =
                     , tbody []
                         (makeRows model)
                     ]
-               , (if model.userType == AdminUser then
-                    if model.editModeActive then
-                        button
-                            [ class "btn btn-info btn-lg"
-                            , onClick UpdateFood
-                            ]
-                            [ text "Save" ]
-                    else
-                        button
-                            [ class "btn btn-warning btn-lg"
-                            , onClick ToggleEditMode
-                            ]
-                            [ text "Edit Meals" ]
-                  else
-                    p [] []
-                 )
+                 --  , (if model.userType == AdminUser then
+                 --       if model.editModeActive then
+                 --           button
+                 --               [ class "btn btn-info btn-lg"
+                 --               , onClick UpdateFood
+                 --               ]
+                 --               [ text "Save" ]
+                 --       else
+                 --           button
+                 --               [ class "btn btn-warning btn-lg"
+                 --               , onClick ToggleEditMode
+                 --               ]
+                 --               [ text "Edit Meals" ]
+                 --     else
+                 --       p [] []
+                 --    )
                ]
         )
 
@@ -52,22 +52,24 @@ makeRows model =
     List.map
         (\( id, meal ) ->
             tr [ name "id", value "0" ]
-                [ td
-                    [ attribute "contenteditable"
-                        (setEditableStatus model.editModeActive)
+                (List.map makeEditableTag
+                    [ ( model
+                      , (td)
+                      , (UpdateEvent StartTime id)
+                      , meal.start_datetime
+                      )
+                    , ( model
+                      , (td)
+                      , (UpdateEvent Location id)
+                      , meal.location
+                      )
+                    , ( model
+                      , (td)
+                      , (UpdateEvent Blurb id)
+                      , meal.short_description
+                      )
                     ]
-                    [ text meal.start_datetime ]
-                , td
-                    [ attribute "contenteditable"
-                        (setEditableStatus model.editModeActive)
-                    ]
-                    [ text meal.location ]
-                , td
-                    [ attribute "contenteditable"
-                        (setEditableStatus model.editModeActive)
-                    ]
-                    [ text meal.short_description ]
-                ]
+                )
         )
     <|
         Dict.toList model.meals

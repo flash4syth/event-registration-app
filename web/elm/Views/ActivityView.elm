@@ -3,7 +3,6 @@ module Views.ActivityView exposing (..)
 import Messages exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
 import Model exposing (..)
 import Styles.Styles as Styles
 import Views.HelperFunctions exposing (..)
@@ -60,48 +59,39 @@ makeActivities model =
         (\( id, activity ) ->
             section [ class "col-xs-11" ]
                 [ header []
-                    [ h2
-                        [ attribute "contenteditable" <|
-                            setEditableStatus model.editModeActive
-                        ]
-                        [ text activity.name ]
+                    [ (makeEditableTag
+                        ( model
+                        , (h2)
+                        , (UpdateEvent Name id)
+                        , activity.name
+                        )
+                      )
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
                     ([ img [ height 200, width 200, src activity.picture ]
                         [ text "Need Photo" ]
                      ]
-                        ++ [ (makeEditableTag model
-                                (UpdateEvent Blurb id)
-                                activity.short_description
+                        ++ [ (makeEditableTag
+                                ( model
+                                , (p)
+                                , (UpdateEvent Blurb id)
+                                , activity.short_description
+                                )
                              )
                            ]
                     )
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ (makeEditableTag model
-                        (UpdateEvent Description id)
-                        activity.long_description
+                    [ (makeEditableTag
+                        ( model
+                        , (p)
+                        , (UpdateEvent Description id)
+                        , activity.long_description
+                        )
                       )
                     ]
                   -- , div [ class "col-xs-12 col-md-4 col-md-offset-2" ] [ p [] [ text activity.long_description ] ]
                 ]
         )
     <|
-        Dict.toList model.activities
-
-
-makeEditableTag : Model -> (String -> Msg) -> String -> Html Msg
-makeEditableTag model func text_content =
-    case model.editModeActive of
-        True ->
-            input
-                [ type_ "text"
-                , style Styles.mediumText
-                , onInput func
-                ]
-                [ text text_content ]
-
-        False ->
-            p
-                [ style Styles.mediumText
-                ]
-                [ text text_content ]
+        List.reverse <|
+            Dict.toList model.activities
