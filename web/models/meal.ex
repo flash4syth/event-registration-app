@@ -9,6 +9,7 @@ defmodule SR.Meal do
     field :location, :string
     field :description, :string
     field :blurb, :string
+    field :image, :string
 
     many_to_many :members, SR.Member, join_through: "members_meals"
     timestamps()
