@@ -23,13 +23,15 @@ view model =
             , [ (case model.userType of
                     AdminUser ->
                         if model.editModeActive then
-                            button
-                                [ class "btn btn-info btn-lg"
-                                , onClick ToggleEditMode
+                            section []
+                                [ button
+                                    [ class "btn btn-info btn-lg"
+                                    , onClick SaveEdits
+                                    ]
+                                    [ text "Save" ]
                                 ]
-                                [ text "Save" ]
                         else
-                            div []
+                            section []
                                 [ button
                                     [ class "btn btn-warning btn-lg"
                                     , onClick ToggleEditMode
@@ -84,12 +86,25 @@ makeActivities model =
                     [ (makeEditableTag
                         ( model
                         , (p)
+                        , (UpdateEvent Location id)
+                        , activity.location
+                        )
+                      )
+                    , (makeEditableTag
+                        ( model
+                        , (p)
+                        , (UpdateEvent StartTime id)
+                        , activity.start_datetime
+                        )
+                      )
+                    , (makeEditableTag
+                        ( model
+                        , (p)
                         , (UpdateEvent Description id)
                         , activity.long_description
                         )
                       )
                     ]
-                  -- , div [ class "col-xs-12 col-md-4 col-md-offset-2" ] [ p [] [ text activity.long_description ] ]
                 ]
         )
     <|

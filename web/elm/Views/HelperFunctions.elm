@@ -35,7 +35,7 @@ makeEditableTag ( model, tag_func, msg_func, text_content ) =
 
         False ->
             tag_func
-                [ style Styles.mediumText
+                [ style (List.append Styles.mediumText [ ( "width", "100%" ) ])
                 ]
                 [ text text_content ]
 

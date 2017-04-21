@@ -100,7 +100,7 @@ update msg model =
 
                                     Location ->
                                         { event
-                                            | start_datetime = inputText
+                                            | location = inputText
                                             , eventModified = True
                                         }
                                 )
@@ -108,8 +108,14 @@ update msg model =
             in
                 ({ model | activities = updatedActivities } ! [])
 
+        SaveEdits ->
+            -- let updatedEvents = List.filter toList model.ac
+            -- (model, postUpdatedEvents model)
+            model ! []
 
 
+
+-- postUpdatedEvents : Model -> Cmd Msg
 --             let
 --                 updatedActivities = updateEventDict id model.activities inputText
 --             in

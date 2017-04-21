@@ -13,6 +13,7 @@ type Msg
     | UpdateFood
       {--Id--}
     | UpdateEvent EventField Id String
+    | SaveEdits
 
 
 type EventField
