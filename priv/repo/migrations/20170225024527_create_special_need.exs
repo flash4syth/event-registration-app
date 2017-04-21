@@ -4,6 +4,9 @@ defmodule SR.Repo.Migrations.CreateSpecialNeed do
   def change do
     create table(:special_needs) do
       add :description, :text
+      add :wheelchair, :boolean
+      add :foodallergies, :boolean
+      add :other, :boolean
       add :member_id, references(:members, on_delete: :nothing)
 
       timestamps()

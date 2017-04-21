@@ -9,7 +9,7 @@ defmodule SR.Repo.Migrations.CreateMember do
       add :phone, :string
       add :gender, :string
       add :age, :integer
-      # add :ward_id, references(:Ward, on_delete: :nothing)
+      add :ward_id, references(:wards, on_delete: :nothing)
       # add :admin_id, references(:Admin, on_delete: :nothing)
       # add :cabin_id, references(:Cabin, on_delete: :nothing)
 

@@ -3,10 +3,14 @@ defmodule SR.Meal do
 
   schema "meals" do
     field :name, :string
-    field :time, :time
-    field :location, :string, default: nil
-    many_to_many :members, SR.Member, join_through: "members_meals"
+    field :start_datetime, Ecto.DateTime
+    field :stringtime, :string
+    field :end_datetime, Ecto.DateTime
+    field :location, :string
+    field :description, :string
+    field :blurb, :string
 
+    many_to_many :members, SR.Member, join_through: "members_meals"
     timestamps()
   end
 
@@ -15,8 +19,8 @@ defmodule SR.Meal do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    # |> validate_required([])
-    |> validate_required([:name])
+    |> cast(params, [:name, :start_datetime, :stringtime, :end_datetime,
+      :location, :description, :blurb])
+    |> validate_required([:name, :stringtime, :location, :description, :blurb])
   end
 end

@@ -3,6 +3,9 @@ defmodule SR.SpecialNeed do
 
   schema "specials_needs" do
     field :description, :string
+    field :wheelchair, :boolean
+    field :foodallergies, :boolean
+    field :other, :boolean
     belongs_to :member, SR.Member
 
     timestamps()

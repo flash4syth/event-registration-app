@@ -4,10 +4,12 @@ defmodule SR.Repo.Migrations.CreateActivity do
   def change do
     create table(:activities) do
       add :name, :string
-      add :start_datetime, :datetime
-      add :end_datetime, :datetime
+      add :start_datetime, :datetime, null: true
+      add :stringtime, :string
+      add :end_datetime, :datetime, null: true
       add :location, :string
-      add :description, :text
+      add :description, :string
+      add :blurb, :string
 
       timestamps()
     end

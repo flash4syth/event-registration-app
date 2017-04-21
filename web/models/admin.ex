@@ -3,7 +3,7 @@ defmodule SR.Admin do
 
   schema "admins" do
     field :is_superadmin, :boolean, default: false
-    belongs_to :admin, SR.Admin
+    belongs_to :member, SR.Member
 
     timestamps()
   end

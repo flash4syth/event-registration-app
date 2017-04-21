@@ -5,6 +5,7 @@ defmodule SR.Ward do
     field :name, :string
     field :member_count, :integer
     field :bishop_last_name, :string
+    has_many :member, SR.Member
 
     timestamps()
   end
