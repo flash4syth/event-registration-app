@@ -10,7 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 import Ecto.DateTime, only: [utc: 0]
-alias SR.{Meal, Activity}
+alias SR.{Meal, Activity, Ward}
 
 SR.Repo.insert!(%Meal{
   name: "Friday Dinner",
@@ -77,3 +77,11 @@ SR.Repo.insert!(%Activity{
   inserted_at: utc(),
   updated_at: utc()
 })
+
+["93rd", "98th", "99th", "100th", "227th", "228th", "229th", "230th",
+  "231st", "232nd", "233rd", "235th"]
+|> Enum.each( fn name ->
+  SR.Repo.insert!(%Ward{
+    name: name
+    })
+end)
