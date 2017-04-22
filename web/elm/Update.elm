@@ -40,12 +40,11 @@ update msg model =
             let
                 newActivity =
                     { name = "New"
-                    , start_datetime = "Needs Time"
-                    , end_datetime = ""
+                    , datetime = "Needs Time"
                     , location = "Needs Location"
-                    , picture = ""
-                    , short_description = "Needs Blurb"
-                    , long_description = "Needs Description"
+                    , image = ""
+                    , blurb = "Needs Blurb"
+                    , description = "Needs Description"
                     , eventModified = True
                     }
 
@@ -76,13 +75,13 @@ update msg model =
                                 (case field of
                                     Blurb ->
                                         { event
-                                            | short_description = inputText
+                                            | blurb = inputText
                                             , eventModified = True
                                         }
 
                                     Description ->
                                         { event
-                                            | long_description = inputText
+                                            | description = inputText
                                             , eventModified = True
                                         }
 
@@ -94,7 +93,7 @@ update msg model =
 
                                     StartTime ->
                                         { event
-                                            | start_datetime = inputText
+                                            | datetime = inputText
                                             , eventModified = True
                                         }
 
@@ -129,7 +128,7 @@ update msg model =
 --
 --       Just event ->
 --           Dict.insert id
---               { event | long_description = inputText }
+--               { event | description = inputText }
 --               eventDict
 {--
 activityMap : (a -> a) -> (a -> Bool) -> List a -> List a

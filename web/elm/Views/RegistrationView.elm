@@ -229,7 +229,7 @@ makeEventCheckBox eventDict =
                     , text event.name
                     , span [ class "short-desc" ]
                         [ text
-                            ("--" ++ event.short_description)
+                            ("--" ++ event.blurb)
                         ]
                     ]
                 ]

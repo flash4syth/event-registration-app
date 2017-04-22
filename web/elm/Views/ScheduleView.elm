@@ -40,9 +40,9 @@ makeRows allEvents =
     List.map
         (\event ->
             tr []
-                [ td [] [ text event.start_datetime ]
+                [ td [] [ text event.datetime ]
                 , td [] [ text event.location ]
-                , td [] [ text event.short_description ]
+                , td [] [ text event.blurb ]
                 ]
         )
         allEvents

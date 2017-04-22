@@ -56,7 +56,7 @@ makeRows model =
                     [ ( model
                       , (td)
                       , (UpdateEvent StartTime id)
-                      , meal.start_datetime
+                      , meal.datetime
                       )
                     , ( model
                       , (td)
@@ -66,7 +66,7 @@ makeRows model =
                     , ( model
                       , (td)
                       , (UpdateEvent Blurb id)
-                      , meal.short_description
+                      , meal.blurb
                       )
                     ]
                 )

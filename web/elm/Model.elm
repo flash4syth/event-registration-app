@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Dict exposing (Dict)
+import Json.Decode exposing (int, string, Decoder)
 
 
 type alias Id =
@@ -39,6 +40,17 @@ initialModel =
     }
 
 
+
+--fetchInitialData
+{--fetchInitialData : Cmd Msg
+fetchInitialData =
+  Http.get "/initialdata", Json.Decoder initialDataDecoder
+
+initJsonDecoder: Decoder InitJson
+initJsonDecoder =
+--}
+
+
 wardList : List String
 wardList =
     [ "Select Ward"
@@ -62,34 +74,31 @@ mealDict =
     Dict.fromList
         [ ( 0
           , { name = "Friday Dinner"
-            , start_datetime = "Friday 6:00pm"
-            , end_datetime = "Friday 8:00pm"
+            , datetime = "Friday 6:00pm"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "Roast Beef and Bread"
-            , long_description = ""
+            , image = ""
+            , blurb = "Roast Beef and Bread"
+            , description = ""
             , eventModified = False
             }
           )
         , ( 1
           , { name = "Saturday Breakfast"
-            , start_datetime = "Saturday 8:00am"
-            , end_datetime = "Saturday 9:30am"
+            , datetime = "Saturday 8:00am"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "Breakfast Burritos"
-            , long_description = ""
+            , image = ""
+            , blurb = "Breakfast Burritos"
+            , description = ""
             , eventModified = False
             }
           )
         , ( 2
           , { name = "Saturday Lunch"
-            , start_datetime = "Saturday 12:00pm"
-            , end_datetime = "Saturday 1:00pm"
+            , datetime = "Saturday 12:00pm"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "PB&J Mmmm!"
-            , long_description = "Here is a long description that will go on and on and on."
+            , image = ""
+            , blurb = "PB&J Mmmm!"
+            , description = "Here is a long description that will go on and on and on."
             , eventModified = False
             }
           )
@@ -101,34 +110,31 @@ activityDict =
     Dict.fromList
         [ ( 0
           , { name = "Friday Night Star Gazing"
-            , start_datetime = "Friday 8:00pm"
-            , end_datetime = ""
+            , datetime = "Friday 8:00pm"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "Explore the universe"
-            , long_description = "Here is a long description that will go on and on and on."
+            , image = ""
+            , blurb = "Explore the universe"
+            , description = "Here is a long description that will go on and on and on."
             , eventModified = False
             }
           )
         , ( 1
           , { name = "Friday Night Devotional"
-            , start_datetime = "Friday 6:30pm"
-            , end_datetime = ""
+            , datetime = "Friday 6:30pm"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "Spiritual Feast"
-            , long_description = "Here is a long description that will go on and on and on."
+            , image = ""
+            , blurb = "Spiritual Feast"
+            , description = "Here is a long description that will go on and on and on."
             , eventModified = False
             }
           )
         , ( 2
           , { name = "Saturday Afternoon Speaker: Brad Wilcox"
-            , start_datetime = "Saturday 1:00pm"
-            , end_datetime = ""
+            , datetime = "Saturday 1:00pm"
             , location = "Pavilion"
-            , picture = ""
-            , short_description = "A wonderful man"
-            , long_description = "Here is a long description that will go on and on and on."
+            , image = ""
+            , blurb = "A wonderful man"
+            , description = "Here is a long description that will go on and on and on."
             , eventModified = False
             }
           )
@@ -170,12 +176,11 @@ type alias RegistrationInfo =
 
 type alias Event =
     { name : String
-    , start_datetime : String
-    , end_datetime : String
+    , datetime : String
     , location : String
-    , picture : String
-    , short_description : String
-    , long_description : String
+    , image : String
+    , blurb : String
+    , description : String
     , eventModified : Bool
     }
 

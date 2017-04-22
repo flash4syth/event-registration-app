@@ -70,14 +70,14 @@ makeActivities model =
                       )
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
-                    ([ img [ height 200, width 200, src activity.picture ]
+                    ([ img [ height 200, width 200, src activity.image ]
                         [ text "Need Photo" ]
                      ]
                         ++ [ (makeEditableTag
                                 ( model
                                 , (p)
                                 , (UpdateEvent Blurb id)
-                                , activity.short_description
+                                , activity.blurb
                                 )
                              )
                            ]
@@ -94,14 +94,14 @@ makeActivities model =
                         ( model
                         , (p)
                         , (UpdateEvent StartTime id)
-                        , activity.start_datetime
+                        , activity.datetime
                         )
                       )
                     , (makeEditableTag
                         ( model
                         , (p)
                         , (UpdateEvent Description id)
-                        , activity.long_description
+                        , activity.description
                         )
                       )
                     ]
