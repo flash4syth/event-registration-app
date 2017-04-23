@@ -119,8 +119,18 @@ update msg model =
 
                 ( _, newActivityDict ) =
                     eventWithIdMapper ( initJson.activities, Dict.empty )
+
+                currentRegistrationInfo =
+                    model.registration_info
+
+                newRegistrationInfo =
+                    { currentRegistrationInfo | wards = initJson.wards }
             in
-                { model | activities = newActivityDict, meals = newMealDict }
+                { model
+                    | activities = newActivityDict
+                    , meals = newMealDict
+                    , registration_info = newRegistrationInfo
+                }
                     ! []
 
         FetchResult (Err _) ->

@@ -39,24 +39,6 @@ initialModel =
     }
 
 
-wardList : List String
-wardList =
-    [ "Select Ward"
-    , "93rd"
-    , "98th"
-    , "99th"
-    , "100th"
-    , "227th"
-    , "228th"
-    , "229th"
-    , "230th"
-    , "231st"
-    , "232nd"
-    , "233rd"
-    , "235th"
-    ]
-
-
 type alias Model =
     { meals : Dict Id Event
     , activities : Dict Id Event
