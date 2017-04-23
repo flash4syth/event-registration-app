@@ -112,6 +112,49 @@ update msg model =
             -- (model, postUpdatedEvents model)
             model ! []
 
+        FetchResult (Ok initJson) ->
+            let
+                ( _, newMealDict ) =
+                    eventWithIdMapper ( initJson.meals, Dict.empty )
+
+                ( _, newActivityDict ) =
+                    eventWithIdMapper ( initJson.activities, Dict.empty )
+            in
+                { model | activities = newActivityDict, meals = newMealDict }
+                    ! []
+
+        FetchResult (Err _) ->
+            model ! []
+
+
+eventWithIdMapper :
+    ( List EventWithId, Dict Id Event )
+    -> ( List EventWithId, Dict Id Event )
+eventWithIdMapper ( eventWithIdList, eventDict ) =
+    case eventWithIdList of
+        [] ->
+            ( eventWithIdList, eventDict )
+
+        headEventWithId :: tailEventsWithId ->
+            let
+                newEvent =
+                    { name = headEventWithId.name
+                    , datetime = headEventWithId.datetime
+                    , location = headEventWithId.location
+                    , image = headEventWithId.image
+                    , blurb = headEventWithId.blurb
+                    , description = headEventWithId.description
+                    , eventModified = headEventWithId.eventModified
+                    }
+
+                newId =
+                    headEventWithId.id
+            in
+                eventWithIdMapper
+                    ( tailEventsWithId
+                    , (Dict.insert newId newEvent eventDict)
+                    )
+
 
 
 -- postUpdatedEvents : Model -> Cmd Msg

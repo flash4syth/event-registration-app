@@ -6,12 +6,7 @@ import Model exposing (..)
 import Update exposing (..)
 import Views.MainView exposing (view)
 import Mouse
-
-
--- import Http
--- import Json.Decode as Json exposing (..)
--- import Json.Decode.Pipeline as JsonPipeline exposing (decode, required)
--- import RegistrationView
+import SrHttp exposing (getInitData)
 
 
 main : Program Never Model Msg
@@ -26,7 +21,7 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! []
+    initialModel ! [ getInitData ]
 
 
 

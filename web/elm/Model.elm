@@ -1,7 +1,6 @@
 module Model exposing (..)
 
 import Dict exposing (Dict)
-import Json.Decode exposing (int, string, Decoder)
 
 
 type alias Id =
@@ -14,8 +13,8 @@ type TagType tag
 
 initialModel : Model
 initialModel =
-    { meals = mealDict
-    , activities = activityDict
+    { meals = Dict.empty
+    , activities = Dict.empty
     , registration_info =
         { first_name = ""
         , reg_type = ""
@@ -28,7 +27,7 @@ initialModel =
         , email = ""
         , selectedWard = ""
         , meals = []
-        , wards = wardList
+        , wards = []
         }
     , editModeActive = False
     , specialNeedsHidden = True
@@ -38,17 +37,6 @@ initialModel =
     , userType = AdminUser
     , loginError = ""
     }
-
-
-
---fetchInitialData
-{--fetchInitialData : Cmd Msg
-fetchInitialData =
-  Http.get "/initialdata", Json.Decoder initialDataDecoder
-
-initJsonDecoder: Decoder InitJson
-initJsonDecoder =
---}
 
 
 wardList : List String
@@ -67,78 +55,6 @@ wardList =
     , "233rd"
     , "235th"
     ]
-
-
-mealDict : Dict Id Event
-mealDict =
-    Dict.fromList
-        [ ( 0
-          , { name = "Friday Dinner"
-            , datetime = "Friday 6:00pm"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "Roast Beef and Bread"
-            , description = ""
-            , eventModified = False
-            }
-          )
-        , ( 1
-          , { name = "Saturday Breakfast"
-            , datetime = "Saturday 8:00am"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "Breakfast Burritos"
-            , description = ""
-            , eventModified = False
-            }
-          )
-        , ( 2
-          , { name = "Saturday Lunch"
-            , datetime = "Saturday 12:00pm"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "PB&J Mmmm!"
-            , description = "Here is a long description that will go on and on and on."
-            , eventModified = False
-            }
-          )
-        ]
-
-
-activityDict : Dict Id Event
-activityDict =
-    Dict.fromList
-        [ ( 0
-          , { name = "Friday Night Star Gazing"
-            , datetime = "Friday 8:00pm"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "Explore the universe"
-            , description = "Here is a long description that will go on and on and on."
-            , eventModified = False
-            }
-          )
-        , ( 1
-          , { name = "Friday Night Devotional"
-            , datetime = "Friday 6:30pm"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "Spiritual Feast"
-            , description = "Here is a long description that will go on and on and on."
-            , eventModified = False
-            }
-          )
-        , ( 2
-          , { name = "Saturday Afternoon Speaker: Brad Wilcox"
-            , datetime = "Saturday 1:00pm"
-            , location = "Pavilion"
-            , image = ""
-            , blurb = "A wonderful man"
-            , description = "Here is a long description that will go on and on and on."
-            , eventModified = False
-            }
-          )
-        ]
 
 
 type alias Model =
@@ -170,21 +86,6 @@ type alias RegistrationInfo =
     }
 
 
-
--- Includes Meals and Activities
-
-
-type alias Event =
-    { name : String
-    , datetime : String
-    , location : String
-    , image : String
-    , blurb : String
-    , description : String
-    , eventModified : Bool
-    }
-
-
 type alias SpecialNeeds =
     { need_type : String
     , description : String
@@ -207,3 +108,37 @@ type UserType
     = AdminUser
     | MemberUser
     | AnonymousUser
+
+
+
+-- Events are Meals or Activities
+
+
+type alias Event =
+    { name : String
+    , datetime : String
+    , location : String
+    , image : String
+    , blurb : String
+    , description : String
+    , eventModified : Bool
+    }
+
+
+type alias EventWithId =
+    { id : Int
+    , name : String
+    , datetime : String
+    , location : String
+    , image : String
+    , blurb : String
+    , description : String
+    , eventModified : Bool
+    }
+
+
+type alias InitJson =
+    { wards : List String
+    , meals : List EventWithId
+    , activities : List EventWithId
+    }

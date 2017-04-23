@@ -1,6 +1,7 @@
 module Messages exposing (..)
 
 import Model exposing (..)
+import Http
 
 
 type Msg
@@ -14,6 +15,7 @@ type Msg
       {--Id--}
     | UpdateEvent EventField Id String
     | SaveEdits
+    | FetchResult (Result Http.Error InitJson)
 
 
 type EventField
