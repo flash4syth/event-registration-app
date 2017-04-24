@@ -16,6 +16,7 @@ type Msg
     | UpdateEvent EventField Id String
     | SaveEdits EventType
     | FetchResult (Result Http.Error InitJson)
+    | PostEventEdits EventType (Result Http.Error (List EventWithId))
 
 
 type EventField

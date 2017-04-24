@@ -3,6 +3,7 @@ module Update exposing (..)
 import Messages exposing (..)
 import Model exposing (..)
 import Dict exposing (..)
+import SrHttp exposing (postUpdatedEvents)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -111,23 +112,27 @@ update msg model =
             case eventType of
                 Activity ->
                     let
-                        modifiedActivities =
-                            fromList <|
-                                List.filter (\( _, activity ) -> activity.eventModified)
-                                    (toList model.activities)
+                        modifiedActivitiesList =
+                            List.filter
+                                (\( _, activity ) -> activity.eventModified)
+                                (toList model.activities)
                     in
-                        -- (model, postUpdatedEvents model)
-                        { model | activities = modifiedActivities } ! []
+                        ( model
+                        , postUpdatedEvents eventType
+                            modifiedActivitiesList
+                        )
 
+                -- { model | activities = newActivitiesDict } ! []
+                -- model ! []
                 Meal ->
                     let
                         modifiedMeals =
-                            fromList <|
-                                List.filter (\( _, meal ) -> meal.eventModified)
-                                    (toList model.meals)
+                            List.filter (\( _, meal ) -> meal.eventModified)
+                                (toList model.meals)
                     in
                         -- (model, postUpdatedEvents model)
-                        { model | meals = modifiedMeals } ! []
+                        -- { model | meals = newMealsDict } ! []
+                        model ! []
 
         FetchResult (Ok initJson) ->
             let
@@ -151,6 +156,33 @@ update msg model =
                     ! []
 
         FetchResult (Err _) ->
+            model ! []
+
+        PostEventEdits eventType (Ok eventWithIdList) ->
+            case eventType of
+                Activity ->
+                    let
+                        ( _, newActivityDict ) =
+                            eventWithIdMapper ( eventWithIdList, Dict.empty )
+
+                        updatedActivityDict =
+                            Dict.union newActivityDict
+                                model.activities
+                    in
+                        { model | activities = updatedActivityDict } ! []
+
+                Meal ->
+                    let
+                        ( _, newMealDict ) =
+                            eventWithIdMapper ( eventWithIdList, Dict.empty )
+
+                        updatedMealDict =
+                            Dict.union newMealDict
+                                model.meals
+                    in
+                        { model | meals = updatedMealDict } ! []
+
+        PostEventEdits _ (Err _) ->
             model ! []
 
 
@@ -181,47 +213,3 @@ eventWithIdMapper ( eventWithIdList, eventDict ) =
                     ( tailEventsWithId
                     , (Dict.insert newId newEvent eventDict)
                     )
-
-
-
--- postUpdatedEvents : Model -> Cmd Msg
---             let
---                 updatedActivities = updateEventDict id model.activities inputText
---             in
---                 ({ model | activities = updatedActivities } ! [])
---
--- updateEventDict : Id -> Dict Id Event -> String -> Dict Id Event
--- updateEventDict id eventDict inputText
---   case (Dict.get id eventDict) of
---       Nothing ->
---           eventDict
---
---       Just event ->
---           Dict.insert id
---               { event | description = inputText }
---               eventDict
-{--
-activityMap : (a -> a) -> (a -> Bool) -> List a -> List a
-activityMap mapper check activities =
-  List.map (\activity -> if check activity then mapper else activity)
-  activities
-  --}
-{--
-            let
-              newEvents =
-                model.event
-                |> List.map
-                  (\event ->
-                  if event.event_id == event_id then
-                  {event | field = newFieldValue})
-                  else
-                    event -- unchanged event
-            in
-            ( {model | events = newEvents}, Cmd.none)
-
-
-          -- A more abstracted example:
-          mapIf : (a -> a) -> (a -> Bool) -> List a -> List a
-          mapIf mapper check xs =
-            List.map (\x -> if check x then mapper else x) xs
-            --}
