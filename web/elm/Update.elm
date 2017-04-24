@@ -117,22 +117,22 @@ update msg model =
                                 (\( _, activity ) -> activity.eventModified)
                                 (toList model.activities)
                     in
-                        ( model
+                        ( { model | editModeActive = False }
                         , postUpdatedEvents eventType
                             modifiedActivitiesList
                         )
 
-                -- { model | activities = newActivitiesDict } ! []
-                -- model ! []
                 Meal ->
                     let
-                        modifiedMeals =
-                            List.filter (\( _, meal ) -> meal.eventModified)
+                        modifiedMealList =
+                            List.filter
+                                (\( _, meal ) -> meal.eventModified)
                                 (toList model.meals)
                     in
-                        -- (model, postUpdatedEvents model)
-                        -- { model | meals = newMealsDict } ! []
-                        model ! []
+                        ( { model | editModeActive = False }
+                        , postUpdatedEvents eventType
+                            modifiedMealList
+                        )
 
         FetchResult (Ok initJson) ->
             let

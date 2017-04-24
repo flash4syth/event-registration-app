@@ -2,7 +2,7 @@ defmodule SR.Router do
   use SR.Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -18,6 +18,13 @@ defmodule SR.Router do
 
     get "/", PageController, :index
     get "/initialdata", JsonController, :init
+  end
+
+  scope "/", SR do
+    pipe_through :api
+    
+    post "/post-activities", JsonController, :update_activities
+    post "/post-meals", JsonController, :update_meals
   end
 
   # Other scopes may use custom stacks.
