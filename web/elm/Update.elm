@@ -107,10 +107,27 @@ update msg model =
             in
                 ({ model | activities = updatedActivities } ! [])
 
-        SaveEdits ->
-            -- let updatedEvents = List.filter toList model.ac
-            -- (model, postUpdatedEvents model)
-            model ! []
+        SaveEdits eventType ->
+            case eventType of
+                Activity ->
+                    let
+                        modifiedActivities =
+                            fromList <|
+                                List.filter (\( _, activity ) -> activity.eventModified)
+                                    (toList model.activities)
+                    in
+                        -- (model, postUpdatedEvents model)
+                        { model | activities = modifiedActivities } ! []
+
+                Meal ->
+                    let
+                        modifiedMeals =
+                            fromList <|
+                                List.filter (\( _, meal ) -> meal.eventModified)
+                                    (toList model.meals)
+                    in
+                        -- (model, postUpdatedEvents model)
+                        { model | meals = modifiedMeals } ! []
 
         FetchResult (Ok initJson) ->
             let

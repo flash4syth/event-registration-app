@@ -14,7 +14,7 @@ type Msg
     | UpdateFood
       {--Id--}
     | UpdateEvent EventField Id String
-    | SaveEdits
+    | SaveEdits EventType
     | FetchResult (Result Http.Error InitJson)
 
 
@@ -24,6 +24,11 @@ type EventField
     | Name
     | StartTime
     | Location
+
+
+type EventType
+    = Activity
+    | Meal
 
 
 

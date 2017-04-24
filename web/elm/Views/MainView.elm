@@ -12,7 +12,7 @@ import Views.ActivityView as ActivityView
 import Views.PackingView as PackingView
 import Views.ScheduleView as ScheduleView
 import Views.CabinView as CabinView
-import Views.FoodView as FoodView
+import Views.MealView as FoodView
 import Views.HelperFunctions exposing (..)
 
 

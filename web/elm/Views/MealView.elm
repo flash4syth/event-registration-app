@@ -1,4 +1,4 @@
-module Views.FoodView exposing (..)
+module Views.MealView exposing (..)
 
 import Messages exposing (..)
 import Html exposing (..)

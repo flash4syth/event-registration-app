@@ -26,7 +26,7 @@ view model =
                             section []
                                 [ button
                                     [ class "btn btn-info btn-lg"
-                                    , onClick SaveEdits
+                                    , onClick (SaveEdits Activity)
                                     ]
                                     [ text "Save" ]
                                 ]

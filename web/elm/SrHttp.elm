@@ -1,6 +1,7 @@
 module SrHttp exposing (..)
 
-import Json.Decode as Json exposing (..)
+import Json.Decode as JDecode exposing (..)
+import Json.Encode as JEncode
 import Model exposing (..)
 import Json.Decode.Pipeline exposing (decode, required, hardcoded)
 import Http
