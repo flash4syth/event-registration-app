@@ -16,7 +16,7 @@ update msg model =
             }
                 ! []
 
-        ToggleSpecialNeeds ->
+        ToggleShowSpecialNeeds ->
             let
                 truth =
                     case model.specialNeedsHidden of
@@ -60,9 +60,6 @@ update msg model =
                  }
                     ! []
                 )
-
-        UpdateFood ->
-            ({ model | editModeActive = False } ! [])
 
         UpdateEvent field id inputText ->
             let
@@ -141,17 +138,11 @@ update msg model =
 
                 ( _, newActivityDict ) =
                     eventWithIdMapper ( initJson.activities, Dict.empty )
-
-                currentRegistrationInfo =
-                    model.registration_info
-
-                newRegistrationInfo =
-                    { currentRegistrationInfo | wards = initJson.wards }
             in
                 { model
                     | activities = newActivityDict
                     , meals = newMealDict
-                    , registration_info = newRegistrationInfo
+                    , wards = ("Select Ward" :: initJson.wards)
                 }
                     ! []
 
@@ -184,6 +175,156 @@ update msg model =
 
         PostEventEdits _ (Err _) ->
             model ! []
+
+        UpdateFirstName newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | first_name = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateLastName newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | last_name = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateRegistrationType newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | reg_type = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        ToggleSpecialNeedType typeTag ->
+            let
+                old_specialneeds_types =
+                    model.registration_info.special_needs.need_types
+
+                old_specialneeds =
+                    model.registration_info.special_needs
+
+                old_registration =
+                    model.registration_info
+
+                new_specialneeds_types =
+                    (case typeTag of
+                        WheelChair ->
+                            { old_specialneeds_types
+                                | wheelChair =
+                                    not old_specialneeds_types.wheelChair
+                            }
+
+                        FoodAllergies ->
+                            { old_specialneeds_types
+                                | foodAllergy =
+                                    not old_specialneeds_types.foodAllergy
+                            }
+
+                        Other ->
+                            { old_specialneeds_types
+                                | other =
+                                    not old_specialneeds_types.other
+                            }
+                    )
+
+                new_specialneeds =
+                    { old_specialneeds
+                        | need_types =
+                            new_specialneeds_types
+                    }
+
+                new_registration =
+                    { old_registration | special_needs = new_specialneeds }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateSpecialNeedDescription newValue ->
+            let
+                old_specialneeds =
+                    model.registration_info.special_needs
+
+                old_registration =
+                    model.registration_info
+
+                new_specialneeds =
+                    { old_specialneeds | description = newValue }
+
+                new_registration =
+                    { old_registration | special_needs = new_specialneeds }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateGender newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | gender = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateEmail newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | email = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdatePhone newValue ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | phone = newValue }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateWard newWard ->
+            let
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration | selectedWard = newWard }
+            in
+                { model | registration_info = new_registration } ! []
+
+        UpdateMeals mealId ->
+            let
+                add_rem_mealId : Id -> List Id -> List Id
+                add_rem_mealId mealId mealIds =
+                    -- filter out or add the meal id depending on its existence
+                    if List.member mealId mealIds then
+                        List.filter (\id -> id /= mealId) mealIds
+                    else
+                        mealId :: mealIds
+
+                old_registration =
+                    model.registration_info
+
+                new_registration =
+                    { old_registration
+                        | meals =
+                            (add_rem_mealId mealId old_registration.meals)
+                    }
+            in
+                { model | registration_info = new_registration } ! []
 
 
 eventWithIdMapper :

@@ -15,19 +15,24 @@ initialModel : Model
 initialModel =
     { meals = Dict.empty
     , activities = Dict.empty
+    , wards = []
     , registration_info =
         { first_name = ""
         , reg_type = ""
         , last_name = ""
         , special_needs =
-            { need_type = ""
+            { need_types =
+                { wheelChair = False
+                , foodAllergy = False
+                , other = False
+                }
             , description = ""
             }
         , gender = ""
         , email = ""
+        , phone = ""
         , selectedWard = ""
         , meals = []
-        , wards = []
         }
     , editModeActive = False
     , specialNeedsHidden = True
@@ -42,6 +47,7 @@ initialModel =
 type alias Model =
     { meals : Dict Id Event
     , activities : Dict Id Event
+    , wards : List String
     , registration_info : RegistrationInfo
     , password : String
     , state : UiState
@@ -60,17 +66,22 @@ type alias RegistrationInfo =
     , special_needs : SpecialNeeds
     , gender : String
     , email : String
+    , phone : String
     , selectedWard : String
-    , wards : List String
-    , meals :
-        List Int
-        -- , activities : List Int
+    , meals : List Id
     }
 
 
 type alias SpecialNeeds =
-    { need_type : String
+    { need_types : SpecialNeedTypes
     , description : String
+    }
+
+
+type alias SpecialNeedTypes =
+    { wheelChair : Bool
+    , foodAllergy : Bool
+    , other : Bool
     }
 
 

@@ -2,10 +2,7 @@ module Views.RegistrationView exposing (..)
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-
-
--- import Html.Events exposing (..)
-
+import Html.Events exposing (onInput)
 import Styles.Styles as Styles
 import Messages exposing (..)
 import Model exposing (..)
@@ -25,6 +22,7 @@ view model =
                         [ style Styles.mediumText
                         , type_ "text"
                         , placeholder "First Name"
+                        , onInput UpdateFirstName
                         ]
                         []
                     , br [] []
@@ -32,6 +30,7 @@ view model =
                         [ style Styles.mediumText
                         , type_ "text"
                         , placeholder "Last Name"
+                        , onInput UpdateLastName
                         ]
                         []
                     , br [] []
@@ -39,13 +38,15 @@ view model =
                         [ style Styles.mediumText
                         , type_ "text"
                         , placeholder "Email"
+                        , onInput UpdateEmail
                         ]
                         []
                     , br [] []
                     , input
                         [ style Styles.mediumText
-                        , type_ "text"
-                        , placeholder "Phone Number"
+                        , type_ "tel"
+                        , placeholder "555-555-5555"
+                        , onInput UpdatePhone
                         ]
                         []
                     , br [] []
@@ -53,35 +54,46 @@ view model =
                         [ text "Gender:" ]
                     , label
                         []
-                        [ input [ style Styles.mediumText, type_ "radio", name "gender", Attr.value "Female" ] []
+                        [ input
+                            [ style Styles.mediumText
+                            , type_ "radio"
+                            , name "gender"
+                            , onClick (UpdateGender "Female")
+                            ]
+                            []
                         , text "Female"
                         ]
                     , label []
-                        [ input [ style Styles.mediumText, type_ "radio", name "gender", Attr.value "Male" ] []
+                        [ input
+                            [ style Styles.mediumText
+                            , type_ "radio"
+                            , name "gender"
+                            , onClick (UpdateGender "Male")
+                            ]
+                            []
                         , text "Male"
                         ]
                     , br [] []
                     , label
                         []
                         [ text "Your Ward:"
-                        , select [ style Styles.mediumText ]
-                            (List.map makeOption model.registration_info.wards)
+                        , select [ style Styles.mediumText, onInput UpdateWard ]
+                            (List.map makeOption model.wards)
                         ]
                     ]
                , hr [] []
                , section [ class "col-xs-12" ]
-                    --  , section [ class "jumbotron custom" ]
                     [ header []
-                        [ h2 [] [ text "Choose Your Activities" ]
+                        [ h2 [] [ text "Choose Meals and Length of Stay" ]
                         , h3 []
                             [ a
                                 [ class "btn btn-info btn-md"
                                 , onClick (SetState ActivitiesPage)
                                 ]
-                                [ text "See Activity Details" ]
+                                [ text "Click for Activity Details" ]
                             ]
                         ]
-                    , p []
+                    , p [ style Styles.mediumText ]
                         [ text
                             ("For those staying overnight, the bed availability is on "
                                 ++ "a first come first serve basis.  You will need to be prepared to "
@@ -107,8 +119,6 @@ view model =
                         ((text "Please check which meals you will be eating:")
                             :: (makeEventCheckBox model.meals)
                         )
-                    , p [ style Styles.mediumText ]
-                        [ text "Please check which activities you will attend" ]
                     ]
                , hr [] []
                , section [ class "col-xs-12" ]
@@ -119,7 +129,7 @@ view model =
                         , label []
                             [ input
                                 [ type_ "checkbox"
-                                , onClick ToggleSpecialNeeds
+                                , onClick ToggleShowSpecialNeeds
                                 ]
                                 []
                             , text "Yes"
@@ -133,8 +143,7 @@ view model =
                         [ label [ style Styles.mediumText ]
                             [ input
                                 [ type_ "checkbox"
-                                , name "wheel-chair"
-                                , value "true"
+                                , onClick (ToggleSpecialNeedType WheelChair)
                                 ]
                                 []
                             , text "Wheel Chair Access"
@@ -143,8 +152,7 @@ view model =
                         , label [ style Styles.mediumText ]
                             [ input
                                 [ type_ "checkbox"
-                                , name "food-allergy"
-                                , value "true"
+                                , onClick (ToggleSpecialNeedType FoodAllergies)
                                 ]
                                 []
                             , text "Food Allergies"
@@ -153,15 +161,19 @@ view model =
                         , label [ style Styles.mediumText ]
                             [ input
                                 [ type_ "checkbox"
-                                , name "other"
-                                , value "true"
+                                , onClick (ToggleSpecialNeedType Other)
                                 ]
                                 []
                             , text "Other"
                             ]
                         , br [] []
                         , h3 [] [ text "How can we best accomodate you?" ]
-                        , textarea [ style Styles.mediumText, cols 60, rows 3 ]
+                        , textarea
+                            [ style Styles.mediumText
+                            , cols 60
+                            , rows 3
+                            , onInput UpdateSpecialNeedDescription
+                            ]
                             []
                         ]
                     ]
@@ -179,7 +191,7 @@ view model =
                             [ height 50, width 50, src "/images/no_pets.png" ]
                             []
                         ]
-                    , text "Please Note: NO PETS ALLOWED"
+                    , text "NO PETS ALLOWED"
                     ]
                , button
                     [ class "btn btn-info btn-lg btn-block"
@@ -204,7 +216,7 @@ lengthOfStayOptions optionList =
                 [ input
                     [ type_ "radio"
                     , name "length-of-stay"
-                    , Attr.value value_
+                    , onClick (UpdateRegistrationType value_)
                     ]
                     []
                 , text text_
@@ -225,7 +237,11 @@ makeEventCheckBox eventDict =
                             Styles.mediumText
                         )
                     ]
-                    [ input [ type_ "checkbox" ] []
+                    [ input
+                        [ type_ "checkbox"
+                        , onClick <| UpdateMeals id
+                        ]
+                        []
                     , text event.name
                     , span [ class "short-desc" ]
                         [ text

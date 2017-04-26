@@ -6,13 +6,21 @@ import Http
 
 type Msg
     = SetState UiState
-    | ToggleSpecialNeeds
+    | ToggleShowSpecialNeeds
     | Blur
     | DropDownClicked
     | ToggleEditMode
     | AddEvent
-    | UpdateFood
-      {--Id--}
+    | UpdateFirstName String
+    | UpdateLastName String
+    | UpdateRegistrationType String
+    | ToggleSpecialNeedType SpecialNeedTypeTag
+    | UpdateSpecialNeedDescription String
+    | UpdateGender String
+    | UpdateEmail String
+    | UpdatePhone String
+    | UpdateWard String
+    | UpdateMeals Id
     | UpdateEvent EventField Id String
     | SaveEdits EventType
     | FetchResult (Result Http.Error InitJson)
@@ -30,6 +38,12 @@ type EventField
 type EventType
     = Activity
     | Meal
+
+
+type SpecialNeedTypeTag
+    = WheelChair
+    | FoodAllergies
+    | Other
 
 
 
