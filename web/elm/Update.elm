@@ -3,7 +3,7 @@ module Update exposing (..)
 import Messages exposing (..)
 import Model exposing (..)
 import Dict exposing (..)
-import SrHttp exposing (postUpdatedEvents)
+import SrHttp exposing (postUpdatedEvents, postRegistration)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -325,6 +325,15 @@ update msg model =
                     }
             in
                 { model | registration_info = new_registration } ! []
+
+        Register ->
+            model ! [ postRegistration model ]
+
+        PostRegistration (Ok successMsg) ->
+            model ! []
+
+        PostRegistration (Err errorMsg) ->
+            model ! []
 
 
 eventWithIdMapper :

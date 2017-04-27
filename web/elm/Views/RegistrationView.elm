@@ -36,7 +36,7 @@ view model =
                     , br [] []
                     , input
                         [ style Styles.mediumText
-                        , type_ "text"
+                        , type_ "email"
                         , placeholder "Email"
                         , onInput UpdateEmail
                         ]
@@ -95,9 +95,10 @@ view model =
                         ]
                     , p [ style Styles.mediumText ]
                         [ text
-                            ("For those staying overnight, the bed availability is on "
-                                ++ "a first come first serve basis.  You will need to be prepared to "
-                                ++ "sleep on the floor."
+                            ("For those staying overnight, there is some space "
+                                ++ "to sleep on the floor in the cabins, "
+                                ++ "so make sure to bring appropriate "
+                                ++ "bedding in case you don't snag a bed."
                             )
                         ]
                     , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
@@ -196,6 +197,7 @@ view model =
                , button
                     [ class "btn btn-info btn-lg btn-block"
                     , style Styles.mediumText
+                    , onClick Register
                     ]
                     [ text "Submit Registration" ]
                ]

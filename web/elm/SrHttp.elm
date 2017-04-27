@@ -66,3 +66,59 @@ postUpdatedEvents eventType eventList =
             (Http.jsonBody (JEncode.list eventValues))
             (list eventWithIdDecoder)
             |> Http.send (PostEventEdits eventType)
+
+
+postRegistration : Model -> Cmd Msg
+postRegistration model =
+    let
+        reg_info =
+            model.registration_info
+
+        spec_needs =
+            reg_info.special_needs
+
+        need_types =
+            spec_needs.need_types
+
+        registrationValue =
+            JEncode.object
+                [ ( "first_name", JEncode.string reg_info.first_name )
+                , ( "last_name", JEncode.string reg_info.last_name )
+                , ( "email", JEncode.string reg_info.email )
+                , ( "phone", JEncode.string reg_info.phone )
+                , ( "gender", JEncode.string reg_info.gender )
+                , ( "ward", JEncode.string reg_info.selectedWard )
+                , ( "reg_type", JEncode.string reg_info.reg_type )
+                , ( "meals"
+                  , JEncode.list
+                        (List.map
+                            (\id -> JEncode.int id)
+                            reg_info.meals
+                        )
+                  )
+                , ( "special_needs"
+                  , JEncode.object
+                        [ ( "need_types"
+                          , JEncode.object
+                                [ ( "wheelChair"
+                                  , JEncode.bool need_types.wheelChair
+                                  )
+                                , ( "foodAllergy"
+                                  , JEncode.bool need_types.foodAllergy
+                                  )
+                                , ( "other"
+                                  , JEncode.bool need_types.other
+                                  )
+                                ]
+                          )
+                        , ( "description"
+                          , JEncode.string spec_needs.description
+                          )
+                        ]
+                  )
+                ]
+    in
+        Http.post "/register"
+            (Http.jsonBody registrationValue)
+            string
+            |> Http.send PostRegistration
