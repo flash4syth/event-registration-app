@@ -22,9 +22,10 @@ defmodule SR.Router do
 
   scope "/", SR do
     pipe_through :api
-    
+
     post "/post-activities", JsonController, :update_activities
     post "/post-meals", JsonController, :update_meals
+    post "/register", JsonController, :register
   end
 
   # Other scopes may use custom stacks.

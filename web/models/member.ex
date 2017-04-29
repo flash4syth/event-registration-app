@@ -9,13 +9,14 @@ defmodule SR.Member do
     field :gender, :string
     field :age, :integer
     field :member, :string
+    field :ward, :string
     # belongs_to :ward, SR.Ward, default: nil
     # belongs_to :admin, SR.Admin, default: nil
     # belongs_to :cabin, SR.Cabin, default: nil
     many_to_many :meals, SR.Meal, join_through: "members_meals"
     has_one :special_needs, SR.SpecialNeed
     has_one :registrations, SR.Registration
-    belongs_to :ward, SR.Ward
+    # belongs_to :ward, SR.Ward
 
     timestamps()
   end
@@ -25,7 +26,9 @@ defmodule SR.Member do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:first_name, :last_name, :email, :phone, :gender, :age])
-    |> validate_required([:first_name, :last_name, :email, :phone, :gender])
+    |> cast(params, [:first_name, :last_name, :email, :phone, :gender, :age,
+      :ward])
+    |> validate_required([:first_name, :last_name, :email, :phone, :gender,
+      :ward])
   end
 end
