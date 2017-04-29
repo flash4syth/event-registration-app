@@ -6,7 +6,7 @@ defmodule SR.Factory do
   def build(:meal) do
     %Meal{
       name: "#{random(["Breakfast", "Lunch", "Dinner"])}",
-      time: ~T[08:00:00.001],
+      stringtime: "Friday 1:00pm",
       location: "#{random(["A", "B", "C"])}"
     }
   end
