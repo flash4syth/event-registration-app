@@ -114,3 +114,8 @@ mediumText =
 centerText : List ( String, String )
 centerText =
     [ ( "text-align", "center" ) ]
+
+
+validationError : List ( String, String )
+validationError =
+    [ ( "background-color", "#e9a07a" ), ( "border", "1px solid red" ) ]

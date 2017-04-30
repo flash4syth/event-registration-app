@@ -34,12 +34,13 @@ initialModel =
         , selectedWard = ""
         , meals = []
         }
+    , registrationValid = True
     , editModeActive = False
     , specialNeedsHidden = True
     , menuOptionsHidden = True
     , password = ""
     , state = HomePage
-    , userType = AdminUser
+    , userType = AnonymousUser
     , loginError = ""
     }
 
@@ -49,6 +50,7 @@ type alias Model =
     , activities : Dict Id Event
     , wards : List String
     , registration_info : RegistrationInfo
+    , registrationValid : Bool
     , password : String
     , state : UiState
     , userType : UserType

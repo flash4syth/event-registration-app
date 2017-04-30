@@ -327,10 +327,41 @@ update msg model =
                 { model | registration_info = new_registration } ! []
 
         Register ->
-            model ! [ postRegistration model ]
+            let
+                reg_info =
+                    model.registration_info
+
+                isValid =
+                    if
+                        List.isEmpty
+                            (List.filter String.isEmpty
+                                [ reg_info.first_name
+                                , reg_info.last_name
+                                , reg_info.email
+                                , reg_info.gender
+                                , reg_info.selectedWard
+                                , reg_info.phone
+                                , reg_info.reg_type
+                                ]
+                            )
+                            && not (List.isEmpty reg_info.meals)
+                    then
+                        True
+                    else
+                        False
+            in
+                if isValid then
+                    model ! [ postRegistration model ]
+                else
+                    { model | registrationValid = False } ! []
 
         PostRegistration (Ok successMsg) ->
-            model ! []
+            { initialModel
+                | meals = model.meals
+                , activities = model.activities
+                , wards = model.wards
+            }
+                ! []
 
         PostRegistration (Err errorMsg) ->
             model ! []
