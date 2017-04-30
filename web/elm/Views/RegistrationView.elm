@@ -107,23 +107,7 @@ view model =
                    , hr [] []
                    , section [ class "col-xs-12" ]
                         [ header []
-                            [ h2 [] [ text "Choose Meals and Length of Stay" ]
-                            , h3 []
-                                [ a
-                                    [ class "btn btn-info btn-md"
-                                    , onClick (SetState ActivitiesPage)
-                                    ]
-                                    [ text "Click for Activity Details" ]
-                                ]
-                            ]
-                        , p [ style Styles.mediumText ]
-                            [ text
-                                ("For those staying overnight, there is some space "
-                                    ++ "to sleep on the floor in the cabins, "
-                                    ++ "so make sure to bring appropriate "
-                                    ++ "bedding in case you don't snag a bed."
-                                )
-                            ]
+                            [ h2 [] [ text "Choose Meals and Length of Stay" ] ]
                         , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
                         , div [ style (checkValidation model regInfo.reg_type) ]
                             (lengthOfStayOptions
@@ -132,7 +116,6 @@ view model =
                                 , ( "saturday", " Saturday Only" )
                                 ]
                             )
-                        , br [] []
                         , p
                             [ style
                                 (List.concat
@@ -161,6 +144,22 @@ view model =
                             ((text "Please check which meals you will be eating:")
                                 :: (makeEventCheckBox model.meals)
                             )
+                        , hr [] []
+                        , p [ style Styles.mediumText ]
+                            [ text
+                                ("For those staying overnight, there is some space "
+                                    ++ "to sleep on the floor in the cabins, "
+                                    ++ "so make sure to bring appropriate "
+                                    ++ "bedding in case you don't snag a bed."
+                                )
+                            ]
+                        , p []
+                            [ a
+                                [ class "btn btn-info btn-md"
+                                , onClick (SetState ActivitiesPage)
+                                ]
+                                [ text "Click for Activity Details" ]
+                            ]
                         ]
                    , hr [] []
                    , section [ class "col-xs-12" ]
