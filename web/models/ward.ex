@@ -3,8 +3,6 @@ defmodule SR.Ward do
 
   schema "wards" do
     field :name, :string
-    field :member_count, :integer
-    field :bishop_last_name, :string
     has_many :member, SR.Member
 
     timestamps()
@@ -15,7 +13,7 @@ defmodule SR.Ward do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :member_count, :bishop_last_name])
-    |> validate_required([:name, :member_count, :bishop_last_name])
+    |> cast(params, [:name])
+    |> validate_required([:name])
   end
 end

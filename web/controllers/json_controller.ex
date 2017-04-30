@@ -1,6 +1,5 @@
 defmodule SR.JsonController do
   use SR.Web, :controller
-  require Logger
 
   def init(conn, _params) do
     wards = from(w in SR.Ward, select: w.name)
@@ -158,23 +157,41 @@ defmodule SR.JsonController do
         }
       }
 
-    } = registration = conn.body_params
+    } = conn.body_params
+
+    meal_structs = Enum.map(meals, fn meal_id ->
+      Repo.get(SR.Meal, meal_id)
+    end)
+
+    registration = %SR.Registration{
+      type: reg_type,
+      confirmed?: false
+    }
+    |> SR.Registration.changeset()
+    |> Repo.insert!()
+
+    special_need = %SR.SpecialNeed{
+      description: spec_need_desc,
+      wheelchair: is_wheelChair,
+      foodallergies: is_foodAllergy,
+      other: is_other
+    }
+    |> SR.SpecialNeed.changeset()
+    |> Repo.insert!()
 
     new_member = %SR.Member{
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone: phone,
-      gender: gender,
-      ward: ward
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        phone: phone,
+        gender: gender,
+        ward: ward,
+        registrations: registration,
+        special_needs: special_need,
+        meals: meal_structs
     }
     |> SR.Member.changeset()
     |> Repo.insert!()
-
-    # %SR.SpecialNeed{
-    #   member: new_member,
-    #   wheelchair: ["special_needs"]["need_types"]["wheelChair"]
-    # }
 
     json conn, "Success!"
   end

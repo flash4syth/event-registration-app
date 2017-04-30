@@ -1,7 +1,7 @@
 defmodule SR.SpecialNeed do
   use SR.Web, :model
 
-  schema "specials_needs" do
+  schema "special_needs" do
     field :description, :string
     field :wheelchair, :boolean
     field :foodallergies, :boolean
