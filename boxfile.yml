@@ -28,7 +28,7 @@ deploy.config:
   # let's migrate the database
   before_live:
     web.main:
-      - mix ecto.setup
+      - mix ecto.migrate
 
 # add postgres as a data component
 data.db:
