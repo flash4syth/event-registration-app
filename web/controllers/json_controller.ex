@@ -170,15 +170,6 @@ defmodule SR.JsonController do
     |> SR.Registration.changeset()
     |> Repo.insert!()
 
-    special_need = %SR.SpecialNeed{
-      description: spec_need_desc,
-      wheelchair: is_wheelChair,
-      foodallergies: is_foodAllergy,
-      other: is_other
-    }
-    |> SR.SpecialNeed.changeset()
-    |> Repo.insert!()
-
     new_member = %SR.Member{
         first_name: first_name,
         last_name: last_name,
@@ -187,9 +178,41 @@ defmodule SR.JsonController do
         gender: gender,
         ward: ward,
         registrations: registration,
-        special_needs: special_need,
         meals: meal_structs
     }
+
+    # Handle whether to create and associate a special need for this member
+    new_member = (if not Enum.any?([is_wheelChair, is_foodAllergy, is_other])
+        && spec_need_desc == "" do
+      new_member
+    else
+      case spec_need_desc do
+        "" ->
+          special_need = %SR.SpecialNeed{
+            description: "N/A",
+            wheelchair: is_wheelChair,
+            foodallergies: is_foodAllergy,
+            other: is_other
+          }
+          |> SR.SpecialNeed.changeset()
+          |> Repo.insert!()
+
+          Map.update!(new_member, :special_needs, fn _ -> special_need end)
+        _ ->
+          special_need = %SR.SpecialNeed{
+            description: spec_need_desc,
+            wheelchair: is_wheelChair,
+            foodallergies: is_foodAllergy,
+            other: is_other
+          }
+          |> SR.SpecialNeed.changeset()
+          |> Repo.insert!()
+
+          Map.update!(new_member, :special_needs, fn _ -> special_need end)
+      end
+    end)
+
+    new_member
     |> SR.Member.changeset()
     |> Repo.insert!()
 
