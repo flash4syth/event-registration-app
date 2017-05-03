@@ -67,7 +67,8 @@ dropdownText =
 dropdownList : List ( String, String )
 dropdownList =
     [ ( "position", "absolute" )
-    , ( "top", "36px" )
+    , ( "top", "46px" )
+    , ( "right", "0px" )
     , ( "border-radius", "4px" )
     , ( "box-shadow", "0 1px 2px rgba(0,0,0,.24)" )
     , ( "padding", "4px 8px" )

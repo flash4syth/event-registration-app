@@ -18,7 +18,8 @@ import Views.HelperFunctions exposing (..)
 
 optionList : List ( String, Msg )
 optionList =
-    [ ( "Map", SetState MapPage )
+    [ ( "Home", SetState HomePage )
+    , ( "Map", SetState MapPage )
     , ( "Activities", SetState ActivitiesPage )
     , ( "Food", SetState FoodPage )
     , ( "Schedule", SetState SchedulePage )
@@ -37,34 +38,30 @@ view model =
                 ( "display", "block" )
     in
         article []
-            [ header [ class "header" ]
-                [ nav
-                    [ attribute "role" "navigation"
-                    ]
-                    [ ul
-                        [ style Styles.dropdownContainer
-                        , class "nav nav-pills pull-left"
-                        ]
-                        -- [ ul [ class "nav nav-pills pull-right" ]
-                        [ li [ style Styles.padElement ] [ div [] [ a [ href "#", onClick (SetState HomePage) ] [ text "Home  -  " ] ] ]
-                          -- , li [ style Styles.padElement ] [ div [] [ a [ href "#" ] [ text "Login  -  " ] ] ]
-                          -- , li [] [ a [ href "#", onClick (SetState AdminPage) ] [ text "Admin" ] ]
-                        , li [ style Styles.padElement, onClick DropDownClicked ]
-                            [ div []
-                                [ a [ href "#" ]
-                                    [ text "More Info"
-                                    , span [ class "caret" ] []
-                                    ]
-                                , ul [ style <| optionsDisplay :: Styles.dropdownList ]
-                                    (List.map optionView optionList)
-                                ]
+            [ nav [ class "navbar navbar-default navbar-static-top", attribute "role" "navigation" ]
+                [ div [ class "container" ]
+                    [ div [ class "navbar-header" ]
+                        [ button
+                            [ type_ "button"
+                            , class "navbar-toggle collapsed"
+                              -- , attribute "data-toggle" "collapse"
+                              -- , attribute "data-target" "#navbar-collapse"
+                            , onClick DropDownClicked
                             ]
-                          -- , li [] [ a [ href "#", onClick (SetState Map) ] [ text "Map" ] ]
-                          -- , li [] [ a [ href "#" ] [ text "Activities" ] ]
-                          -- , li [] [ a [ href "#" ] [ text "Food" ] ]
-                          -- , li [] [ a [ href "#" ] [ text "Full Schedule" ] ]
-                          -- , li [] [ a [ href "#" ] [ text "Cabins" ] ]
-                          -- , li [] [ a [ href "#" ] [ text "Packing List" ] ]
+                            [ --Toggle navigation
+                              span [ class "sr-only" ] []
+                            , span [ class "icon-bar" ] []
+                            , span [ class "icon-bar" ] []
+                            , span [ class "icon-bar" ] []
+                            ]
+                        , ul [ style <| optionsDisplay :: Styles.dropdownList ]
+                            (List.map optionView optionList)
+                        ]
+                      -- Collect the nav links, forms, and other content for toggling
+                    , div
+                        [ class "collapse navbar-collapse", id "navbar-collapse" ]
+                        [ ul [ class "nav navbar-nav" ]
+                            (List.map optionView optionList)
                         ]
                     ]
                 ]
