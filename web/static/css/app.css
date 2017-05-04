@@ -18,3 +18,12 @@
 input {
   margin: 5px;
 }
+
+label.stacked-label {
+  display: block;
+  width: 100%;
+}
+
+p.required-field{
+  text-indent: 1em;
+}

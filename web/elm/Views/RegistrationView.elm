@@ -117,16 +117,7 @@ view model =
             , hr [] []
             , section [ class "col-xs-12" ]
                 [ header []
-                    [ h2 [] [ text "Choose Meals and Length of Stay" ] ]
-                , p [ class "required-field", style Styles.mediumText ]
-                    [ text "How long do you plan to attend the stake retreat?" ]
-                , div [ style (checkValidation model regInfo.reg_type) ]
-                    (lengthOfStayOptions regInfo.reg_type
-                        [ ( "friday", " Friday Only" )
-                        , ( "fridaynight", " Overnight on Friday" )
-                        , ( "saturday", " Saturday Only" )
-                        ]
-                    )
+                    [ h2 [] [ text "Choose Meals" ] ]
                 , p
                     [ class "required-field"
                     , style
@@ -172,6 +163,19 @@ view model =
                         ]
                         [ text "Click for Activity Details" ]
                     ]
+                ]
+            , hr [] []
+            , section [ class "col-xs-12" ]
+                [ header [] [ h2 [] [ text "Length of Stay" ] ]
+                , p [ class "required-field", style Styles.mediumText ]
+                    [ text "How long do you plan to attend the stake retreat?" ]
+                , div [ style (checkValidation model regInfo.reg_type) ]
+                    (lengthOfStayOptions regInfo.reg_type
+                        [ ( "friday", " Friday Only" )
+                        , ( "saturday", " Saturday Only" )
+                        , ( "fridaynight", " Friday and Saturday" )
+                        ]
+                    )
                 ]
             , hr [] []
             , section [ class "col-xs-12" ]
@@ -275,6 +279,7 @@ lengthOfStayOptions reg_type optionList =
                         Styles.padElement
                         Styles.mediumText
                     )
+                , class "stacked-label"
                 ]
                 [ input
                     [ type_ "radio"
