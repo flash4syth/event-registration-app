@@ -83,12 +83,7 @@ view model =
                         , input
                             [ style Styles.mediumText
                             , type_ "radio"
-                            , checked
-                                (if regInfo.gender == "Female" then
-                                    True
-                                 else
-                                    False
-                                )
+                            , checked (regInfo.gender == "Female")
                             , name "gender"
                             , onClick (UpdateGender "Female")
                             ]
@@ -97,12 +92,7 @@ view model =
                         , input
                             [ style Styles.mediumText
                             , type_ "radio"
-                            , checked
-                                (if regInfo.gender == "Male" then
-                                    True
-                                 else
-                                    False
-                                )
+                            , checked (regInfo.gender == "Male")
                             , name "gender"
                             , onClick (UpdateGender "Male")
                             ]
@@ -164,7 +154,7 @@ view model =
                         )
                     ]
                     ((text "Please check which meals you will be eating:")
-                        :: (makeEventCheckBox model.meals)
+                        :: (makeEventCheckBox regInfo.meals model.meals)
                     )
                 , hr [] []
                 , p [ style Styles.mediumText ]
@@ -289,12 +279,7 @@ lengthOfStayOptions reg_type optionList =
                 [ input
                     [ type_ "radio"
                     , name "length-of-stay"
-                    , checked
-                        (if reg_type == value_ then
-                            True
-                         else
-                            False
-                        )
+                    , checked (reg_type == value_)
                     , onClick (UpdateRegistrationType value_)
                     ]
                     []
@@ -312,8 +297,8 @@ checkValidation model stringValue =
         []
 
 
-makeEventCheckBox : Dict Id Event -> List (Html Msg)
-makeEventCheckBox eventDict =
+makeEventCheckBox : List Id -> Dict Id Event -> List (Html Msg)
+makeEventCheckBox selectedMeals eventDict =
     List.map
         (\( id, event ) ->
             div []
@@ -326,6 +311,7 @@ makeEventCheckBox eventDict =
                     ]
                     [ input
                         [ type_ "checkbox"
+                        , checked (List.member id selectedMeals)
                         , onClick <| UpdateMeals id
                         ]
                         []
@@ -345,11 +331,6 @@ makeOption : String -> String -> Html Msg
 makeOption selectedWard ward =
     option
         [ value ward
-        , selected
-            (if selectedWard == ward then
-                True
-             else
-                False
-            )
+        , selected (selectedWard == ward)
         ]
         [ text ward ]
