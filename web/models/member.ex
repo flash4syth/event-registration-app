@@ -27,7 +27,7 @@ defmodule SR.Member do
     struct
     |> cast(params, [:first_name, :last_name, :email, :phone, :gender, :age,
       :ward])
-    |> validate_required([:first_name, :last_name, :email, :phone, :gender,
+    |> validate_required([:first_name, :last_name, :email, :gender,
       :ward])
   end
 end

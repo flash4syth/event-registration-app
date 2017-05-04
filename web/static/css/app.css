@@ -10,3 +10,11 @@
   padding: 20px 15px 20px 15px;
 
 }
+
+.required-field:before {
+  content: "*";
+}
+
+input {
+  margin: 5px;
+}

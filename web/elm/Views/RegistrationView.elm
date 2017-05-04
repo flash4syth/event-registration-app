@@ -21,67 +21,88 @@ view model =
             , section [ class "col-xs-12" ]
                 --  , section [ class "jumbotron custom" ]
                 [ header [] [ h2 [] [ text "Enter Personal Information" ] ]
-                , input
-                    [ style
-                        (Styles.mediumText
-                            ++ (checkValidation model regInfo.first_name)
-                        )
-                    , type_ "text"
-                    , placeholder "First Name"
-                    , onInput UpdateFirstName
+                , label [ class "required-field" ]
+                    [ text "First Name: "
+                    , input
+                        [ style
+                            (Styles.mediumText
+                                ++ (checkValidation model regInfo.first_name)
+                            )
+                        , type_ "text"
+                        , value regInfo.first_name
+                        , placeholder "First Name"
+                        , onInput UpdateFirstName
+                        ]
+                        []
                     ]
-                    []
                 , br [] []
-                , input
-                    [ style (Styles.mediumText ++ (checkValidation model regInfo.last_name))
-                    , type_ "text"
-                    , placeholder "Last Name"
-                    , onInput UpdateLastName
+                , label [ class "required-field" ]
+                    [ text "Last Name: "
+                    , input
+                        [ style (Styles.mediumText ++ (checkValidation model regInfo.last_name))
+                        , type_ "text"
+                        , value regInfo.last_name
+                        , placeholder "Last Name"
+                        , onInput UpdateLastName
+                        ]
+                        []
                     ]
-                    []
                 , br [] []
-                , input
-                    [ style
-                        (Styles.mediumText
-                            ++ (checkValidation model regInfo.email)
-                        )
-                    , type_ "email"
-                    , placeholder "Email"
-                    , onInput UpdateEmail
+                , label [ class "required-field" ]
+                    [ text "Email: "
+                    , input
+                        [ style
+                            (Styles.mediumText
+                                ++ (checkValidation model regInfo.email)
+                            )
+                        , type_ "email"
+                        , value regInfo.email
+                        , placeholder "Email"
+                        , onInput UpdateEmail
+                        ]
+                        []
                     ]
-                    []
                 , br [] []
-                , input
-                    [ style
-                        (Styles.mediumText
-                            ++ (checkValidation model regInfo.phone)
-                        )
-                    , type_ "tel"
-                    , placeholder "555-555-5555"
-                    , onInput UpdatePhone
+                , label []
+                    [ text "Phone: "
+                    , input
+                        [ style Styles.mediumText
+                        , type_ "tel"
+                        , value regInfo.phone
+                        , placeholder "555-555-5555"
+                        , onInput UpdatePhone
+                        ]
+                        []
                     ]
-                    []
                 , br []
                     []
                 , section
                     [ style (checkValidation model regInfo.gender) ]
-                    [ span [ style Styles.mediumText ]
-                        [ text "Gender:" ]
-                    , label
-                        []
-                        [ input
+                    [ label [ class "required-field", style Styles.mediumText ]
+                        [ text "Gender: "
+                        , input
                             [ style Styles.mediumText
                             , type_ "radio"
+                            , checked
+                                (if regInfo.gender == "Female" then
+                                    True
+                                 else
+                                    False
+                                )
                             , name "gender"
                             , onClick (UpdateGender "Female")
                             ]
                             []
                         , text "Female"
-                        ]
-                    , label []
-                        [ input
+                        , input
                             [ style Styles.mediumText
                             , type_ "radio"
+                            , checked
+                                (if regInfo.gender == "Male" then
+                                    True
+                                 else
+                                    False
+                                )
                             , name "gender"
                             , onClick (UpdateGender "Male")
                             ]
@@ -91,7 +112,7 @@ view model =
                     ]
                 , br [] []
                 , label
-                    []
+                    [ class "required-field" ]
                     [ text "Your Ward:"
                     , select
                         [ style
@@ -100,23 +121,25 @@ view model =
                             )
                         , onInput UpdateWard
                         ]
-                        (List.map makeOption model.wards)
+                        (List.map (makeOption regInfo.selectedWard) model.wards)
                     ]
                 ]
             , hr [] []
             , section [ class "col-xs-12" ]
                 [ header []
                     [ h2 [] [ text "Choose Meals and Length of Stay" ] ]
-                , p [ style Styles.mediumText ] [ text "How long do you plan to attend the stake retreat?" ]
+                , p [ class "required-field", style Styles.mediumText ]
+                    [ text "How long do you plan to attend the stake retreat?" ]
                 , div [ style (checkValidation model regInfo.reg_type) ]
-                    (lengthOfStayOptions
+                    (lengthOfStayOptions regInfo.reg_type
                         [ ( "friday", " Friday Only" )
                         , ( "fridaynight", " Overnight on Friday" )
                         , ( "saturday", " Saturday Only" )
                         ]
                     )
                 , p
-                    [ style
+                    [ class "required-field"
+                    , style
                         (List.concat
                             [ Styles.mediumText
                             , [ ( "box-sizing", "float" )
@@ -252,8 +275,8 @@ view model =
             ]
 
 
-lengthOfStayOptions : List ( String, String ) -> List (Html Msg)
-lengthOfStayOptions optionList =
+lengthOfStayOptions : String -> List ( String, String ) -> List (Html Msg)
+lengthOfStayOptions reg_type optionList =
     List.map
         (\( value_, text_ ) ->
             label
@@ -266,6 +289,12 @@ lengthOfStayOptions optionList =
                 [ input
                     [ type_ "radio"
                     , name "length-of-stay"
+                    , checked
+                        (if reg_type == value_ then
+                            True
+                         else
+                            False
+                        )
                     , onClick (UpdateRegistrationType value_)
                     ]
                     []
@@ -312,6 +341,15 @@ makeEventCheckBox eventDict =
         Dict.toList eventDict
 
 
-makeOption : String -> Html Msg
-makeOption ward =
-    option [ value ward ] [ text ward ]
+makeOption : String -> String -> Html Msg
+makeOption selectedWard ward =
+    option
+        [ value ward
+        , selected
+            (if selectedWard == ward then
+                True
+             else
+                False
+            )
+        ]
+        [ text ward ]

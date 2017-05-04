@@ -340,7 +340,6 @@ update msg model =
                                 , reg_info.email
                                 , reg_info.gender
                                 , reg_info.selectedWard
-                                , reg_info.phone
                                 , reg_info.reg_type
                                 ]
                             )
