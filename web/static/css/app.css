@@ -19,11 +19,16 @@ input {
   margin: 5px;
 }
 
-label.stacked-label {
-  display: block;
-  width: 100%;
+input[type=radio], input[type=checkbox] {
+  margin-right: 10px;
 }
 
-p.required-field{
+label.stacked-label {
+  display: block;
+  width: 70%;
+  padding-left: 30px;
+}
+
+p.required-field, p.jon{
   text-indent: 1em;
 }

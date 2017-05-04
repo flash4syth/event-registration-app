@@ -78,32 +78,32 @@ view model =
                     []
                 , section
                     [ style (checkValidation model regInfo.gender) ]
-                    [ label [ class "required-field", style Styles.mediumText ]
+                    [ label [ class "required-field" ]
                         [ text "Gender: "
+                        , br [] []
                         , input
-                            [ style Styles.mediumText
-                            , type_ "radio"
+                            [ type_ "radio"
                             , checked (regInfo.gender == "Female")
                             , name "gender"
                             , onClick (UpdateGender "Female")
                             ]
                             []
-                        , text "Female"
+                        , text "Male"
+                        , br [] []
                         , input
-                            [ style Styles.mediumText
-                            , type_ "radio"
+                            [ type_ "radio"
                             , checked (regInfo.gender == "Male")
                             , name "gender"
                             , onClick (UpdateGender "Male")
                             ]
                             []
-                        , text "Male"
+                        , text "Female"
                         ]
                     ]
                 , br [] []
                 , label
                     [ class "required-field" ]
-                    [ text "Your Ward:"
+                    [ text "Your Ward: "
                     , select
                         [ style
                             (Styles.mediumText
@@ -113,8 +113,8 @@ view model =
                         ]
                         (List.map (makeOption regInfo.selectedWard) model.wards)
                     ]
+                , hr [] []
                 ]
-            , hr [] []
             , section [ class "col-xs-12" ]
                 [ header []
                     [ h2 [] [ text "Choose Meals" ] ]
@@ -148,36 +148,26 @@ view model =
                         :: (makeEventCheckBox regInfo.meals model.meals)
                     )
                 , hr [] []
-                , p [ style Styles.mediumText ]
-                    [ text
-                        ("For those staying overnight, there is some space "
-                            ++ "to sleep on the floor in the cabins, "
-                            ++ "so make sure to bring appropriate "
-                            ++ "bedding in case you don't snag a bed."
-                        )
-                    ]
-                , p []
-                    [ a
-                        [ class "btn btn-info btn-md"
-                        , onClick (SetState ActivitiesPage)
-                        ]
-                        [ text "Click for Activity Details" ]
-                    ]
                 ]
-            , hr [] []
             , section [ class "col-xs-12" ]
                 [ header [] [ h2 [] [ text "Length of Stay" ] ]
                 , p [ class "required-field", style Styles.mediumText ]
                     [ text "How long do you plan to attend the stake retreat?" ]
-                , div [ style (checkValidation model regInfo.reg_type) ]
+                , section [ style (checkValidation model regInfo.reg_type) ]
                     (lengthOfStayOptions regInfo.reg_type
                         [ ( "friday", " Friday Only" )
                         , ( "saturday", " Saturday Only" )
                         , ( "fridaynight", " Friday and Saturday" )
                         ]
                     )
+                , p [ class "jon", style Styles.mediumText ]
+                    [ text
+                        ("Mattresses are not provided. Please bring your own "
+                            ++ "sleeping bag and sleeping pad. "
+                        )
+                    ]
+                , hr [] []
                 ]
-            , hr [] []
             , section [ class "col-xs-12" ]
                 --  , section [ class "jumbotron custom" ]
                 [ header [] [ h2 [] [ text "Special Accommodations" ] ]
