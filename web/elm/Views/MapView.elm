@@ -57,6 +57,7 @@ view =
                             ]
                         , section [] [ h3 [] [ a [ href "https://www.hebervalleycamp.org/camp-rules/" ] [ text "View Camp Rules" ] ] ]
                         ]
+                    , registerButton "Go To Registration"
                     ]
                ]
         )

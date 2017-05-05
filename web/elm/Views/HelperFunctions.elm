@@ -59,13 +59,13 @@ addLogo =
     div [ class "jumbotron" ] [ p [ class "logo" ] [] ]
 
 
-registerButton : Html Msg
-registerButton =
+registerButton : String -> Html Msg
+registerButton label =
     button
         [ class "btn btn-primary btn-lg btn-block"
         , onClick (SetState RegistrationPage)
         ]
-        [ text "REGISTER NOW!" ]
+        [ text label ]
 
 
 updateFood : List Event -> Cmd Msg

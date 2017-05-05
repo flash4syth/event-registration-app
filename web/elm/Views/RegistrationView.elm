@@ -166,6 +166,13 @@ view model =
                             ++ "sleeping bag and sleeping pad. "
                         )
                     ]
+                , p []
+                    [ a
+                        [ class "btn btn-info btn-md"
+                        , onClick (SetState ActivitiesPage)
+                        ]
+                        [ text "See Activity Details" ]
+                    ]
                 , hr [] []
                 ]
             , section [ class "col-xs-12" ]
@@ -223,6 +230,13 @@ view model =
                         ]
                         []
                     ]
+                ]
+            , p []
+                [ a
+                    [ class "btn btn-info btn-md"
+                    , onClick (SetState MapPage)
+                    ]
+                    [ text "See Map" ]
                 ]
             , p
                 [ style

@@ -82,7 +82,7 @@ pageContent model =
             div [ class "jumbotron" ]
                 [ p [ class "logo" ] []
                 , hr [] []
-                , registerButton
+                , registerButton "REGISTER NOW!"
                 , header []
                     [ h1 [] [ text "Provo YSA 16th Stake Summer Retreat" ]
                     , h2 [] [ text "Overnight trip at Heber Valley Girl's Camp" ]
@@ -104,7 +104,7 @@ pageContent model =
                     , p []
                         [ text "For questions contact your ward activities co-chairs." ]
                     ]
-                , registerButton
+                , registerButton "REGISTER NOW!"
                 ]
 
         MapPage ->

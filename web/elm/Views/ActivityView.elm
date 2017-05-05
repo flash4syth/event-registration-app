@@ -48,7 +48,7 @@ view model =
                         p [] []
 
                     AnonymousUser ->
-                        registerButton
+                        registerButton "Go To Registration"
                 )
               ]
             ]
