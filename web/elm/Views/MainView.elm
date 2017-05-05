@@ -123,7 +123,7 @@ pageContent model =
             FoodView.view model
 
         SchedulePage ->
-            ScheduleView.view model
+            ScheduleView.view
 
         CabinsPage ->
             CabinView.view model

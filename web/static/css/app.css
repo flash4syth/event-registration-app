@@ -32,3 +32,11 @@ label.stacked-label {
 p.required-field, p.jon{
   text-indent: 1em;
 }
+
+td, th {
+  text-align: center;
+}
+
+td:first-child {
+  column-width: 200px;
+}
