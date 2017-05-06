@@ -18,7 +18,7 @@ view model =
                     , p [ style Styles.mediumText ] [ text "The Cabins fit 16 each for beds." ]
                     ]
                , section [ class "col-xs-12 col-md-6" ]
-                    [ img [ width 300, height 300, src "/images/bed.jpg" ] []
+                    [ img [ width 300, height 300, src "/images/beds.jpg" ] []
                     , p [ style Styles.mediumText ] [ text "Beds are first come first serve." ]
                     ]
                , section [ class "col-xs-12 col-md-6" ]
