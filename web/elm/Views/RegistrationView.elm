@@ -144,8 +144,30 @@ view model =
                             ]
                         )
                     ]
-                    ((text "Please check which meals you will be eating:")
-                        :: (makeEventCheckBox regInfo.meals model.meals)
+                    (List.concat
+                        [ [ text "Please check which meals you will be eating:" ]
+                        , (makeEventCheckBox regInfo.meals model.meals)
+                        , [ div []
+                                [ label
+                                    [ style
+                                        (List.append
+                                            Styles.padElement
+                                            Styles.mediumText
+                                        )
+                                    ]
+                                    [ input
+                                        [ type_ "checkbox"
+                                        ]
+                                        []
+                                    , text "No Meals"
+                                      -- , span [ class "short-desc" ]
+                                      --     [ text
+                                      --         ("--" ++ event.blurb)
+                                      --     ]
+                                    ]
+                                ]
+                          ]
+                        ]
                     )
                 , hr [] []
                 ]
