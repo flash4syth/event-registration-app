@@ -70,8 +70,22 @@ makeActivities model =
                       )
                     ]
                 , div [ class "col-xs-12 col-md-4" ]
-                    ([ img [ height 200, width 200, src activity.image ]
-                        [ text "Need Photo" ]
+                    ([ img
+                        [ height
+                            (if activity.image == "Brad_Wilcox.jpg" then
+                                438
+                             else
+                                300
+                            )
+                        , width
+                            (if activity.image == "Brad_Wilcox.jpg" then
+                                350
+                             else
+                                300
+                            )
+                        , src ("/images/" ++ activity.image)
+                        ]
+                        []
                      ]
                         ++ [ (makeEditableTag
                                 ( model
