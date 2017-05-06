@@ -32,7 +32,7 @@ view =
               , name = "Dinner"
               , location = "Smith or Esther Pavilions"
               , details =
-                    ("Dinner will be served in both pavillions and will end "
+                    ("Dinner will be served in both pavilions and will end "
                         ++ "at 6:30 in time to get seated for the devotional"
                     )
               }
@@ -61,13 +61,13 @@ view =
               }
             , { time = "9:00 am - 9:45 am"
               , name = "Breakfast"
-              , location = "Smith or Esther Pavillions"
-              , details = "Breakfast will be served in both pavillions."
+              , location = "Smith or Esther Pavilions"
+              , details = "Breakfast will be served in both pavilions."
               }
             , { time = "10:00 am - 11:30 am"
               , name = "Service Project"
-              , location = "Smith or Esther Pavillions"
-              , details = "The service project will be the same in both pavillions."
+              , location = "Smith or Esther Pavilions"
+              , details = "The service project will be the same in both pavilions."
               }
             , { time = "11:30 am - 12:30 pm"
               , name = "Clean Up & Check Out"
@@ -76,7 +76,7 @@ view =
               }
             , { time = "12:30 pm - 1:15 pm"
               , name = "Lunch"
-              , location = "Smith or Esther Pavillions"
+              , location = "Smith Pavilion"
               , details = ""
               }
             , { time = "1:30 pm - 2:30 pm"
