@@ -343,7 +343,9 @@ update msg model =
                                 , reg_info.reg_type
                                 ]
                             )
-                            && not (List.isEmpty reg_info.meals)
+                            && (not (List.isEmpty reg_info.meals)
+                                    || reg_info.no_meals
+                               )
                     then
                         True
                     else
@@ -365,6 +367,29 @@ update msg model =
 
         PostRegistration (Err errorMsg) ->
             model ! []
+
+        ClearMealSelections ->
+            let
+                reg =
+                    model.registration_info
+
+                new_reg =
+                    if reg.no_meals then
+                        { reg | no_meals = False }
+                    else
+                        { reg | meals = [], no_meals = True }
+
+                reg_valid =
+                    if new_reg.no_meals then
+                        True
+                    else
+                        False
+            in
+                { model
+                    | registration_info = new_reg
+                    , registrationValid = reg_valid
+                }
+                    ! []
 
 
 eventWithIdMapper :

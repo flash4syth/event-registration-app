@@ -33,6 +33,7 @@ initialModel =
         , phone = ""
         , selectedWard = ""
         , meals = []
+        , no_meals = False
         }
     , registrationValid = True
     , editModeActive = False
@@ -71,6 +72,7 @@ type alias RegistrationInfo =
     , phone : String
     , selectedWard : String
     , meals : List Id
+    , no_meals : Bool
     }
 
 

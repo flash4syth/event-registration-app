@@ -27,6 +27,7 @@ type Msg
     | PostEventEdits EventType (Result Http.Error (List EventWithId))
     | PostRegistration (Result Http.Error String)
     | Register
+    | ClearMealSelections
 
 
 type EventField

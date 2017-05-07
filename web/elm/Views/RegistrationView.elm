@@ -83,18 +83,18 @@ view model =
                         , br [] []
                         , input
                             [ type_ "radio"
-                            , checked (regInfo.gender == "Female")
+                            , checked (regInfo.gender == "Male")
                             , name "gender"
-                            , onClick (UpdateGender "Female")
+                            , onClick (UpdateGender "Male")
                             ]
                             []
                         , text "Male"
                         , br [] []
                         , input
                             [ type_ "radio"
-                            , checked (regInfo.gender == "Male")
+                            , checked (regInfo.gender == "Female")
                             , name "gender"
-                            , onClick (UpdateGender "Male")
+                            , onClick (UpdateGender "Female")
                             ]
                             []
                         , text "Female"
@@ -130,15 +130,19 @@ view model =
                                     model.registration_info.meals
                                   )
                                 , model.registrationValid
+                                , model.registration_info.no_meals
                                 )
                                of
-                                ( _, True ) ->
+                                ( False, _, _ ) ->
                                     []
 
-                                ( False, _ ) ->
+                                ( _, _, True ) ->
                                     []
 
-                                ( _, _ ) ->
+                                ( _, True, _ ) ->
+                                    []
+
+                                ( _, _, _ ) ->
                                     Styles.validationError
                               )
                             ]
@@ -157,6 +161,7 @@ view model =
                                     ]
                                     [ input
                                         [ type_ "checkbox"
+                                        , onClick ClearMealSelections
                                         ]
                                         []
                                     , text "No Meals"
