@@ -322,6 +322,7 @@ update msg model =
                     { old_registration
                         | meals =
                             (add_rem_mealId mealId old_registration.meals)
+                        , no_meals = False
                     }
             in
                 { model | registration_info = new_registration } ! []
@@ -378,16 +379,9 @@ update msg model =
                         { reg | no_meals = False }
                     else
                         { reg | meals = [], no_meals = True }
-
-                reg_valid =
-                    if new_reg.no_meals then
-                        True
-                    else
-                        False
             in
                 { model
                     | registration_info = new_reg
-                    , registrationValid = reg_valid
                 }
                     ! []
 

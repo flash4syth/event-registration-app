@@ -43,6 +43,7 @@ view model =
                     , dd [] [ text "Chocolate Chip Cookies" ]
                     , dd [] [ text "Lemonade" ]
                     ]
+               , registerButton "Go To Registration"
                ]
         )
 

@@ -162,10 +162,22 @@ view model =
                                     [ input
                                         [ type_ "checkbox"
                                         , onClick ClearMealSelections
+                                        , checked
+                                            (model.registration_info.no_meals
+                                                == True
+                                            )
                                         ]
                                         []
                                     , text "No Meals"
                                     ]
+                                ]
+                          ]
+                        , [ p []
+                                [ a
+                                    [ class "btn btn-info btn-md"
+                                    , onClick (SetState FoodPage)
+                                    ]
+                                    [ text "See Menu Details" ]
                                 ]
                           ]
                         ]
