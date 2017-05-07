@@ -97,6 +97,7 @@ type UiState
     | SchedulePage
     | CabinsPage
     | PackingPage
+    | RegistrationSuccess
 
 
 type UserType

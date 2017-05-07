@@ -359,6 +359,7 @@ update msg model =
                 | meals = model.meals
                 , activities = model.activities
                 , wards = model.wards
+                , state = RegistrationSuccess
             }
                 ! []
 

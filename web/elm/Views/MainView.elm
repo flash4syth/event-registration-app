@@ -123,6 +123,9 @@ pageContent model =
         RegistrationPage ->
             RegistrationView.view model
 
+        RegistrationSuccess ->
+            h2 [ style Styles.centerText ] [ text "You have successfully registered!" ]
+
         AdminPage ->
             AdminView.view model
 
