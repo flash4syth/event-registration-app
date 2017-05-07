@@ -69,7 +69,7 @@ makeActivities model =
                         )
                       )
                     ]
-                , div [ class "col-xs-12 col-md-4" ]
+                , div [ class "col-xs-12" ]
                     ([ img
                         [ height
                             (if activity.image == "Brad_Wilcox.jpg" then
