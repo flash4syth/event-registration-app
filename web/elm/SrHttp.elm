@@ -98,20 +98,7 @@ postRegistration model =
                   )
                 , ( "special_needs"
                   , JEncode.object
-                        [ ( "need_types"
-                          , JEncode.object
-                                [ ( "wheelChair"
-                                  , JEncode.bool need_types.wheelChair
-                                  )
-                                , ( "foodAllergy"
-                                  , JEncode.bool need_types.foodAllergy
-                                  )
-                                , ( "other"
-                                  , JEncode.bool need_types.other
-                                  )
-                                ]
-                          )
-                        , ( "description"
+                        [ ( "description"
                           , JEncode.string spec_needs.description
                           )
                         ]

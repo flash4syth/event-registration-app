@@ -216,34 +216,7 @@ view model =
                     , style Styles.padElement
                     , hidden model.specialNeedsHidden
                     ]
-                    [ label [ style Styles.mediumText ]
-                        [ input
-                            [ type_ "checkbox"
-                            , onClick (ToggleSpecialNeedType WheelChair)
-                            ]
-                            []
-                        , text "Wheel Chair Access"
-                        ]
-                    , br [] []
-                    , label [ style Styles.mediumText ]
-                        [ input
-                            [ type_ "checkbox"
-                            , onClick (ToggleSpecialNeedType FoodAllergies)
-                            ]
-                            []
-                        , text "Food Allergies"
-                        ]
-                    , br [] []
-                    , label [ style Styles.mediumText ]
-                        [ input
-                            [ type_ "checkbox"
-                            , onClick (ToggleSpecialNeedType Other)
-                            ]
-                            []
-                        , text "Other"
-                        ]
-                    , br [] []
-                    , h3 [] [ text "How can we best accomodate you?" ]
+                    [ h3 [] [ text "How can we best accomodate you?" ]
                     , textarea
                         [ style Styles.mediumText
                         , cols 60
@@ -349,7 +322,7 @@ makeEventCheckBox selectedMeals eventDict =
                     , text event.name
                     , span [ class "short-desc" ]
                         [ text
-                            ("--" ++ event.blurb)
+                            (" - " ++ event.blurb)
                         ]
                     ]
                 ]

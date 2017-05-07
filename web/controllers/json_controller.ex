@@ -150,11 +150,6 @@ defmodule SR.JsonController do
       "ward" => ward,
       "special_needs" => %{
         "description" => spec_need_desc,
-        "need_types" => %{
-          "foodAllergy" => is_foodAllergy,
-          "other" => is_other,
-          "wheelChair" => is_wheelChair
-        }
       }
 
     } = conn.body_params
@@ -182,34 +177,16 @@ defmodule SR.JsonController do
     }
 
     # Handle whether to create and associate a special need for this member
-    new_member = (if not Enum.any?([is_wheelChair, is_foodAllergy, is_other])
-        && spec_need_desc == "" do
+    new_member = (if spec_need_desc == "" do
       new_member
     else
-      case spec_need_desc do
-        "" ->
-          special_need = %SR.SpecialNeed{
-            description: "N/A",
-            wheelchair: is_wheelChair,
-            foodallergies: is_foodAllergy,
-            other: is_other
-          }
-          |> SR.SpecialNeed.changeset()
-          |> Repo.insert!()
+      special_need = %SR.SpecialNeed{
+        description: spec_need_desc,
+      }
+      |> SR.SpecialNeed.changeset()
+      |> Repo.insert!()
 
-          Map.update!(new_member, :special_needs, fn _ -> special_need end)
-        _ ->
-          special_need = %SR.SpecialNeed{
-            description: spec_need_desc,
-            wheelchair: is_wheelChair,
-            foodallergies: is_foodAllergy,
-            other: is_other
-          }
-          |> SR.SpecialNeed.changeset()
-          |> Repo.insert!()
-
-          Map.update!(new_member, :special_needs, fn _ -> special_need end)
-      end
+      Map.update!(new_member, :special_needs, fn _ -> special_need end)
     end)
 
     new_member

@@ -22,7 +22,7 @@ view model =
                     , p [ style Styles.mediumText ] [ text "Beds are first come first serve." ]
                     ]
                , section [ class "col-xs-12 col-md-6" ]
-                    [ img [ width 300, height 300, src "/images/bathroom.jpg" ] []
+                    [ img [ width 300, height 300, src "/images/bathrooms.jpg" ] []
                     , p [ style Styles.mediumText ] [ text "Bathrooms are next to the cabins." ]
                     ]
                , section [ class "col-xs-12 col-md-6" ]
