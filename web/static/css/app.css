@@ -40,3 +40,7 @@ td, th {
 td:first-child {
   column-width: 200px;
 }
+
+dt, dl {
+  margin-top: 2em;
+}
