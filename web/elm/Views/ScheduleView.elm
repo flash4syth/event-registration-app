@@ -3,8 +3,9 @@ module Views.ScheduleView exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Styles.Styles as Styles
-import Views.HelperFunctions exposing (addLogo)
-import Messages exposing (Msg)
+import Views.HelperFunctions exposing (addLogo, onClick)
+import Messages exposing (Msg(..))
+import Model exposing (UiState(..))
 
 
 type alias HardCodedEvent =
@@ -44,7 +45,7 @@ view =
             , { time = "8:00 pm - 10:00 pm"
               , name = "Activities"
               , location = "Various"
-              , details = "Bonfire w/s'mores, stargazing, dance, glow in the dark crafts, and more! (insert: link to activity page)"
+              , details = "Bonfire w/s'mores, stargazing, dance, glow in the dark crafts, and more!"
               }
             , { time = "10:00 pm"
               , name = "Quiet hours / Ward time"
@@ -103,6 +104,13 @@ view =
 makeTable : List HardCodedEvent -> List HardCodedEvent -> String -> String -> Html Msg
 makeTable eventList1 eventList2 day1 day2 =
     let
+        show_activity_link : String -> Html Msg
+        show_activity_link event_name =
+            if event_name == "Activities" then
+                a [ onClick (SetState ActivitiesPage) ] [ text " see activities" ]
+            else
+                span [] []
+
         fridayRows =
             List.map
                 (\event ->
@@ -110,7 +118,10 @@ makeTable eventList1 eventList2 day1 day2 =
                         [ td [] [ text event.time ]
                         , td [] [ text event.name ]
                         , td [] [ text event.location ]
-                        , td [] [ text event.details ]
+                        , td []
+                            [ text event.details
+                            , show_activity_link event.name
+                            ]
                         ]
                 )
                 eventList1

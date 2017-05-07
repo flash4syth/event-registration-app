@@ -44,3 +44,15 @@ td:first-child {
 dt, dl {
   margin-top: 2em;
 }
+
+tr td a:hover {
+  cursor: pointer;
+}
+
+li.directions {
+  text-align: left;
+}
+
+.map {
+  margin: 1em;
+}

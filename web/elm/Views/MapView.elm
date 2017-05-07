@@ -14,7 +14,7 @@ view =
             :: [ header [] [ h1 [ style Styles.centerText ] [ text "Map" ] ]
                , section [ class "jumbotron custom" ]
                     -- , section [ class "like-jumbotron" ]
-                    [ div [ class "col-xs-12 col-md-6" ]
+                    [ div [ class "col-xs-12" ]
                         [ section []
                             [ h2 [] [ text "Directions" ]
                             , p []
@@ -22,7 +22,7 @@ view =
                                     (List.append
                                         (List.map
                                             (\item ->
-                                                li [] [ text item ]
+                                                li [ class "directions" ] [ text item ]
                                             )
                                             [ "Depart from MSB (350 N 900 E, Provo, UT)"
                                             , "Take 900 E to US-189 N/N University Ave"
@@ -31,29 +31,29 @@ view =
                                             , "Follow E 1200 S to Cummings Memorial Dr 19 min (9.2 mi)"
                                             ]
                                         )
-                                        [ li [ style [ ( "font-weight", "bold" ) ] ]
+                                        [ li [ class "directions", style [ ( "font-weight", "bold" ) ] ]
                                             [ text "Arrive at Heber Valley Camp" ]
                                         ]
                                     )
                                 ]
                             ]
-                        , section []
-                            [ img
-                                [ src "/images/HeberValleyCampMap.png"
-                                , height 361
-                                , width 320
+                        , div [ class "map col-xs-12" ]
+                            [ section []
+                                [ img
+                                    [ src "/images/googlemap.png"
+                                    , width 400
+                                    , height 650
+                                    ]
+                                    []
                                 ]
-                                [ text "Map of Heber Valley Girls Camp" ]
-                            ]
-                        ]
-                    , div [ class "col-xs-12 col-md-6" ]
-                        [ section []
-                            [ img
-                                [ src "/images/googlemap.png"
-                                , width 400
-                                , height 650
+                            , section [ class "map col-xs-12" ]
+                                [ img
+                                    [ src "/images/HeberValleyCampMap.png"
+                                    , height 361
+                                    , width 320
+                                    ]
+                                    [ text "Map of Heber Valley Girls Camp" ]
                                 ]
-                                []
                             ]
                         , section [] [ h3 [] [ a [ href "https://www.hebervalleycamp.org/camp-rules/" ] [ text "View Camp Rules" ] ] ]
                         ]
