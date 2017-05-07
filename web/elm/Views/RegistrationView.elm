@@ -160,10 +160,6 @@ view model =
                                         ]
                                         []
                                     , text "No Meals"
-                                      -- , span [ class "short-desc" ]
-                                      --     [ text
-                                      --         ("--" ++ event.blurb)
-                                      --     ]
                                     ]
                                 ]
                           ]
@@ -222,6 +218,7 @@ view model =
                         , cols 60
                         , rows 3
                         , onInput UpdateSpecialNeedDescription
+                        , value regInfo.special_needs.description
                         ]
                         []
                     ]
