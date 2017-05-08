@@ -230,6 +230,8 @@ view model =
                     , hidden model.specialNeedsHidden
                     ]
                     [ h3 [] [ text "How can we best accomodate you?" ]
+                    , p [ style Styles.mediumText ]
+                        [ text "Note: No special accommodations will be made for food allergies" ]
                     , textarea
                         [ style Styles.mediumText
                         , cols 60

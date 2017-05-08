@@ -15,6 +15,8 @@ view model =
         (addLogo
             :: [ header []
                     [ h1 [ style Styles.centerText ] [ text "Meals" ] ]
+               , p [ style <| List.append Styles.centerText Styles.mediumText ]
+                    [ text "Note: No special accommodations will be made for food allergies" ]
                , dl [ style Styles.mediumText ]
                     -- Dinner
                     [ dt [] [ text "Dinner - Fresh Mex Salads and Burritos" ]
