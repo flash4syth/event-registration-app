@@ -59,7 +59,7 @@ makeActivities : Model -> List (Html Msg)
 makeActivities model =
     List.map
         (\( id, activity ) ->
-            section [ class "col-xs-11" ]
+            section [ class "col-xs-11 activity-section" ]
                 [ header []
                     [ (makeEditableTag
                         ( model
@@ -71,7 +71,8 @@ makeActivities model =
                     ]
                 , div [ class "col-xs-12" ]
                     ([ img
-                        [ height activity.image_height
+                        [ class "activity-img"
+                        , height activity.image_height
                         , width activity.image_width
                         , src ("/images/" ++ activity.image)
                         ]

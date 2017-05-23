@@ -56,3 +56,15 @@ li.directions {
 .map {
   margin: 1em;
 }
+
+.activity-img {
+  float: left;
+  margin-right: 5px;
+}
+
+.activity-section {
+  border: 1px solid black;
+  margin: 3px;
+  box-shadow: 2px 2px 2px;
+  min-width: 388px;
+}
