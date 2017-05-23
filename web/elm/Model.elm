@@ -117,6 +117,8 @@ type alias Event =
     , datetime : String
     , location : String
     , image : String
+    , image_width : Int
+    , image_height : Int
     , blurb : String
     , description : String
     , eventModified : Bool
@@ -129,6 +131,8 @@ type alias EventWithId =
     , datetime : String
     , location : String
     , image : String
+    , image_width : Int
+    , image_height : Int
     , blurb : String
     , description : String
     , eventModified : Bool

@@ -71,18 +71,8 @@ makeActivities model =
                     ]
                 , div [ class "col-xs-12" ]
                     ([ img
-                        [ height
-                            (if activity.image == "Brad_Wilcox.jpg" then
-                                438
-                             else
-                                300
-                            )
-                        , width
-                            (if activity.image == "Brad_Wilcox.jpg" then
-                                350
-                             else
-                                300
-                            )
+                        [ height activity.image_height
+                        , width activity.image_width
                         , src ("/images/" ++ activity.image)
                         ]
                         []

@@ -80,7 +80,8 @@ pageContent model =
     case model.state of
         HomePage ->
             div [ class "jumbotron" ]
-                [ p [ class "logo" ] []
+                [ img [] []
+                  -- [ img [ src "/images/logo.svg" ] []
                 , hr [] []
                 , registerButton "REGISTER NOW!"
                 , header []

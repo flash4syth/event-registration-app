@@ -10,6 +10,8 @@ defmodule SR.Activity do
     field :description, :string
     field :blurb, :string
     field :image, :string
+    field :image_width, :integer
+    field :image_height, :integer
 
     many_to_many :members, SR.Member, join_through: "members_activities"
     timestamps()

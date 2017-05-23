@@ -16,6 +16,8 @@ eventWithIdDecoder =
         |> required "datetime" string
         |> required "location" string
         |> required "image" string
+        |> required "image_width" int
+        |> required "image_height" int
         |> required "blurb" string
         |> required "description" string
         |> hardcoded False

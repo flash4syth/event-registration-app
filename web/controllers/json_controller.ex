@@ -7,13 +7,17 @@ defmodule SR.JsonController do
 
     meals = from(m in SR.Meal, select: %{name: m.name, datetime: m.stringtime,
       location: m.location, image: m.image, blurb: m.blurb,
-      description: m.description, id: m.id}
+      image_width: m.image_width, description: m.description,
+      image_height: m.image_height, id: m.id}
+
       )
       |> Repo.all()
 
     activities = from(a in SR.Activity, select: %{name: a.name,
-      datetime: a.stringtime, location: a.location, image: a.image, blurb: a.blurb,
-      description: a.description, id: a.id}
+      datetime: a.stringtime, location: a.location, image: a.image,
+      blurb: a.blurb,
+      description: a.description, id: a.id, image_width: a.image_width,
+      image_height: a.image_height}
       )
       |> Repo.all()
 
