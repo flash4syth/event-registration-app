@@ -120,3 +120,8 @@ centerText =
 validationError : List ( String, String )
 validationError =
     [ ( "background-color", "#e9a07a" ), ( "border", "1px solid red" ) ]
+
+
+videoDimensions : List ( String, String )
+videoDimensions =
+    [ ( "width", "48%" ), ( "height", "315" ) ]

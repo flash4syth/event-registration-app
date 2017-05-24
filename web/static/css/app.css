@@ -68,3 +68,16 @@ li.directions {
   box-shadow: 2px 2px 2px;
   min-width: 388px;
 }
+
+section.youtube-videos iframe {
+  float: left;
+}
+
+section.youtube-videos p {
+  clear: both;
+}
+
+section.youtube-videos h2 {
+  padding: 15px;
+  clear: both;
+}

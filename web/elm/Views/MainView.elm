@@ -90,25 +90,35 @@ pageContent model =
                     , h3 [] [ text "June 9 - 10, 2017" ]
                     , p [] [ text "Come enjoy a weekend of nature, activities, and some amazing stake members." ]
                     ]
-                , section []
+                , section [ class "youtube-videos" ]
                     [ -- , iframe [, , frameborder "0", allowfullscreen "True"][]
-                      iframe
-                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                      --
+                      h2 [] [ text "New Videos" ]
+                    , iframe
+                        [ style Styles.videoDimensions
+                        , src "https://www.youtube.com/embed/Vn5Mdvj7nJE"
+                        ]
+                        []
+                    , h2
+                        []
+                        [ text "Older Videos" ]
+                    , iframe
+                        [ style Styles.videoDimensions
                         , src "https://www.youtube.com/embed/1_qbun73D6k"
                         ]
                         []
                     , iframe
-                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                        [ style Styles.videoDimensions
                         , src "https://www.youtube.com/embed/g4uMfdpcNf0"
                         ]
                         []
                     , iframe
-                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                        [ style Styles.videoDimensions
                         , src "https://www.youtube.com/embed/Ps67N0kWjNk"
                         ]
                         []
                     , iframe
-                        [ style [ ( "width", "560" ), ( "height", "315" ) ]
+                        [ style Styles.videoDimensions
                         , src "https://www.youtube.com/embed/ObUSqEpM7j4"
                         ]
                         []
