@@ -15,7 +15,7 @@ config :stake_retreat, SR.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 8080],
   # url: [host: "example.com", port: 80],
   # ec2-54-144-189-248.compute-1.amazonaws.com
-  cache_static_manifest: "priv/static/manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
