@@ -1,12 +1,12 @@
 module Views.ActivityView exposing (..)
 
-import Messages exposing (..)
+import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Messages exposing (..)
 import Model exposing (..)
 import Styles.Styles as Styles
 import Views.HelperFunctions exposing (..)
-import Dict exposing (..)
 
 
 view : Model -> Html Msg
@@ -19,8 +19,8 @@ view model =
                         [ text "Activities" ]
                     ]
               ]
-            , (makeActivities model)
-            , [ (case model.userType of
+            , makeActivities model
+            , [ case model.userType of
                     AdminUser ->
                         if model.editModeActive then
                             section []
@@ -49,7 +49,6 @@ view model =
 
                     AnonymousUser ->
                         registerButton "Go To Registration"
-                )
               ]
             ]
         )
@@ -61,13 +60,12 @@ makeActivities model =
         (\( id, activity ) ->
             section [ class "col-xs-11 activity-section" ]
                 [ header []
-                    [ (makeEditableTag
+                    [ makeEditableTag
                         ( model
-                        , (h2)
-                        , (UpdateEvent Name id)
+                        , h2
+                        , UpdateEvent Name id
                         , activity.name
                         )
-                      )
                     ]
                 , div [ class "col-xs-12" ]
                     ([ img
@@ -75,40 +73,37 @@ makeActivities model =
                         , height activity.image_height
                         , width activity.image_width
                         , src ("/images/" ++ activity.image)
+                        , alt <| String.dropRight 4 activity.image ++ " image"
                         ]
                         []
                      ]
-                        ++ [ (makeEditableTag
+                        ++ [ makeEditableTag
                                 ( model
-                                , (p)
-                                , (UpdateEvent Blurb id)
+                                , p
+                                , UpdateEvent Blurb id
                                 , activity.blurb
                                 )
-                             )
                            ]
                     )
                 , div [ class "col-xs-12 col-md-4" ]
-                    [ (makeEditableTag
+                    [ makeEditableTag
                         ( model
-                        , (p)
-                        , (UpdateEvent Location id)
+                        , p
+                        , UpdateEvent Location id
                         , activity.location
                         )
-                      )
-                    , (makeEditableTag
+                    , makeEditableTag
                         ( model
-                        , (p)
-                        , (UpdateEvent StartTime id)
+                        , p
+                        , UpdateEvent StartTime id
                         , activity.datetime
                         )
-                      )
-                    , (makeEditableTag
+                    , makeEditableTag
                         ( model
-                        , (p)
-                        , (UpdateEvent Description id)
+                        , p
+                        , UpdateEvent Description id
                         , activity.description
                         )
-                      )
                     ]
                 ]
         )
